@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Kids Health Hub') — Find Child Healthcare Providers</title>
-    <meta name="description" content="@yield('meta_description', 'Find trusted child healthcare providers and therapists near you. Kids Health Hub connects families with speech pathologists, occupational therapists, psychologists and more.')">
+    <meta name="description" content="@yield('meta_description', 'Find trusted child healthcare providers and therapists near you. Kids Health Hub connects families with speech pathologists, occupational therapists, psychologists and more.')">>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">

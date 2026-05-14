@@ -2,7 +2,7 @@
 
 ## Project
 Kids Health Hub — Phase 1 MVP  
-Laravel 13 / PHP 8.3 / SQLite / TailwindCSS v4 / Google Maps API
+Laravel 13 / PHP 8.3 / SQLite / TailwindCSS v3 (Breeze) / Google Maps API
 
 ---
 
@@ -10,126 +10,31 @@ Laravel 13 / PHP 8.3 / SQLite / TailwindCSS v4 / Google Maps API
 
 | # | Milestone | Status | Notes |
 |---|-----------|--------|-------|
-| 1 | Foundation & Environment | 🔄 In Progress | |
-| 2 | Database Migrations | ⏳ Pending | |
-| 3 | Models & Relationships | ⏳ Pending | |
-| 4 | Authentication & Roles | ⏳ Pending | |
-| 5 | Provider Dashboard | ⏳ Pending | |
-| 6 | Admin Dashboard | ⏳ Pending | |
-| 7 | Public Website & Map | ⏳ Pending | |
-| 8 | Search & Filtering | ⏳ Pending | |
-| 9 | Subscription System | ⏳ Pending | |
-| 10 | SEO, Notifications & Polish | ⏳ Pending | |
+| 1 | Foundation & Environment | ✅ Done | Breeze + Spatie installed, git init, serve OK |
+| 2 | Database Migrations | ✅ Done | categories, providers, subscriptions, pivot, settings |
+| 3 | Models & Relationships | ✅ Done | All models + scopes + Spatie HasRoles on User |
+| 4 | Authentication & Roles | ✅ Done | Provider registration creates subscription trial + role |
+| 5 | Provider Dashboard | ✅ Done | Dashboard, profile edit, availability/telehealth toggles |
+| 6 | Admin Dashboard | ✅ Done | Approve/reject/suspend/feature, subscription view, settings |
+| 7 | Public Website & Map | ✅ Done | Homepage, providers list, provider profile, telehealth section |
+| 8 | Search & Filtering | ✅ Done | Search + filter logic in PublicController, API for map |
+| 9 | Subscription System | ✅ Done | Trial auto-created on register; expiry command scheduled |
+| 10 | SEO, Notifications & Polish | 🔄 In Progress | |
 
 ---
 
 ## Milestone Detail
 
-### M1: Foundation & Environment
-**Goal**: Get the project running with correct config, packages, and git initialized.
-
-Tasks:
-- [x] Read all docs and create CLAUDE.md
-- [x] Create TRACKER.md
-- [ ] Update .env (APP_NAME, MAIL_FROM)
-- [ ] Install Laravel Breeze (blade stack)
-- [ ] Install Spatie Laravel Permission
-- [ ] Run base migrations
-- [ ] Initialize git repo
-- [ ] Verify `php artisan serve` works
-
-### M2: Database Migrations
-**Goal**: Create all tables needed for Phase 1.
-
-Tables:
-- [ ] categories
-- [ ] providers (all profile fields, approval_status, is_featured, is_active)
-- [ ] subscriptions (plan_type, status, trial_ends_at, starts_at, ends_at)
-- [ ] category_provider (pivot)
-- [ ] Spatie permission tables (roles, model_has_roles, etc.)
-
-### M3: Models & Relationships
-**Goal**: Eloquent models with correct relationships and scopes.
-
-Models:
-- [ ] Category
-- [ ] Provider (with visibility scope)
-- [ ] Subscription
-- [ ] Update User model (HasRoles from Spatie)
-
-### M4: Authentication & Roles
-**Goal**: Provider and admin auth flows working.
-
-Tasks:
-- [ ] Breeze auth pages (register, login, forgot password)
-- [ ] Custom provider registration (adds provider role + creates subscription trial)
-- [ ] Admin seeder (admin user + admin role)
-- [ ] Middleware: provider role guard, admin role guard
-- [ ] Redirect after login based on role
-
-### M5: Provider Dashboard
-**Goal**: Providers can manage their listing.
-
-Pages:
-- [ ] Dashboard home (subscription status, listing status)
-- [ ] Profile edit (all fields, image upload)
-- [ ] Availability toggle (instant update)
-- [ ] Telehealth toggle (instant update)
-- [ ] Subscription status view
-
-### M6: Admin Dashboard
-**Goal**: Admin can manage all providers and platform settings.
-
-Pages:
-- [ ] Admin home (counts: pending, approved, subscriptions)
-- [ ] Provider list (tabs: pending / approved / rejected / suspended)
-- [ ] Provider approve/reject/suspend actions
-- [ ] Provider edit (admin override)
-- [ ] Subscription management
-- [ ] Featured listings control
-- [ ] Free trial duration setting
-
-### M7: Public Website & Map
-**Goal**: Families can discover providers on map and list.
-
-Pages:
-- [ ] Homepage (map + search bar + provider list below)
-- [ ] Providers list/search page
-- [ ] Individual provider profile page (SEO slug)
-- [ ] Telehealth section page
-- [ ] Google Maps integration (markers, popup cards)
-- [ ] Availability green indicators
-- [ ] Telehealth badges
-
-### M8: Search & Filtering
-**Goal**: Search by location/service/name, filter by availability/telehealth/age/funding.
-
-Tasks:
-- [ ] Search controller (name, suburb, postcode, service type)
-- [ ] Filter logic (age group, availability, telehealth, funding, service delivery)
-- [ ] Results update both map markers and list simultaneously
-- [ ] Empty state handling
-- [ ] Geocoding support (suburb → lat/lng for map centering)
-
-### M9: Subscription System
-**Goal**: Trial activation, expiry handling, notifications.
-
-Tasks:
-- [ ] Free trial activates on registration (3 months)
-- [ ] Scheduled command to expire subscriptions daily
-- [ ] Provider visibility auto-hides on expiry
-- [ ] Email notifications (log driver): approval, trial expiry, subscription expiry
-
 ### M10: SEO, Notifications & Polish
-**Goal**: Production-ready polish.
-
 Tasks:
-- [ ] SEO meta tags on provider profile pages
-- [ ] Provider slug generation (business name → kebab-case, unique)
-- [ ] Breadcrumbs on profile pages
-- [ ] Mobile responsiveness audit
-- [ ] Error/empty states on all pages
+- [ ] SEO meta tags on provider profile pages (title, description)
+- [ ] Str::limit in Blade for meta_description
+- [ ] Add `use Illuminate\Support\Str;` to provider-profile view
+- [ ] Verify Breeze guest layout matches branding
+- [ ] Test registration → approval → visibility flow end-to-end
+- [ ] Test admin login and dashboard
 - [ ] Final `php artisan serve` smoke test
+- [ ] Git commit
 
 ---
 
@@ -137,22 +42,44 @@ Tasks:
 
 | Date | Milestone | Action |
 |------|-----------|--------|
-| 2026-05-14 | M1 | Started — read all docs, created CLAUDE.md and TRACKER.md |
+| 2026-05-14 | M1 | Foundation — packages installed, git init, serve OK |
+| 2026-05-14 | M2 | All migrations created and ran |
+| 2026-05-14 | M3 | All models created, seeder ran (admin + categories) |
+| 2026-05-14 | M4–M7 | Auth, all controllers, all views, map integration |
+| 2026-05-14 | M8–M9 | Search/filter in controllers, subscription command scheduled |
 
 ---
 
 ## Current Session State
 
-**Last completed**: Created CLAUDE.md and TRACKER.md  
-**Currently executing**: Milestone 1 — installing packages and configuring environment  
-**Next step after this session**: Begin Milestone 2 (Database Migrations)  
+**Last completed**: M4–M9 committed  
+**Currently executing**: M10 — Final SEO polish and smoke test  
 **Blockers**: None  
 
-### Decisions Made
-- SQLite retained (already configured, suits MVP)
-- Breeze (Blade) chosen for auth (no SPA complexity, faster build)
-- Spatie Laravel Permission for role management (admin/provider)
-- Google Maps JS API (key already in .env)
-- TailwindCSS v4 (already in package.json)
-- Provider slug = slugified business name, unique in DB
-- Free trial = 3 months (configurable via admin setting stored in settings table or config)
+### Key Decisions Made
+- SQLite retained (suits MVP)
+- Breeze (Blade) for auth
+- Spatie Laravel Permission for roles (admin/provider)
+- Provider dashboard at `/provider/dashboard` (avoids route conflict with `/dashboard` redirect)
+- Google Maps JS API with custom circular markers (green=available, blue=unavailable)
+- Free trial = 3 months, created automatically on provider registration
+- `subscriptions:expire` artisan command scheduled daily via bootstrap/app.php
+- Admin user: admin@kidshealthhub.com.au / Admin@12345
+
+### File Structure
+```
+app/
+  Console/Commands/ExpireSubscriptions.php
+  Http/Controllers/
+    Admin/ — AdminDashboard, AdminProvider, AdminSubscription
+    Provider/ — ProviderDashboard, ProviderProfile
+    Auth/ — Breeze (customized RegisteredUserController)
+    PublicController.php
+  Models/ — User, Provider, Category, Subscription, PlatformSetting
+resources/views/
+  layouts/ — public.blade.php, dashboard.blade.php, guest.blade.php, app.blade.php
+  public/ — home, providers, provider-profile, telehealth + partials/provider-card
+  provider/ — dashboard, profile-edit
+  admin/ — dashboard, providers/index+show, subscriptions/index
+  auth/ — Breeze standard
+```

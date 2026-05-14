@@ -1,7 +1,7 @@
 @extends('layouts.public')
 
 @section('title', $provider->business_name . ' — ' . ($provider->categories->first()->name ?? 'Provider'))
-@section('meta_description', $provider->bio ? Str::limit($provider->bio, 160) : $provider->business_name . ' in ' . $provider->suburb . ', ' . $provider->state . '. Child healthcare provider.')
+@section('meta_description', $provider->bio ? \Illuminate\Support\Str::limit($provider->bio, 160) : $provider->business_name . ' in ' . $provider->suburb . ', ' . $provider->state . '. Child healthcare provider.')
 
 @section('content')
 <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
