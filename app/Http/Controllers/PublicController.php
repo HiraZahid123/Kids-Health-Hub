@@ -1,0 +1,149 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Category;
+use App\Models\PlatformSetting;
+use App\Models\Provider;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+
+class PublicController extends Controller
+{
+    public function home(): View
+    {
+        $featuredProviders = Provider::publiclyVisible()
+            ->featured()
+            ->with(['categories', 'subscription'])
+            ->limit(6)
+            ->get();
+
+        $recentProviders = Provider::publiclyVisible()
+            ->with(['categories', 'subscription'])
+            ->latest()
+            ->limit(12)
+            ->get();
+
+        $categories  = Category::where('is_active', true)->orderBy('sort_order')->get();
+        $heroTitle   = PlatformSetting::get('homepage_hero_title', 'Find Child Healthcare Providers Near You');
+        $heroSubtitle = PlatformSetting::get('homepage_hero_subtitle', '');
+
+        return view('public.home', compact(
+            'featuredProviders', 'recentProviders', 'categories', 'heroTitle', 'heroSubtitle'
+        ));
+    }
+
+    public function providers(Request $request): View
+    {
+        $query = Provider::publiclyVisible()->with(['categories', 'subscription']);
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('business_name', 'like', "%{$search}%")
+                    ->orWhere('provider_name', 'like', "%{$search}%")
+                    ->orWhere('suburb', 'like', "%{$search}%")
+                    ->orWhere('postcode', 'like', "%{$search}%");
+            });
+        }
+
+        if ($category = $request->input('category')) {
+            $query->whereHas('categories', fn ($q) => $q->where('slug', $category));
+        }
+
+        if ($request->boolean('telehealth')) {
+            $query->telehealth();
+        }
+
+        if ($request->boolean('available')) {
+            $query->available();
+        }
+
+        if ($ageGroup = $request->input('age_group')) {
+            $query->whereJsonContains('age_groups', $ageGroup);
+        }
+
+        if ($fundingType = $request->input('funding_type')) {
+            $query->whereJsonContains('funding_types', $fundingType);
+        }
+
+        if ($delivery = $request->input('service_delivery')) {
+            $query->whereJsonContains('service_delivery', $delivery);
+        }
+
+        $providers  = $query->orderByDesc('is_featured')->latest()->paginate(12)->withQueryString();
+        $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
+
+        return view('public.providers', compact('providers', 'categories'));
+    }
+
+    public function show(Provider $provider): View
+    {
+        abort_unless($provider->isPubliclyVisible(), 404);
+
+        $provider->load(['categories', 'subscription', 'user']);
+
+        return view('public.provider-profile', compact('provider'));
+    }
+
+    public function telehealth(Request $request): View
+    {
+        $query = Provider::publiclyVisible()->telehealth()->with(['categories', 'subscription']);
+
+        if ($category = $request->input('category')) {
+            $query->whereHas('categories', fn ($q) => $q->where('slug', $category));
+        }
+
+        $providers  = $query->orderByDesc('is_featured')->latest()->paginate(12)->withQueryString();
+        $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
+
+        return view('public.telehealth', compact('providers', 'categories'));
+    }
+
+    public function apiProviders(Request $request): JsonResponse
+    {
+        $query = Provider::publiclyVisible()
+            ->with(['categories'])
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude');
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search) {
+                $q->where('business_name', 'like', "%{$search}%")
+                    ->orWhere('suburb', 'like', "%{$search}%")
+                    ->orWhere('postcode', 'like', "%{$search}%");
+            });
+        }
+
+        if ($category = $request->input('category')) {
+            $query->whereHas('categories', fn ($q) => $q->where('slug', $category));
+        }
+
+        if ($request->boolean('telehealth')) {
+            $query->telehealth();
+        }
+
+        if ($request->boolean('available')) {
+            $query->available();
+        }
+
+        $providers = $query->get()->map(fn ($p) => [
+            'id'                   => $p->id,
+            'slug'                 => $p->slug,
+            'business_name'        => $p->business_name,
+            'provider_name'        => $p->provider_name,
+            'suburb'               => $p->suburb,
+            'state'                => $p->state,
+            'latitude'             => (float) $p->latitude,
+            'longitude'            => (float) $p->longitude,
+            'telehealth_available' => $p->telehealth_available,
+            'availability_status'  => $p->availability_status,
+            'is_featured'          => $p->is_featured,
+            'profile_image'        => $p->profile_image ? asset('storage/' . $p->profile_image) : null,
+            'categories'           => $p->categories->pluck('name'),
+            'url'                  => route('providers.show', $p->slug),
+        ]);
+
+        return response()->json($providers);
+    }
+}
