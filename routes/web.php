@@ -82,21 +82,4 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/settings', [AdminDashboardController::class, 'updateSettings'])->name('settings.update');
 });
 
-Route::get('/fix-storage-link', function () {
-    $target = storage_path('app/public');
-    $link = public_path('storage');
-
-    // 1. Clean up any existing file or broken link first
-    if (file_exists($link) || is_link($link)) {
-        @unlink($link);
-    }
-
-    // 2. Use pure PHP symlink function completely outside Laravel's filesystem system
-    if (symlink($target, $link)) {
-        return 'Storage link created successfully using pure PHP!';
-    } else {
-        return 'Failed to create link. Your hosting provider might have symlink disabled completely.';
-    }
-});
-
 require __DIR__ . '/auth.php';
