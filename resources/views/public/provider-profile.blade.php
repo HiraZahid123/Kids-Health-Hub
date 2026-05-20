@@ -33,9 +33,9 @@
                 <div class="p-6">
                     <div class="flex flex-wrap items-start gap-3 mb-3">
                         <h1 class="text-2xl font-extrabold text-gray-800 flex-1">{{ $provider->business_name }}</h1>
-                        @if($provider->is_featured)
+                        {{-- @if($provider->is_featured)
                             <span class="bg-amber-100 text-amber-700 text-xs font-bold px-3 py-1 rounded-full">⭐ Featured</span>
-                        @endif
+                        @endif --}}
                     </div>
 
                     <!-- Categories -->
@@ -129,7 +129,7 @@
             </div>
 
             <!-- Reviews -->
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            {{-- <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
                 <div class="flex items-center justify-between mb-4">
                     <h2 class="text-lg font-bold text-gray-800">Reviews</h2>
                     @if($reviewCount > 0)
@@ -227,7 +227,7 @@
                         <a href="{{ route('login') }}" class="text-sky-600 hover:underline">Sign in</a> as a family to leave a review.
                     </p>
                 @endauth
-            </div>
+            </div> --}}
         </div>
 
         <!-- Sidebar / Contact -->
@@ -236,7 +236,7 @@
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Contact</h2>
 
-                @auth
+                {{-- @auth
                     @if(auth()->user()->isFamily())
                         @php $isSaved = in_array($provider->id, $savedProviderIds ?? []); @endphp
                         <form method="POST" action="{{ route('family.saved.toggle', $provider) }}" class="mb-4">
@@ -258,7 +258,7 @@
                             </button>
                         </form>
                     @endif
-                @endauth
+                @endauth --}}
 
                 <div class="space-y-3">
                     @if($provider->phone)
@@ -296,7 +296,7 @@
             </div>
 
             <!-- Request Appointment (family users only) -->
-            @auth
+            {{-- @auth
                 @if(auth()->user()->isFamily())
                     @php
                         $pendingAppointment = \App\Models\AppointmentRequest::where('family_user_id', auth()->id())
@@ -355,7 +355,7 @@
                         Sign In
                     </a>
                 </div>
-            @endauth
+            @endauth --}}
 
             <!-- Map mini -->
             @if($provider->latitude && $provider->longitude)

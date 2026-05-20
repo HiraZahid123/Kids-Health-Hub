@@ -155,6 +155,7 @@
 <!-- ═══════════════════════════════════════════════════
      FEATURED PROVIDERS
 ════════════════════════════════════════════════════ -->
+{{--
 @if($featuredProviders->isNotEmpty())
 <section class="bg-white py-12 border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,6 +174,7 @@
     </div>
 </section>
 @endif
+--}}
 
 <!-- ═══════════════════════════════════════════════════
      RECENTLY LISTED
@@ -222,7 +224,8 @@
             @foreach([
                 ['step'=>'1','icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z','color'=>'emerald','title'=>'Search the directory','body'=>'Browse hundreds of verified child healthcare providers by suburb, postcode, or specialty. Filter by telehealth, funding type, age group, and availability.'],
                 ['step'=>'2','icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z','color'=>'sky','title'=>'View provider profiles','body'=>'Read detailed profiles, reviews from other families, and contact information. Save your favourites to a personal shortlist.'],
-                ['step'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','color'=>'violet','title'=>'Request an appointment','body'=>'Send appointment requests directly through the platform and communicate with providers via our secure messaging system.'],
+                {{-- ['step'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','color'=>'violet','title'=>'Request an appointment','body'=>'Send appointment requests directly through the platform and communicate with providers via our secure messaging system.'], --}}
+                ['step'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','color'=>'violet','title'=>'Contact providers','body'=>'Contact providers directly to arrange appointments and discuss your child\'s needs.'],
             ] as $step)
             <div class="relative">
                 <div class="flex items-start gap-4">

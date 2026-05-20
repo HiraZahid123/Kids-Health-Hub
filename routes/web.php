@@ -22,6 +22,7 @@ Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/providers', [PublicController::class, 'providers'])->name('providers.index');
 Route::get('/providers/{provider:slug}', [PublicController::class, 'show'])->name('providers.show');
 Route::get('/telehealth', [PublicController::class, 'telehealth'])->name('telehealth');
+Route::get('/guide', [PublicController::class, 'guide'])->name('guide');
 Route::get('/api/providers', [PublicController::class, 'apiProviders'])->name('api.providers');
 
 // Role-based dashboard redirect (used by Breeze after login)

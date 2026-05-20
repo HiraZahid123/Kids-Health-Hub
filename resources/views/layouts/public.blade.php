@@ -61,13 +61,13 @@
             <div class="hidden lg:flex items-center gap-3">
                 @guest
                     <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-gray-900 px-3 py-2 transition-colors">Sign in</a>
-                    <a href="{{ route('register.family') }}" class="text-sm font-semibold text-emerald-700 border-2 border-emerald-200 hover:bg-emerald-50 px-4 py-2 rounded-xl transition-colors">Join as Family</a>
+                    {{-- <a href="{{ route('register.family') }}" class="text-sm font-semibold text-emerald-700 border-2 border-emerald-200 hover:bg-emerald-50 px-4 py-2 rounded-xl transition-colors">Join as Family</a> --}}
                     <a href="{{ route('register') }}" class="text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 px-5 py-2.5 rounded-xl transition-colors shadow-sm">List Your Practice</a>
                 @else
                     @if(auth()->user()->isAdmin())
                         <a href="{{ route('admin.dashboard') }}" class="text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 px-5 py-2.5 rounded-xl transition-colors">Admin Panel</a>
-                    @elseif(auth()->user()->isFamily())
-                        <a href="{{ route('family.dashboard') }}" class="text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 px-5 py-2.5 rounded-xl transition-colors">My Account</a>
+                    {{-- @elseif(auth()->user()->isFamily())
+                        <a href="{{ route('family.dashboard') }}" class="text-sm font-bold text-white bg-sky-600 hover:bg-sky-700 px-5 py-2.5 rounded-xl transition-colors">My Account</a> --}}
                     @else
                         <a href="{{ route('provider.dashboard') }}" class="text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-700 px-5 py-2.5 rounded-xl transition-colors">My Dashboard</a>
                     @endif
@@ -95,13 +95,13 @@
             <div class="border-t border-gray-100 pt-2 mt-2 space-y-1">
                 @guest
                     <a href="{{ route('login') }}" class="block py-3 px-3 text-gray-700 font-semibold text-sm">Sign In</a>
-                    <a href="{{ route('register.family') }}" class="block py-3 px-3 text-emerald-700 font-bold text-sm">Join as a Family</a>
+                    {{-- <a href="{{ route('register.family') }}" class="block py-3 px-3 text-emerald-700 font-bold text-sm">Join as a Family</a> --}}
                     <a href="{{ route('register') }}" class="block py-3 px-3 text-emerald-700 font-bold text-sm">List Your Practice</a>
                 @else
                     @if(auth()->user()->isAdmin())
                         <a href="{{ route('admin.dashboard') }}" class="block py-3 px-3 text-violet-700 font-bold text-sm">Admin Panel</a>
-                    @elseif(auth()->user()->isFamily())
-                        <a href="{{ route('family.dashboard') }}" class="block py-3 px-3 text-sky-700 font-bold text-sm">My Account</a>
+                    {{-- @elseif(auth()->user()->isFamily())
+                        <a href="{{ route('family.dashboard') }}" class="block py-3 px-3 text-sky-700 font-bold text-sm">My Account</a> --}}
                     @else
                         <a href="{{ route('provider.dashboard') }}" class="block py-3 px-3 text-emerald-700 font-bold text-sm">My Dashboard</a>
                     @endif
@@ -162,8 +162,9 @@
                 <ul class="space-y-3 text-sm">
                     <li><a href="{{ route('providers.index') }}" class="hover:text-white transition-colors">Find Providers</a></li>
                     <li><a href="{{ route('telehealth') }}" class="hover:text-white transition-colors">Telehealth Services</a></li>
-                    <li><a href="{{ route('register.family') }}" class="hover:text-white transition-colors">Create Free Account</a></li>
-                    <li><a href="{{ route('login') }}" class="hover:text-white transition-colors">Sign In</a></li>
+                    <li><a href="{{ route('guide') }}" class="hover:text-white transition-colors">User Guide</a></li>
+                    {{-- <li><a href="{{ route('register.family') }}" class="hover:text-white transition-colors">Create Free Account</a></li>
+                    <li><a href="{{ route('login') }}" class="hover:text-white transition-colors">Sign In</a></li> --}}
                 </ul>
             </div>
             <div>
