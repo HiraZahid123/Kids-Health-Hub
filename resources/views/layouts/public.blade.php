@@ -55,6 +55,7 @@
                 <a href="{{ route('providers.index') }}" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors">Find Providers</a>
                 <a href="{{ route('telehealth') }}" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors">Telehealth</a>
                 <a href="{{ route('providers.index', ['available' => 1]) }}" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors">Available Now</a>
+                <a href="{{ route('guide') }}" class="px-4 py-2 text-sm font-semibold text-gray-600 hover:text-emerald-700 hover:bg-emerald-50 rounded-lg transition-colors">User Guide</a>
             </nav>
 
             <!-- Desktop CTAs -->
@@ -92,6 +93,7 @@
             <a href="{{ route('providers.index') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Find Providers</a>
             <a href="{{ route('telehealth') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Telehealth</a>
             <a href="{{ route('providers.index', ['available' => 1]) }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Available Now</a>
+            <a href="{{ route('guide') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">User Guide</a>
             <div class="border-t border-gray-100 pt-2 mt-2 space-y-1">
                 @guest
                     <a href="{{ route('login') }}" class="block py-3 px-3 text-gray-700 font-semibold text-sm">Sign In</a>
