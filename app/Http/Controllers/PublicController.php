@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\PlatformSetting;
 use App\Models\Provider;
+use App\Models\ProviderView;
+use App\Models\Review;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -16,11 +18,15 @@ class PublicController extends Controller
         $featuredProviders = Provider::publiclyVisible()
             ->featured()
             ->with(['categories', 'subscription'])
+            ->withAvg(['reviews as avg_rating' => fn ($q) => $q->where('status', 'approved')], 'rating')
+            ->withCount(['reviews as review_count' => fn ($q) => $q->where('status', 'approved')])
             ->limit(6)
             ->get();
 
         $recentProviders = Provider::publiclyVisible()
             ->with(['categories', 'subscription'])
+            ->withAvg(['reviews as avg_rating' => fn ($q) => $q->where('status', 'approved')], 'rating')
+            ->withCount(['reviews as review_count' => fn ($q) => $q->where('status', 'approved')])
             ->latest()
             ->limit(12)
             ->get();
@@ -36,7 +42,10 @@ class PublicController extends Controller
 
     public function providers(Request $request): View
     {
-        $query = Provider::publiclyVisible()->with(['categories', 'subscription']);
+        $query = Provider::publiclyVisible()
+            ->with(['categories', 'subscription'])
+            ->withAvg(['reviews as avg_rating' => fn ($q) => $q->where('status', 'approved')], 'rating')
+            ->withCount(['reviews as review_count' => fn ($q) => $q->where('status', 'approved')]);
 
         if ($search = $request->input('search')) {
             $query->where(function ($q) use ($search) {
@@ -71,24 +80,73 @@ class PublicController extends Controller
             $query->whereJsonContains('service_delivery', $delivery);
         }
 
-        $providers  = $query->orderByDesc('is_featured')->latest()->paginate(12)->withQueryString();
+        $lat    = $request->input('lat');
+        $lng    = $request->input('lng');
+        $radius = (int) $request->input('radius', 25);
+
+        if ($lat && $lng) {
+            $query->selectRaw(
+                'providers.*, (6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
+                [$lat, $lng, $lat]
+            )
+            ->whereNotNull('latitude')
+            ->whereNotNull('longitude')
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance');
+        } else {
+            $query->orderByDesc('is_featured')->latest();
+        }
+
+        $providers  = $query->paginate(12)->withQueryString();
         $categories = Category::where('is_active', true)->orderBy('sort_order')->get();
 
         return view('public.providers', compact('providers', 'categories'));
     }
 
-    public function show(Provider $provider): View
+    public function show(Request $request, Provider $provider): View
     {
         abort_unless($provider->isPubliclyVisible(), 404);
 
         $provider->load(['categories', 'subscription', 'user']);
 
-        return view('public.provider-profile', compact('provider'));
+        $this->trackView($request, $provider);
+
+        $reviews = Review::with('user')
+            ->where('provider_id', $provider->id)
+            ->where('status', 'approved')
+            ->latest()
+            ->get();
+
+        $avgRating   = $reviews->avg('rating');
+        $reviewCount = $reviews->count();
+
+        $userReview = auth()->check()
+            ? Review::where('user_id', auth()->id())->where('provider_id', $provider->id)->first()
+            : null;
+
+        return view('public.provider-profile', compact('provider', 'reviews', 'avgRating', 'reviewCount', 'userReview'));
+    }
+
+    private function trackView(Request $request, Provider $provider): void
+    {
+        // Skip if the logged-in user owns this provider listing
+        if (auth()->check() && auth()->user()->provider?->id === $provider->id) {
+            return;
+        }
+
+        ProviderView::create([
+            'provider_id' => $provider->id,
+            'ip_hash'     => hash('sha256', $request->ip()),
+            'viewed_at'   => now(),
+        ]);
     }
 
     public function telehealth(Request $request): View
     {
-        $query = Provider::publiclyVisible()->telehealth()->with(['categories', 'subscription']);
+        $query = Provider::publiclyVisible()->telehealth()
+            ->with(['categories', 'subscription'])
+            ->withAvg(['reviews as avg_rating' => fn ($q) => $q->where('status', 'approved')], 'rating')
+            ->withCount(['reviews as review_count' => fn ($q) => $q->where('status', 'approved')]);
 
         if ($category = $request->input('category')) {
             $query->whereHas('categories', fn ($q) => $q->where('slug', $category));
@@ -127,6 +185,19 @@ class PublicController extends Controller
             $query->available();
         }
 
+        $lat    = $request->input('lat');
+        $lng    = $request->input('lng');
+        $radius = (int) $request->input('radius', 25);
+
+        if ($lat && $lng) {
+            $query->selectRaw(
+                'providers.*, (6371 * acos(cos(radians(?)) * cos(radians(latitude)) * cos(radians(longitude) - radians(?)) + sin(radians(?)) * sin(radians(latitude)))) AS distance',
+                [$lat, $lng, $lat]
+            )
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance');
+        }
+
         $providers = $query->get()->map(fn ($p) => [
             'id'                   => $p->id,
             'slug'                 => $p->slug,
@@ -146,4 +217,5 @@ class PublicController extends Controller
 
         return response()->json($providers);
     }
+
 }

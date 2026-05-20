@@ -41,7 +41,17 @@ Laravel 13 / PHP 8.3 / SQLite / TailwindCSS v3 (Breeze) / Google Maps API
 ## Current Session State
 
 **Status**: ALL 10 MILESTONES COMPLETE — Phase 1 MVP is built and running  
-**Next steps for future sessions**: Testing, geocoding integration, Stripe payments (Phase 2)
+**Server**: `php artisan serve` running on http://localhost:8000 ✅  
+**Google Maps key**: `GOOGLE_MAP_API_KEY` in .env — all views reference this exact name  
+**Mail**: `MAIL_MAILER=log` — no SMTP configured yet (owner will add credentials later)  
+**Stripe**: Not configured — owner will add credentials to .env when ready  
+
+### Phase 2 Priorities (in order)
+1. **Geocoding** — Auto-convert provider address → lat/lng on profile save (Google Geocoding API, same key). Currently providers need lat/lng entered manually to appear on map.
+2. **SMTP email notifications** — Owner adds MAIL_* credentials to .env; then wire up: approval notification, trial-expiry warning (7 days out), subscription-expired notification. Queue already configured (database driver).
+3. **Stripe subscription billing** — Owner adds STRIPE_KEY/STRIPE_SECRET; integrate Laravel Cashier for solo/company plan billing. Subscription model already has plan_type, status, ends_at columns ready.
+4. **Provider analytics** — Profile view counter (simple DB increment), basic engagement stats on provider dashboard.
+5. **Geocoding on registration** — Auto-populate lat/lng when provider saves suburb/postcode so map pins appear immediately.
 
 ### Admin Credentials
 - Email: `admin@kidshealthhub.com.au`

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Services\GeocodingService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,47 +20,75 @@ class ProviderProfileController extends Controller
         return view('provider.profile-edit', compact('provider', 'categories'));
     }
 
-    public function update(Request $request): RedirectResponse
+    public function update(Request $request, GeocodingService $geocoder): RedirectResponse
     {
         $provider = auth()->user()->provider;
 
         $validated = $request->validate([
-            'business_name'   => ['required', 'string', 'max:255'],
-            'provider_name'   => ['required', 'string', 'max:255'],
-            'phone'           => ['nullable', 'string', 'max:20'],
-            'address'         => ['nullable', 'string', 'max:500'],
-            'suburb'          => ['nullable', 'string', 'max:100'],
-            'state'           => ['nullable', 'string', 'max:50'],
-            'postcode'        => ['nullable', 'string', 'max:10'],
-            'bio'             => ['nullable', 'string', 'max:2000'],
-            'website_url'     => ['nullable', 'url', 'max:255'],
-            'wait_time'       => ['nullable', 'string', 'max:100'],
-            'age_groups'      => ['nullable', 'array'],
-            'funding_types'   => ['nullable', 'array'],
+            'business_name'    => ['required', 'string', 'max:255'],
+            'provider_name'    => ['required', 'string', 'max:255'],
+            'phone'            => ['nullable', 'string', 'max:20'],
+            'address'          => ['nullable', 'string', 'max:500'],
+            'suburb'           => ['nullable', 'string', 'max:100'],
+            'state'            => ['nullable', 'string', 'max:50'],
+            'postcode'         => ['nullable', 'string', 'max:10'],
+            'bio'              => ['nullable', 'string', 'max:2000'],
+            'website_url'      => ['nullable', 'url', 'max:255'],
+            'wait_time'        => ['nullable', 'string', 'max:100'],
+            'age_groups'       => ['nullable', 'array'],
+            'funding_types'    => ['nullable', 'array'],
             'service_delivery' => ['nullable', 'array'],
-            'categories'      => ['nullable', 'array'],
-            'categories.*'    => ['exists:categories,id'],
+            'categories'       => ['nullable', 'array'],
+            'categories.*'     => ['exists:categories,id'],
         ]);
 
-        $provider->update([
-            'business_name'   => $validated['business_name'],
-            'provider_name'   => $validated['provider_name'],
-            'phone'           => $validated['phone'] ?? null,
-            'address'         => $validated['address'] ?? null,
-            'suburb'          => $validated['suburb'] ?? null,
-            'state'           => $validated['state'] ?? null,
-            'postcode'        => $validated['postcode'] ?? null,
-            'bio'             => $validated['bio'] ?? null,
-            'website_url'     => $validated['website_url'] ?? null,
-            'wait_time'       => $validated['wait_time'] ?? null,
-            'age_groups'      => $validated['age_groups'] ?? [],
-            'funding_types'   => $validated['funding_types'] ?? [],
+        $locationChanged = $provider->address  !== ($validated['address']  ?? null)
+                        || $provider->suburb   !== ($validated['suburb']   ?? null)
+                        || $provider->state    !== ($validated['state']    ?? null)
+                        || $provider->postcode !== ($validated['postcode'] ?? null);
+
+        $updateData = [
+            'business_name'    => $validated['business_name'],
+            'provider_name'    => $validated['provider_name'],
+            'phone'            => $validated['phone'] ?? null,
+            'address'          => $validated['address'] ?? null,
+            'suburb'           => $validated['suburb'] ?? null,
+            'state'            => $validated['state'] ?? null,
+            'postcode'         => $validated['postcode'] ?? null,
+            'bio'              => $validated['bio'] ?? null,
+            'website_url'      => $validated['website_url'] ?? null,
+            'wait_time'        => $validated['wait_time'] ?? null,
+            'age_groups'       => $validated['age_groups'] ?? [],
+            'funding_types'    => $validated['funding_types'] ?? [],
             'service_delivery' => $validated['service_delivery'] ?? [],
-        ]);
+        ];
 
+        if ($locationChanged) {
+            $coords = $geocoder->geocode(
+                $validated['address']  ?? null,
+                $validated['suburb']   ?? null,
+                $validated['state']    ?? null,
+                $validated['postcode'] ?? null,
+            );
+
+            if ($coords) {
+                $updateData['latitude']  = $coords['latitude'];
+                $updateData['longitude'] = $coords['longitude'];
+            } else {
+                $updateData['latitude']  = null;
+                $updateData['longitude'] = null;
+            }
+        }
+
+        $provider->update($updateData);
         $provider->categories()->sync($validated['categories'] ?? []);
 
-        return back()->with('success', 'Profile updated successfully.');
+        $message = 'Profile updated successfully.';
+        if ($locationChanged && empty($updateData['latitude'])) {
+            $message .= ' Note: we could not resolve your address on the map — please check your suburb and postcode.';
+        }
+
+        return back()->with('success', $message);
     }
 
     public function uploadImage(Request $request): RedirectResponse

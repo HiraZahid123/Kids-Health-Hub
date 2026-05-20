@@ -6,6 +6,7 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -31,6 +32,16 @@ class User extends Authenticatable
         return $this->hasOne(Provider::class);
     }
 
+    public function savedProviders(): HasMany
+    {
+        return $this->hasMany(SavedProvider::class);
+    }
+
+    public function appointmentRequests(): HasMany
+    {
+        return $this->hasMany(AppointmentRequest::class, 'family_user_id');
+    }
+
     public function isAdmin(): bool
     {
         return $this->hasRole('admin');
@@ -39,5 +50,10 @@ class User extends Authenticatable
     public function isProvider(): bool
     {
         return $this->hasRole('provider');
+    }
+
+    public function isFamily(): bool
+    {
+        return $this->hasRole('family');
     }
 }

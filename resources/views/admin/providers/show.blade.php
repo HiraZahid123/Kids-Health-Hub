@@ -13,6 +13,9 @@
     <a href="{{ route('admin.subscriptions.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
         💳 Subscriptions
     </a>
+    <a href="{{ route('admin.reviews.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
+        ⭐ Reviews
+    </a>
 @endsection
 
 @section('content')

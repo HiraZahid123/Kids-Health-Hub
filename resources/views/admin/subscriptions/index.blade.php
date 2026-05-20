@@ -13,6 +13,9 @@
     <a href="{{ route('admin.subscriptions.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-50 text-purple-700 font-medium text-sm">
         💳 Subscriptions
     </a>
+    <a href="{{ route('admin.reviews.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
+        ⭐ Reviews
+    </a>
 @endsection
 
 @section('content')
@@ -33,7 +36,9 @@
                 <th class="px-4 py-3 text-left font-semibold text-gray-600">Provider</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-600">Plan</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-600">Status</th>
+                <th class="px-4 py-3 text-left font-semibold text-gray-600">Payment</th>
                 <th class="px-4 py-3 text-left font-semibold text-gray-600">Expiry</th>
+                <th class="px-4 py-3 text-left font-semibold text-gray-600">Stripe</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-50">
@@ -55,13 +60,29 @@
                             <span class="bg-gray-100 text-gray-600 px-2 py-0.5 rounded-full text-xs font-semibold">{{ $sub->status }}</span>
                         @endif
                     </td>
+                    <td class="px-4 py-3">
+                        @if($sub->payment_status === 'paid')
+                            <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full text-xs font-semibold">Paid</span>
+                        @elseif($sub->payment_status === 'cancelled')
+                            <span class="bg-red-100 text-red-700 px-2 py-0.5 rounded-full text-xs font-semibold">Cancelled</span>
+                        @else
+                            <span class="bg-gray-100 text-gray-500 px-2 py-0.5 rounded-full text-xs font-semibold">—</span>
+                        @endif
+                    </td>
                     <td class="px-4 py-3 text-gray-600">
                         {{ $sub->trial_ends_at?->format('d M Y') ?? $sub->ends_at?->format('d M Y') ?? '—' }}
+                    </td>
+                    <td class="px-4 py-3 text-xs text-gray-400 font-mono">
+                        @if($sub->stripe_subscription_id)
+                            <span title="{{ $sub->stripe_subscription_id }}">{{ Str::limit($sub->stripe_subscription_id, 20) }}</span>
+                        @else
+                            —
+                        @endif
                     </td>
                 </tr>
             @empty
                 <tr>
-                    <td colspan="4" class="px-4 py-8 text-center text-gray-500">No subscriptions found.</td>
+                    <td colspan="6" class="px-4 py-8 text-center text-gray-500">No subscriptions found.</td>
                 </tr>
             @endforelse
         </tbody>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Provider;
+use App\Notifications\ProviderApprovedNotification;
+use App\Notifications\ProviderRejectedNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -36,6 +38,8 @@ class AdminProviderController extends Controller
     {
         $provider->update(['approval_status' => 'approved', 'is_active' => true]);
 
+        $provider->user->notify(new ProviderApprovedNotification($provider));
+
         return back()->with('success', "{$provider->business_name} has been approved.");
     }
 
@@ -48,6 +52,8 @@ class AdminProviderController extends Controller
             'is_active'       => false,
             'admin_notes'     => $request->input('admin_notes'),
         ]);
+
+        $provider->user->notify(new ProviderRejectedNotification($provider));
 
         return back()->with('success', "{$provider->business_name} has been rejected.");
     }

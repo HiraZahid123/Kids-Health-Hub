@@ -16,7 +16,7 @@ return new class extends Migration
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('starts_at')->nullable();
             $table->timestamp('ends_at')->nullable();
-            $table->enum('payment_status', ['unpaid', 'paid', 'overdue'])->default('unpaid');
+            $table->enum('payment_status', ['unpaid', 'paid', 'overdue', 'cancelled'])->default('unpaid');
             $table->timestamps();
         });
     }

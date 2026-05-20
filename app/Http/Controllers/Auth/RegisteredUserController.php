@@ -7,6 +7,7 @@ use App\Models\PlatformSetting;
 use App\Models\Provider;
 use App\Models\Subscription;
 use App\Models\User;
+use App\Notifications\WelcomeNotification;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -59,6 +60,8 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+
+        $user->notify(new WelcomeNotification());
 
         Auth::login($user);
 

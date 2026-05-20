@@ -6,7 +6,12 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- Search & Filter Bar -->
-    <form method="GET" action="{{ route('providers.index') }}" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
+    <form method="GET" action="{{ route('providers.index') }}" id="search-form" class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 mb-6">
+        {{-- Hidden radius search fields populated by geolocation --}}
+        <input type="hidden" name="lat"    id="input-lat"    value="{{ request('lat') }}">
+        <input type="hidden" name="lng"    id="input-lng"    value="{{ request('lng') }}">
+        <input type="hidden" name="radius" id="input-radius" value="{{ request('radius', 25) }}">
+
         <div class="flex flex-col sm:flex-row gap-3 mb-3">
             <input
                 type="text"
@@ -25,7 +30,7 @@
         </div>
 
         <!-- Filters row -->
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-3 items-center">
             <label class="flex items-center gap-2 cursor-pointer text-sm text-gray-700 font-medium">
                 <input type="checkbox" name="available" value="1" {{ request('available') ? 'checked' : '' }} class="rounded text-emerald-500">
                 <span class="flex items-center gap-1"><span class="w-2 h-2 bg-emerald-500 rounded-full"></span> Available Now</span>
@@ -36,21 +41,44 @@
             </label>
             <select name="age_group" class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 outline-none">
                 <option value="">Any Age Group</option>
-                <option value="0-2" {{ request('age_group') == '0-2' ? 'selected' : '' }}>0–2 years</option>
-                <option value="3-5" {{ request('age_group') == '3-5' ? 'selected' : '' }}>3–5 years</option>
-                <option value="6-12" {{ request('age_group') == '6-12' ? 'selected' : '' }}>6–12 years</option>
-                <option value="13-18" {{ request('age_group') == '13-18' ? 'selected' : '' }}>13–18 years</option>
+                <option value="0-2 years"   {{ request('age_group') == '0-2 years'   ? 'selected' : '' }}>0–2 years</option>
+                <option value="3-5 years"   {{ request('age_group') == '3-5 years'   ? 'selected' : '' }}>3–5 years</option>
+                <option value="6-12 years"  {{ request('age_group') == '6-12 years'  ? 'selected' : '' }}>6–12 years</option>
+                <option value="13-18 years" {{ request('age_group') == '13-18 years' ? 'selected' : '' }}>13–18 years</option>
             </select>
             <select name="service_delivery" class="border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 outline-none">
                 <option value="">Any Delivery Mode</option>
-                <option value="in-clinic" {{ request('service_delivery') == 'in-clinic' ? 'selected' : '' }}>In-Clinic</option>
-                <option value="mobile" {{ request('service_delivery') == 'mobile' ? 'selected' : '' }}>Mobile / Home Visits</option>
+                <option value="in-clinic"  {{ request('service_delivery') == 'in-clinic'  ? 'selected' : '' }}>In-Clinic</option>
+                <option value="mobile"     {{ request('service_delivery') == 'mobile'     ? 'selected' : '' }}>Mobile / Home Visits</option>
                 <option value="telehealth" {{ request('service_delivery') == 'telehealth' ? 'selected' : '' }}>Telehealth</option>
             </select>
-            @if(request()->hasAny(['search','category','available','telehealth','age_group','service_delivery','funding_type']))
-                <a href="{{ route('providers.index') }}" class="text-sm text-red-500 hover:underline flex items-center">Clear filters</a>
+
+            <!-- Near me button -->
+            <button type="button" id="btn-near-me"
+                class="flex items-center gap-1.5 border border-emerald-300 text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                Near me
+            </button>
+
+            <!-- Radius selector — shown when location is active -->
+            <div id="radius-group" class="{{ request('lat') ? 'flex' : 'hidden' }} items-center gap-2">
+                <select id="select-radius" class="border border-emerald-300 rounded-lg px-3 py-1.5 text-sm text-emerald-700 outline-none bg-emerald-50">
+                    @foreach([5, 10, 25, 50] as $km)
+                        <option value="{{ $km }}" {{ request('radius', 25) == $km ? 'selected' : '' }}>{{ $km }} km</option>
+                    @endforeach
+                </select>
+                <button type="button" id="btn-clear-location" class="text-xs text-red-500 hover:underline">✕ Clear location</button>
+            </div>
+
+            @if(request()->hasAny(['search','category','available','telehealth','age_group','service_delivery','funding_type','lat']))
+                <a href="{{ route('providers.index') }}" class="text-sm text-red-500 hover:underline flex items-center">Clear all filters</a>
             @endif
         </div>
+
+        <p id="geo-status" class="mt-2 text-xs text-gray-500 hidden"></p>
     </form>
 
     <div class="flex flex-col lg:flex-row gap-6">
@@ -65,7 +93,11 @@
         <div class="flex-1">
             <div class="flex items-center justify-between mb-4">
                 <p class="text-gray-600 text-sm">
-                    <strong class="text-gray-800">{{ $providers->total() }}</strong> provider{{ $providers->total() !== 1 ? 's' : '' }} found
+                    @if(request('lat'))
+                        <strong class="text-gray-800">{{ $providers->total() }}</strong> provider{{ $providers->total() !== 1 ? 's' : '' }} within {{ request('radius', 25) }} km
+                    @else
+                        <strong class="text-gray-800">{{ $providers->total() }}</strong> provider{{ $providers->total() !== 1 ? 's' : '' }} found
+                    @endif
                 </p>
             </div>
 
@@ -73,7 +105,7 @@
                 <div class="text-center py-16 bg-white rounded-2xl border border-gray-100">
                     <div class="text-5xl mb-3">🔍</div>
                     <h3 class="text-xl font-bold text-gray-700 mb-2">No providers found</h3>
-                    <p class="text-gray-500">Try adjusting your search or filters.</p>
+                    <p class="text-gray-500">Try adjusting your search, filters, or increasing the radius.</p>
                     <a href="{{ route('providers.index') }}" class="mt-4 inline-block text-emerald-600 font-medium hover:underline">Clear all filters</a>
                 </div>
             @else
@@ -82,7 +114,6 @@
                         @include('public.partials.provider-card', ['provider' => $provider])
                     @endforeach
                 </div>
-
                 <div class="mt-6">
                     {{ $providers->links() }}
                 </div>
@@ -93,25 +124,106 @@
 @endsection
 
 @push('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAP_API_KEY') }}&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMap" async defer></script>
 <script>
+const urlParams  = new URLSearchParams(window.location.search);
+const activeLat  = parseFloat(urlParams.get('lat'))    || null;
+const activeLng  = parseFloat(urlParams.get('lng'))    || null;
+const activeRadius = parseInt(urlParams.get('radius')) || 25;
+
+// ── Geolocation button ────────────────────────────────────────────────────────
+document.getElementById('btn-near-me').addEventListener('click', () => {
+    const status = document.getElementById('geo-status');
+    if (!navigator.geolocation) {
+        status.textContent = 'Geolocation is not supported by your browser.';
+        status.classList.remove('hidden');
+        return;
+    }
+    status.textContent = 'Detecting your location…';
+    status.classList.remove('hidden');
+
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            document.getElementById('input-lat').value    = pos.coords.latitude;
+            document.getElementById('input-lng').value    = pos.coords.longitude;
+            document.getElementById('input-radius').value = document.getElementById('select-radius').value;
+            document.getElementById('radius-group').classList.remove('hidden');
+            document.getElementById('radius-group').classList.add('flex');
+            status.textContent = 'Location found — submitting…';
+            document.getElementById('search-form').submit();
+        },
+        () => {
+            status.textContent = 'Location access denied. Please allow location in your browser settings.';
+        }
+    );
+});
+
+// Radius change re-submits immediately
+document.getElementById('select-radius').addEventListener('change', (e) => {
+    document.getElementById('input-radius').value = e.target.value;
+    document.getElementById('search-form').submit();
+});
+
+// Clear location
+document.getElementById('btn-clear-location').addEventListener('click', () => {
+    document.getElementById('input-lat').value    = '';
+    document.getElementById('input-lng').value    = '';
+    document.getElementById('input-radius').value = '';
+    document.getElementById('search-form').submit();
+});
+
+// ── Map ───────────────────────────────────────────────────────────────────────
 async function initMap() {
     const mapEl = document.getElementById('map');
     mapEl.innerHTML = '';
 
+    const defaultCenter = activeLat
+        ? { lat: activeLat, lng: activeLng }
+        : { lat: -25.2744, lng: 133.7751 };
+
     const map = new google.maps.Map(mapEl, {
-        center: { lat: -25.2744, lng: 133.7751 },
-        zoom: 5,
+        center: defaultCenter,
+        zoom: activeLat ? (activeRadius <= 10 ? 11 : activeRadius <= 25 ? 10 : 8) : 5,
+        styles: [{ featureType: 'poi', elementType: 'labels', stylers: [{ visibility: 'off' }] }],
     });
 
-    const params = new URLSearchParams(window.location.search);
-    const apiUrl = '{{ route("api.providers") }}?' + params.toString();
+    // Draw radius circle if location is active
+    if (activeLat && activeLng) {
+        new google.maps.Circle({
+            strokeColor:   '#10b981',
+            strokeOpacity: 0.6,
+            strokeWeight:  2,
+            fillColor:     '#10b981',
+            fillOpacity:   0.08,
+            map,
+            center: { lat: activeLat, lng: activeLng },
+            radius: activeRadius * 1000,
+        });
+
+        // User location marker
+        new google.maps.Marker({
+            position: { lat: activeLat, lng: activeLng },
+            map,
+            title: 'Your location',
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 8,
+                fillColor: '#6366f1',
+                fillOpacity: 1,
+                strokeColor: '#fff',
+                strokeWeight: 2,
+            },
+            zIndex: 999,
+        });
+    }
+
+    const apiUrl = '{{ route("api.providers") }}?' + urlParams.toString();
 
     try {
-        const res = await fetch(apiUrl);
+        const res       = await fetch(apiUrl);
         const providers = await res.json();
-        const bounds = new google.maps.LatLngBounds();
-        let hasMarkers = false;
+        const bounds    = new google.maps.LatLngBounds();
+        let hasMarkers  = false;
 
         providers.forEach(p => {
             if (!p.latitude || !p.longitude) return;
@@ -146,7 +258,8 @@ async function initMap() {
             marker.addListener('click', () => info.open(map, marker));
         });
 
-        if (hasMarkers) map.fitBounds(bounds);
+        // Only auto-fit bounds when no radius search is active
+        if (hasMarkers && !activeLat) map.fitBounds(bounds);
     } catch (e) {
         console.error(e);
     }

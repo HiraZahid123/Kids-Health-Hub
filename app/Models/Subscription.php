@@ -10,12 +10,14 @@ class Subscription extends Model
     protected $fillable = [
         'provider_id', 'plan_type', 'status',
         'trial_ends_at', 'starts_at', 'ends_at', 'payment_status',
+        'trial_warning_sent', 'stripe_customer_id', 'stripe_subscription_id',
     ];
 
     protected $casts = [
-        'trial_ends_at' => 'datetime',
-        'starts_at'     => 'datetime',
-        'ends_at'       => 'datetime',
+        'trial_ends_at'       => 'datetime',
+        'starts_at'           => 'datetime',
+        'ends_at'             => 'datetime',
+        'trial_warning_sent'  => 'boolean',
     ];
 
     public function provider(): BelongsTo

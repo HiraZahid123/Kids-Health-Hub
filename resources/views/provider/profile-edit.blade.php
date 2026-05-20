@@ -10,6 +10,12 @@
     <a href="{{ route('provider.profile.edit') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium text-sm">
         ✏️ Edit Profile
     </a>
+    <a href="{{ route('provider.appointments.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
+        📅 Appointments
+    </a>
+    <a href="{{ route('provider.messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
+        💬 Messages
+    </a>
     <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-4">
         🌐 View Public Site
     </a>

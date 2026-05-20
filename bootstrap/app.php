@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $schedule->command(ExpireSubscriptions::class)->daily();
     })
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->validateCsrfTokens(except: [
+            'stripe/webhook',
+        ]);
         $middleware->alias([
             'role'       => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,

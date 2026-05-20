@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\PlatformSetting;
 use App\Models\Provider;
+use App\Models\ProviderView;
 use App\Models\Subscription;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -31,9 +32,19 @@ class AdminDashboardController extends Controller
             ->limit(5)
             ->get();
 
+        $topViewedProviders = Provider::select('providers.*')
+            ->selectSub(
+                ProviderView::selectRaw('count(*)')
+                    ->whereColumn('provider_id', 'providers.id'),
+                'views_count'
+            )
+            ->orderByDesc('views_count')
+            ->limit(5)
+            ->get();
+
         $trialDuration = PlatformSetting::get('trial_duration_months', 3);
 
-        return view('admin.dashboard', compact('stats', 'pendingProviders', 'trialDuration'));
+        return view('admin.dashboard', compact('stats', 'pendingProviders', 'topViewedProviders', 'trialDuration'));
     }
 
     public function updateSettings(Request $request): RedirectResponse
