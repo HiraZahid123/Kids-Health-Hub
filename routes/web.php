@@ -82,4 +82,12 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/settings', [AdminDashboardController::class, 'updateSettings'])->name('settings.update');
 });
 
+Route::get('/fix-storage-link', function () { $shortcutPath = public_path('storage');
+    if (file_exists($shortcutPath) || is_link($shortcutPath)) {
+        @unlink($shortcutPath);}
+    try { app()->make('files')->link(storage_path('app/public'), $shortcutPath);
+        return 'Storage link created successfully!';} catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();}
+});
+
 require __DIR__ . '/auth.php';
