@@ -218,8 +218,28 @@ class PublicController extends Controller
         return response()->json($providers);
     }
 
+    public function about(): View
+    {
+        return view('public.about');
+    }
+
     public function guide(): View
     {
         return view('public.guide');
+    }
+
+    public function guideFamilies(): View
+    {
+        return view('public.guide-families');
+    }
+
+    public function guideProviders(): View
+    {
+        return view('public.guide-providers');
+    }
+
+    public function guideFaq(): View
+    {
+        return view('public.guide-faq');
     }
 }

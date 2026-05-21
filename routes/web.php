@@ -13,6 +13,9 @@ use App\Http\Controllers\Provider\ProviderDashboardController;
 use App\Http\Controllers\Provider\ProviderProfileController;
 use App\Http\Controllers\Provider\StripeCheckoutController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\PublicController;
 use App\Http\Controllers\StripeWebhookController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +25,33 @@ Route::get('/', [PublicController::class, 'home'])->name('home');
 Route::get('/providers', [PublicController::class, 'providers'])->name('providers.index');
 Route::get('/providers/{provider:slug}', [PublicController::class, 'show'])->name('providers.show');
 Route::get('/telehealth', [PublicController::class, 'telehealth'])->name('telehealth');
+Route::get('/about', [PublicController::class, 'about'])->name('about');
 Route::get('/guide', [PublicController::class, 'guide'])->name('guide');
+Route::get('/guide/families', [PublicController::class, 'guideFamilies'])->name('guide.families');
+Route::get('/guide/providers', [PublicController::class, 'guideProviders'])->name('guide.providers');
+Route::get('/guide/faq', [PublicController::class, 'guideFaq'])->name('guide.faq');
+
+// Blog (public)
+Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');
+Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.show');
+
+// Community (public browse, auth to post/comment/like)
+Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
+Route::get('/community/{post}', [CommunityController::class, 'show'])->name('community.show');
+Route::middleware('auth')->group(function () {
+    Route::get('/community/create', [CommunityController::class, 'create'])->name('community.create');
+    Route::post('/community', [CommunityController::class, 'store'])->name('community.store');
+    Route::get('/community/{post}/edit', [CommunityController::class, 'edit'])->name('community.edit');
+    Route::put('/community/{post}', [CommunityController::class, 'update'])->name('community.update');
+    Route::delete('/community/{post}', [CommunityController::class, 'destroy'])->name('community.destroy');
+    Route::post('/community/{post}/comments', [CommunityController::class, 'storeComment'])->name('community.comments.store');
+    Route::delete('/community/comments/{comment}', [CommunityController::class, 'destroyComment'])->name('community.comments.destroy');
+    Route::post('/community/{post}/like', [CommunityController::class, 'toggleLike'])->name('community.like');
+    Route::get('/community/notifications', [CommunityController::class, 'notifications'])->name('community.notifications');
+    Route::patch('/community/{post}/pin', [CommunityController::class, 'pinToggle'])->name('community.pin');
+    Route::patch('/community/{post}/lock', [CommunityController::class, 'lockToggle'])->name('community.lock');
+});
+
 Route::get('/api/providers', [PublicController::class, 'apiProviders'])->name('api.providers');
 
 // Role-based dashboard redirect (used by Breeze after login)
@@ -81,6 +110,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/reviews/{review}/approve', [AdminReviewController::class, 'approve'])->name('reviews.approve');
     Route::patch('/reviews/{review}/reject',  [AdminReviewController::class, 'reject'])->name('reviews.reject');
     Route::patch('/settings', [AdminDashboardController::class, 'updateSettings'])->name('settings.update');
+    Route::resource('/blog', AdminBlogController::class)->names('blog');
 });
 
 require __DIR__ . '/auth.php';
