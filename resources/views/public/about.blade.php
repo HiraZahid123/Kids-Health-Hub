@@ -39,8 +39,8 @@
 
             {{-- Right: logo / kite --}}
             <div class="flex-shrink-0 flex flex-col items-center">
-                @if(file_exists(public_path('images/logo.png')))
-                    <img src="{{ asset('images/logo.png') }}" alt="Kids Health Hub" class="w-56 h-auto drop-shadow-md">
+                @if(file_exists(public_path('images/logo.svg')))
+                    <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="w-56 h-auto drop-shadow-md">
                 @else
                     <div class="w-48 h-48 rounded-3xl flex items-center justify-center shadow-lg" style="background:linear-gradient(135deg,#98e762 0%,#0dc066 100%);">
                         <span class="text-8xl">🪁</span>

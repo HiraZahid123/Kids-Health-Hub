@@ -9,10 +9,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
     @stack('head')
     <style>
         body { font-family: 'Nunito', sans-serif; }
+        .font-hand { font-family: 'Caveat', cursive; }
         .hero-pattern {
             background-color: #f9fef5;
             background-image:
@@ -34,21 +35,21 @@
 <body class="antialiased bg-white text-gray-800">
 
 <!-- Top announcement bar -->
-<div style="background-color:#0dc066;" class="text-white text-center text-xs py-2 px-4 font-semibold tracking-wide">
+<div style="background: linear-gradient(90deg, #de6148, #f3ce66, #0dc066, #79a2cc);" class="text-white text-center text-sm py-2.5 px-4 font-bold tracking-wide shadow-sm">
     Australia's trusted child healthcare directory &mdash; <a href="{{ route('register') }}" class="underline hover:no-underline ml-1">List your practice free →</a>
 </div>
 
 <!-- Navigation -->
-<header class="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm" x-data="{ mobileOpen: false }">
+<header class="bg-white border-b-2 sticky top-0 z-50 shadow-md transition-all duration-300" style="border-bottom-color: #f3ce66;" x-data="{ mobileOpen: false }">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
+        <div class="flex items-center justify-between py-3">
 
             <!-- Logo -->
-            <a href="{{ route('home') }}" class="flex items-center gap-2 flex-shrink-0">
-                @if(file_exists(public_path('images/logo.png')))
-                    <img src="{{ asset('images/logo.png') }}" alt="Kids Health Hub" class="h-11 w-auto">
+            <a href="{{ route('home') }}" class="flex items-center gap-3 flex-shrink-0 transition-transform hover:scale-105">
+                @if(file_exists(public_path('images/logo.svg')))
+                    <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="h-20 w-auto drop-shadow-sm">
                 @else
-                    <div class="relative w-10 h-10 flex-shrink-0">
+                    <div class="relative w-12 h-12 flex-shrink-0">
                         <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="20" cy="20" r="20" fill="#0dc066"/>
                             <path d="M20 30C20 30 9 23 9 15.5C9 12.46 11.46 10 14.5 10C16.17 10 17.67 10.76 18.69 11.96C18.85 12.15 19.15 12.15 19.31 11.96C20.33 10.76 21.83 10 23.5 10C26.54 10 29 12.46 29 15.5C29 23 20 30 20 30Z" fill="white"/>
@@ -56,46 +57,45 @@
                         </svg>
                     </div>
                     <div>
-                        <div class="font-black text-gray-900 text-base leading-tight tracking-tight">Kids Health Hub</div>
-                        <div class="text-xs font-semibold leading-none" style="color:#0dc066;">Child Healthcare Directory</div>
+                        <div class="font-black text-gray-900 text-lg leading-tight tracking-tight">Kids Health Hub</div>
+                        <div class="text-sm font-semibold leading-none" style="color:#de6148;">Child Healthcare Directory</div>
                     </div>
                 @endif
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden lg:flex items-center gap-0.5">
-                <a href="{{ route('providers.index') }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">Find Providers</a>
-                <a href="{{ route('telehealth') }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">Telehealth</a>
-                <a href="{{ route('providers.index', ['available' => 1]) }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">Available Now</a>
-                <a href="{{ route('blog.index') }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">Blog</a>
-                <a href="{{ route('community.index') }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">Community</a>
-                <a href="{{ route('about') }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">About</a>
-                <a href="{{ route('guide') }}" class="px-3 py-2 text-sm font-semibold text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-colors">Help</a>
+            <nav class="hidden lg:flex items-center gap-1">
+                <a href="{{ route('providers.index') }}" class="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-sm transition-all" onmouseover="this.style.backgroundColor='#f3ce66'; this.style.color='#1f2937';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Find Providers</a>
+                <a href="{{ route('telehealth') }}" class="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-sm transition-all" onmouseover="this.style.backgroundColor='#79a2cc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Telehealth</a>
+                <a href="{{ route('providers.index', ['available' => 1]) }}" class="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-sm transition-all" onmouseover="this.style.backgroundColor='#0dc066'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Available Now</a>
+                <a href="{{ route('blog.index') }}" class="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-sm transition-all" onmouseover="this.style.backgroundColor='#e64738'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Blog</a>
+                <a href="{{ route('community.index') }}" class="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-sm transition-all" onmouseover="this.style.backgroundColor='#a8cf77'; this.style.color='#1f2937';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Community</a>
+                <a href="{{ route('about') }}" class="px-4 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-sm transition-all" onmouseover="this.style.backgroundColor='#e78572'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">About</a>
             </nav>
 
             <!-- Desktop CTAs -->
-            <div class="hidden lg:flex items-center gap-2">
+            <div class="hidden lg:flex items-center gap-3">
                 @guest
-                    <a href="{{ route('login') }}" class="text-sm font-semibold text-gray-600 hover:text-gray-900 px-3 py-2 transition-colors">Sign in</a>
-                    <a href="{{ route('register.family') }}" class="text-sm font-semibold border-2 px-4 py-2 rounded-xl transition-colors" style="color:#79a2cc; border-color:#79a2cc;" onmouseover="this.style.backgroundColor='#f0f6ff'" onmouseout="this.style.backgroundColor='transparent'">Join as Family</a>
-                    <a href="{{ route('register') }}" class="text-sm font-bold text-white khh-btn-coral px-5 py-2.5 rounded-xl transition-colors shadow-sm">List Your Practice</a>
+                    <a href="{{ route('login') }}" class="text-sm font-bold text-gray-700 hover:text-gray-900 px-2 py-2 transition-colors">Sign in</a>
+                    <a href="{{ route('register.family') }}" class="text-sm font-bold border-2 px-5 py-2 rounded-sm transition-colors" style="color:#79a2cc; border-color:#79a2cc;" onmouseover="this.style.backgroundColor='#79a2cc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#79a2cc';">Join as Family</a>
+                    <a href="{{ route('register') }}" class="text-sm font-bold text-white px-6 py-2.5 rounded-sm transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5" style="background-color:#de6148;" onmouseover="this.style.backgroundColor='#e64738';" onmouseout="this.style.backgroundColor='#de6148';">List Your Practice</a>
                 @else
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 px-5 py-2.5 rounded-xl transition-colors">Admin Panel</a>
+                        <a href="{{ route('admin.dashboard') }}" class="text-sm font-bold text-white bg-gray-800 hover:bg-black px-6 py-2.5 rounded-sm transition-colors shadow-md">Admin Panel</a>
                     @elseif(auth()->user()->isFamily())
-                        <a href="{{ route('family.dashboard') }}" class="text-sm font-bold text-white khh-btn-blue px-5 py-2.5 rounded-xl transition-colors">My Account</a>
+                        <a href="{{ route('family.dashboard') }}" class="text-sm font-bold text-white px-6 py-2.5 rounded-sm transition-colors shadow-md" style="background-color:#79a2cc;" onmouseover="this.style.backgroundColor='#6892bc';" onmouseout="this.style.backgroundColor='#79a2cc';">My Account</a>
                     @else
-                        <a href="{{ route('provider.dashboard') }}" class="text-sm font-bold text-white khh-btn-primary px-5 py-2.5 rounded-xl transition-colors">My Dashboard</a>
+                        <a href="{{ route('provider.dashboard') }}" class="text-sm font-bold text-white px-6 py-2.5 rounded-sm transition-colors shadow-md" style="background-color:#0dc066;" onmouseover="this.style.backgroundColor='#0ca155';" onmouseout="this.style.backgroundColor='#0dc066';">My Dashboard</a>
                     @endif
                 @endguest
             </div>
 
             <!-- Mobile toggle -->
-            <button @click="mobileOpen = !mobileOpen" class="lg:hidden p-2 rounded-lg text-gray-500 hover:bg-gray-100">
-                <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button @click="mobileOpen = !mobileOpen" class="lg:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-sm">
+                <svg x-show="!mobileOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                 </svg>
-                <svg x-show="mobileOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none">
+                <svg x-show="mobileOpen" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="display:none">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
@@ -103,27 +103,26 @@
     </div>
 
     <!-- Mobile menu -->
-    <div x-show="mobileOpen" x-transition class="lg:hidden border-t border-gray-100 bg-white" style="display:none">
-        <div class="px-4 py-3 space-y-1">
-            <a href="{{ route('providers.index') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Find Providers</a>
-            <a href="{{ route('telehealth') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Telehealth</a>
-            <a href="{{ route('providers.index', ['available' => 1]) }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Available Now</a>
-            <a href="{{ route('blog.index') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Blog</a>
-            <a href="{{ route('community.index') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Community</a>
-            <a href="{{ route('about') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">About</a>
-            <a href="{{ route('guide') }}" class="flex items-center gap-3 py-3 px-3 rounded-xl text-gray-700 font-semibold hover:bg-gray-50 text-sm">Help</a>
-            <div class="border-t border-gray-100 pt-2 mt-2 space-y-1">
+    <div x-show="mobileOpen" x-transition class="lg:hidden border-t-2 bg-white" style="border-color:#f3ce66; display:none">
+        <div class="px-4 py-4 space-y-2">
+            <a href="{{ route('providers.index') }}" class="block py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#fffdf7; border-left: 4px solid #f3ce66;">Find Providers</a>
+            <a href="{{ route('telehealth') }}" class="block py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#f4f8fb; border-left: 4px solid #79a2cc;">Telehealth</a>
+            <a href="{{ route('providers.index', ['available' => 1]) }}" class="block py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#f0fcf5; border-left: 4px solid #0dc066;">Available Now</a>
+            <a href="{{ route('blog.index') }}" class="block py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#fdf2f1; border-left: 4px solid #e64738;">Blog</a>
+            <a href="{{ route('community.index') }}" class="block py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#f8fcf3; border-left: 4px solid #a8cf77;">Community</a>
+            <a href="{{ route('about') }}" class="block py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#fdf5f3; border-left: 4px solid #e78572;">About</a>
+            <div class="border-t border-gray-200 pt-4 mt-4 space-y-3">
                 @guest
-                    <a href="{{ route('login') }}" class="block py-3 px-3 text-gray-700 font-semibold text-sm">Sign In</a>
-                    <a href="{{ route('register.family') }}" class="block py-3 px-3 font-bold text-sm" style="color:#79a2cc;">Join as a Family</a>
-                    <a href="{{ route('register') }}" class="block py-3 px-3 font-bold text-sm" style="color:#de6148;">List Your Practice</a>
+                    <a href="{{ route('login') }}" class="block py-3 px-4 text-gray-800 font-bold bg-gray-50 rounded-sm">Sign In</a>
+                    <a href="{{ route('register.family') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center shadow-sm" style="background-color:#79a2cc;">Join as a Family</a>
+                    <a href="{{ route('register') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center shadow-sm" style="background-color:#de6148;">List Your Practice</a>
                 @else
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="block py-3 px-3 text-violet-700 font-bold text-sm">Admin Panel</a>
+                        <a href="{{ route('admin.dashboard') }}" class="block py-3 px-4 text-white font-bold bg-gray-800 rounded-sm text-center">Admin Panel</a>
                     @elseif(auth()->user()->isFamily())
-                        <a href="{{ route('family.dashboard') }}" class="block py-3 px-3 font-bold text-sm" style="color:#79a2cc;">My Account</a>
+                        <a href="{{ route('family.dashboard') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center" style="background-color:#79a2cc;">My Account</a>
                     @else
-                        <a href="{{ route('provider.dashboard') }}" class="block py-3 px-3 font-bold text-sm" style="color:#0dc066;">My Dashboard</a>
+                        <a href="{{ route('provider.dashboard') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center" style="background-color:#0dc066;">My Dashboard</a>
                     @endif
                 @endguest
             </div>
@@ -152,14 +151,14 @@
 @yield('content')
 
 <!-- Founder Story Strip (above footer) -->
-<div style="background: linear-gradient(135deg, #fef9ec 0%, #f0fdf4 50%, #eff6ff 100%);" class="border-t border-gray-100">
+<div style="background:#fef9f3;" class="border-t border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div class="flex flex-col lg:flex-row items-center gap-10">
 
             {{-- Kite / brand illustration --}}
             <div class="flex-shrink-0 flex flex-col items-center">
-                @if(file_exists(public_path('images/logo.png')))
-                    <img src="{{ asset('images/logo.png') }}" alt="Kids Health Hub" class="w-40 h-auto drop-shadow-sm">
+                @if(file_exists(public_path('images/logo.svg')))
+                    <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="w-40 h-auto drop-shadow-sm">
                 @else
                     <div class="w-28 h-28 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#98e762,#0dc066);">
                         <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
@@ -180,12 +179,12 @@
                     <span class="text-xs font-black uppercase tracking-widest" style="color:#de6148;">Our Story</span>
                     <span class="flex-1 h-px w-12" style="background:#de6148; opacity:0.3;"></span>
                 </div>
-                <blockquote class="text-lg sm:text-xl font-semibold text-gray-700 leading-relaxed mb-5">
+                <blockquote class="font-hand text-2xl sm:text-3xl text-gray-700 leading-relaxed mb-5" style="line-height:1.4;">
                     "Kids Health Hub was created by a Speech Pathologist and mum who has experienced
                     firsthand the challenges of attending multiple appointments and navigating the process
                     of finding the right support. My goal is to help close the gap between families and
                     suitable providers by making access to services
-                    <span class="font-black" style="color:#0dc066;">simpler, faster, and easier to navigate.</span>"
+                    <span style="color:#0dc066;">simpler, faster, and easier to navigate.</span>"
                 </blockquote>
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm" style="background:linear-gradient(135deg,#de6148,#fcc333);">A</div>
@@ -209,8 +208,8 @@
 
             <div class="md:col-span-2">
                 <div class="flex items-center gap-2.5 mb-4">
-                    @if(file_exists(public_path('images/logo.png')))
-                        <img src="{{ asset('images/logo.png') }}" alt="Kids Health Hub" class="h-12 w-auto">
+                    @if(file_exists(public_path('images/logo.svg')))
+                        <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="h-12 w-auto">
                     @else
                         <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#0dc066;">
                             <svg class="w-5 h-5" viewBox="0 0 28 28" fill="none">
