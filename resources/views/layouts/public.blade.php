@@ -12,6 +12,19 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
     @stack('head')
     <style>
+        :root {
+            --khh-coral: #de6148;
+            --khh-soft-gold: #f3ce66;
+            --khh-sky: #79a2cc;
+            --khh-green: #0dc066;
+            --khh-red: #e64738;
+            --khh-lime: #98e762;
+            --khh-gold: #fcc333;
+            --khh-peach: #e78572;
+            --khh-sage: #a8cf77;
+            --khh-ink: #1f2937;
+            --khh-paper: #fffaf3;
+        }
         body { font-family: 'Nunito', sans-serif; }
         .font-hand { font-family: 'Caveat', cursive; }
         .hero-pattern {
@@ -30,6 +43,120 @@
         .khh-btn-coral:hover { background-color: #cc5038; }
         .khh-btn-blue { background-color: #79a2cc; }
         .khh-btn-blue:hover { background-color: #6490bb; }
+        .khh-hero-shell {
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(255,250,243,0.95) 0%, rgba(255,250,243,1) 100%);
+        }
+        .khh-hero-stage {
+            position: relative;
+            min-height: clamp(520px, 66vh, 700px);
+            border-radius: 28px;
+            overflow: hidden;
+            background-color: #f7efe4;
+            box-shadow: 0 24px 70px rgba(31, 41, 55, 0.12);
+        }
+        .khh-hero-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+        .khh-hero-overlay {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, rgba(255,250,243,0.98) 0%, rgba(255,250,243,0.92) 34%, rgba(255,250,243,0.54) 58%, rgba(255,250,243,0.12) 78%, rgba(255,250,243,0.04) 100%);
+        }
+        .khh-hero-stripes {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: grid;
+            grid-template-columns: 1.15fr 0.9fr 0.7fr 1fr 0.8fr;
+            height: 12px;
+        }
+        .khh-hero-stripes span:nth-child(1) { background: var(--khh-coral); }
+        .khh-hero-stripes span:nth-child(2) { background: var(--khh-gold); }
+        .khh-hero-stripes span:nth-child(3) { background: var(--khh-sky); }
+        .khh-hero-stripes span:nth-child(4) { background: var(--khh-green); }
+        .khh-hero-stripes span:nth-child(5) { background: var(--khh-sage); }
+        .khh-hero-panel {
+            background: rgba(255, 250, 243, 0.88);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.55);
+        }
+        .khh-hero-search {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 18px 45px rgba(31, 41, 55, 0.12);
+        }
+        .khh-speciality-shell {
+            position: relative;
+            overflow: hidden;
+            background:
+                linear-gradient(180deg, rgba(255,253,247,1) 0%, rgba(255,249,240,1) 100%);
+        }
+        .khh-speciality-board {
+            position: relative;
+            border-radius: 30px;
+            padding: 1.5rem;
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,250,243,0.98) 100%);
+            box-shadow: 0 22px 55px rgba(31, 41, 55, 0.08);
+        }
+        .khh-speciality-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            box-shadow: 0 14px 30px rgba(31, 41, 55, 0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .khh-speciality-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 22px 38px rgba(31, 41, 55, 0.12);
+        }
+        .khh-speciality-card::after {
+            content: "";
+            position: absolute;
+            right: -18px;
+            bottom: -18px;
+            width: 88px;
+            height: 88px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.24);
+        }
+        .khh-speciality-feature {
+            min-height: 100%;
+            border-radius: 26px;
+            box-shadow: 0 18px 36px rgba(31, 41, 55, 0.08);
+        }
+        .khh-speciality-grid {
+            grid-auto-rows: minmax(0, 1fr);
+        }
+        .khh-speciality-card-spotlight {
+            background:
+                linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 100%);
+            border: 1px solid rgba(255,255,255,0.24);
+        }
+        @media (max-width: 1023px) {
+            .khh-hero-stage {
+                min-height: 560px;
+                border-radius: 24px;
+            }
+            .khh-hero-overlay {
+                background:
+                    linear-gradient(180deg, rgba(255,250,243,0.94) 0%, rgba(255,250,243,0.82) 38%, rgba(255,250,243,0.32) 65%, rgba(255,250,243,0.1) 100%);
+            }
+            .khh-speciality-board {
+                border-radius: 24px;
+                padding: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body class="antialiased bg-white text-gray-800">
@@ -151,53 +278,51 @@
 @yield('content')
 
 <!-- Founder Story Strip (above footer) -->
-<div style="background:#fef9f3;" class="border-t border-gray-100">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div class="flex flex-col lg:flex-row items-center gap-10">
-
-            {{-- Kite / brand illustration --}}
-            <div class="flex-shrink-0 flex flex-col items-center">
-                @if(file_exists(public_path('images/logo.svg')))
-                    <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="w-40 h-auto drop-shadow-sm">
-                @else
-                    <div class="w-28 h-28 rounded-full flex items-center justify-center" style="background:linear-gradient(135deg,#98e762,#0dc066);">
-                        <svg class="w-14 h-14 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    </div>
-                @endif
-                <div class="mt-4 flex gap-2">
-                    <span class="w-3 h-3 rounded-full" style="background:#de6148;"></span>
-                    <span class="w-3 h-3 rounded-full" style="background:#fcc333;"></span>
-                    <span class="w-3 h-3 rounded-full" style="background:#0dc066;"></span>
-                    <span class="w-3 h-3 rounded-full" style="background:#79a2cc;"></span>
-                    <span class="w-3 h-3 rounded-full" style="background:#a8cf77;"></span>
-                </div>
+<section class="border-t border-gray-100" style="background:#fff8f0;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="overflow-hidden bg-white shadow-sm">
+            <div class="grid h-2 grid-cols-5">
+                <span style="background:#de6148;"></span>
+                <span style="background:#fcc333;"></span>
+                <span style="background:#79a2cc;"></span>
+                <span style="background:#0dc066;"></span>
+                <span style="background:#a8cf77;"></span>
             </div>
-
-            {{-- Quote --}}
-            <div class="flex-1 max-w-2xl">
-                <div class="inline-flex items-center gap-2 mb-4">
-                    <span class="text-xs font-black uppercase tracking-widest" style="color:#de6148;">Our Story</span>
-                    <span class="flex-1 h-px w-12" style="background:#de6148; opacity:0.3;"></span>
+            <div class="grid gap-6 p-6 sm:p-8 lg:grid-cols-[210px_minmax(0,1fr)_220px] lg:items-center">
+                <div class="relative min-h-[190px] overflow-hidden" style="background:linear-gradient(180deg,#fff0ea 0%,#fff8f0 100%);">
+                    @if(file_exists(public_path('images/annika.svg')))
+                        <img src="{{ asset('images/annika.svg') }}" alt="Annika" class="absolute bottom-0 left-1/2 h-[96%] w-[96%] -translate-x-1/2 object-contain object-bottom">
+                    @elseif(file_exists(public_path('images/logo.svg')))
+                        <div class="flex h-full items-center justify-center p-6">
+                            <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="h-16 w-auto">
+                        </div>
+                    @endif
                 </div>
-                <blockquote class="font-hand text-2xl sm:text-3xl text-gray-700 leading-relaxed mb-5" style="line-height:1.4;">
-                    "Kids Health Hub was created by a Speech Pathologist and mum who has experienced
-                    firsthand the challenges of attending multiple appointments and navigating the process
-                    of finding the right support. My goal is to help close the gap between families and
-                    suitable providers by making access to services
-                    <span style="color:#0dc066;">simpler, faster, and easier to navigate.</span>"
-                </blockquote>
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm" style="background:linear-gradient(135deg,#de6148,#fcc333);">A</div>
-                    <div>
-                        <div class="font-black text-gray-900 text-sm">Annika</div>
-                        <div class="text-xs text-gray-500">Founder · Speech Pathologist · Mum of three</div>
+
+                <div>
+                    <p class="text-xs font-black uppercase tracking-[0.18em]" style="color:#de6148;">Our Story</p>
+                    <h3 class="mt-3 text-2xl font-black leading-tight text-gray-900 sm:text-3xl">Created from lived clinical and parent experience.</h3>
+                    <blockquote class="mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 sm:text-lg">
+                        Kids Health Hub helps close the gap between families and suitable providers by making access to services
+                        <span style="color:#0dc066;">simpler, faster, and easier to navigate.</span>
+                    </blockquote>
+                </div>
+
+                <div class="flex flex-col gap-4 lg:items-end">
+                    <div class="grid w-full grid-cols-2 gap-2 lg:w-40">
+                        <span class="h-10" style="background:#de6148;"></span>
+                        <span class="h-10" style="background:#fcc333;"></span>
+                        <span class="h-10" style="background:#79a2cc;"></span>
+                        <span class="h-10" style="background:#0dc066;"></span>
                     </div>
-                    <a href="{{ route('about') }}" class="ml-auto text-sm font-bold hover:underline" style="color:#de6148;">Read our story →</a>
+                    <a href="{{ route('about') }}" class="inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-black text-white shadow-sm khh-btn-coral">
+                        Read Annika's Story
+                    </a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 <!-- Footer -->
 <footer class="text-gray-300" style="background-color:#1a1a2e;">

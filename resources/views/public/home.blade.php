@@ -7,143 +7,255 @@
 <!-- ═══════════════════════════════════════════════════
      HERO — asymmetric, warm, human
 ════════════════════════════════════════════════════ -->
-<section style="background:#fef9f3;" class="relative overflow-hidden pt-14 pb-0 lg:pt-20">
+<section class="khh-hero-shell pt-6 pb-0 lg:pt-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-16">
+        <div class="khh-hero-stage">
+            @if(file_exists(public_path('images/hero.jpg')) || file_exists(public_path('images/hero.png')))
+                <img
+                    src="{{ asset('images/hero.'.(file_exists(public_path('images/hero.jpg')) ? 'jpg' : 'png')) }}"
+                    alt="Children playing outside Kids Health Hub"
+                    class="khh-hero-image"
+                >
+            @endif
 
-            {{-- LEFT: text + search --}}
-            <div class="flex-1 pb-10 lg:pb-16">
+            <div class="khh-hero-overlay"></div>
 
-                {{-- Handwritten label --}}
-                <p class="font-hand text-2xl mb-3" style="color:#de6148;">Australia's child healthcare directory</p>
-
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight mb-5 tracking-tight">
-                    {{ $heroTitle }}
-                </h1>
-                <p class="text-lg text-gray-500 max-w-xl leading-relaxed mb-8">
-                    {{ $heroSubtitle }}
-                </p>
-
-                {{-- Search bar --}}
-                <form action="{{ route('providers.index') }}" method="GET" class="mb-7 max-w-xl">
-                    <div class="flex flex-col sm:flex-row gap-0 bg-white border-2 rounded-2xl shadow-md overflow-hidden" style="border-color:#a8cf77;">
-                        <div class="flex items-center gap-3 flex-1 px-5">
-                            <svg class="w-5 h-5 flex-shrink-0" style="color:#a8cf77;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                            </svg>
-                            <input type="text" name="search"
-                                placeholder="Suburb, postcode, or provider name..."
-                                class="flex-1 py-4 text-gray-800 placeholder-gray-400 bg-transparent outline-none text-base font-medium border-0 focus:ring-0"
-                                value="{{ request('search') }}">
+            <div class="relative z-10 flex h-full min-h-[inherit] flex-col justify-between p-4 sm:p-6 lg:p-8">
+                <div class="grid gap-6 lg:grid-cols-[minmax(0,1.04fr)_300px] lg:items-start">
+                    <div class="max-w-2xl pt-1 lg:pt-4">
+                        <div class="mb-4 inline-flex items-center gap-3 rounded-full border border-white/70 bg-white/78 px-4 py-2 text-xs sm:text-sm font-extrabold text-gray-700 shadow-sm backdrop-blur">
+                            <span class="inline-flex h-2.5 w-2.5 rounded-full" style="background:var(--khh-coral);"></span>
+                            Thoughtful support for families looking for care
                         </div>
-                        <div class="hidden sm:block w-px my-3" style="background:#e3f0d8;"></div>
-                        <div class="flex items-center px-4 sm:px-3">
-                            <select name="category" class="py-4 text-sm text-gray-600 bg-transparent outline-none border-0 focus:ring-0 font-semibold pr-2 cursor-pointer">
-                                <option value="">All Services</option>
-                                @foreach($categories as $cat)
-                                    <option value="{{ $cat->slug }}">{{ $cat->name }}</option>
-                                @endforeach
-                            </select>
+
+                        <div class="mb-3 flex items-center gap-4">
+                            @if(file_exists(public_path('images/logo.svg')))
+                                <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub logo" class="h-14 w-auto sm:h-16">
+                            @endif
+                            <div class="hidden h-12 w-px bg-white/70 sm:block"></div>
+                            <p class="hidden max-w-[15rem] text-sm font-bold uppercase tracking-[0.16em] text-gray-700 sm:block">
+                                Bright, local, family-first child health directory
+                            </p>
                         </div>
-                        <button type="submit" class="m-2 text-white font-bold px-7 py-3.5 rounded-xl transition-colors text-sm whitespace-nowrap khh-btn-primary">
-                            Search
-                        </button>
+
+                        <h1 class="max-w-3xl text-4xl font-black leading-[1.02] text-gray-900 sm:text-5xl lg:text-[3.45rem]">
+                            {{ $heroTitle }}
+                        </h1>
+                        <p class="mt-4 max-w-xl text-sm leading-6 text-gray-700 sm:text-base sm:leading-7">
+                            {{ $heroSubtitle }}
+                        </p>
+
+                        <div class="mt-5 flex flex-wrap gap-3">
+                            <button id="btn-near-me-home" class="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black text-white shadow-md transition-colors khh-btn-coral">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                Search Near Me
+                            </button>
+                            <a href="{{ route('providers.index', ['available' => 1]) }}" class="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black text-gray-900 shadow-sm transition-colors" style="background:rgba(243,206,102,0.92);">
+                                <span class="h-2 w-2 rounded-full bg-white"></span>
+                                Available Now
+                            </a>
+                            <a href="{{ route('telehealth') }}" class="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black text-white shadow-sm transition-colors khh-btn-blue">
+                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14"/></svg>
+                                Telehealth
+                            </a>
+                        </div>
+                        <p id="geo-status-home" class="mt-3 hidden text-sm text-gray-600"></p>
                     </div>
-                </form>
 
-                {{-- Quick links — 3 only --}}
-                <div class="flex flex-wrap gap-2">
-                    <button id="btn-near-me-home" class="inline-flex items-center gap-1.5 text-xs font-bold text-white px-4 py-2 rounded-full shadow-sm transition-colors khh-btn-coral">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                        Near Me
-                    </button>
-                    <a href="{{ route('providers.index', ['available' => 1]) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-white px-4 py-2 rounded-full shadow-sm transition-colors khh-btn-primary">
-                        <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
-                        Available Now
-                    </a>
-                    <a href="{{ route('telehealth') }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-white px-4 py-2 rounded-full shadow-sm khh-btn-blue">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14"/></svg>
-                        Telehealth
-                    </a>
+                    <div class="self-start lg:justify-self-end">
+                        <div class="khh-hero-panel max-w-sm rounded-[26px] p-4 shadow-lg">
+                            <div class="mb-3 flex items-start justify-between gap-4">
+                                <div>
+                                    <p class="text-xs font-black uppercase tracking-[0.18em]" style="color:var(--khh-coral);">Why Families Start Here</p>
+                                    <h2 class="mt-2 text-xl font-black text-gray-900">Clear options, less overwhelm</h2>
+                                </div>
+                                <div class="hidden h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl sm:flex" style="background:rgba(121,162,204,0.14); color:var(--khh-sky);">
+                                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                                </div>
+                            </div>
+
+                            <div class="space-y-2.5">
+                                <div class="flex items-start gap-3 rounded-2xl px-4 py-3" style="background:rgba(255,255,255,0.72);">
+                                    <span class="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full" style="background:var(--khh-green);"></span>
+                                    <div>
+                                        <p class="text-sm font-black text-gray-900">Verified local providers</p>
+                                        <p class="mt-1 text-xs sm:text-sm leading-5 text-gray-600">Speech, OT, psychology, paediatrics and more in one place.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 rounded-2xl px-4 py-3" style="background:rgba(255,255,255,0.72);">
+                                    <span class="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full" style="background:var(--khh-gold);"></span>
+                                    <div>
+                                        <p class="text-sm font-black text-gray-900">Filters that reflect real needs</p>
+                                        <p class="mt-1 text-xs sm:text-sm leading-5 text-gray-600">Search by area, telehealth, availability and service type without guesswork.</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3 rounded-2xl px-4 py-3" style="background:rgba(255,255,255,0.72);">
+                                    <span class="mt-1 h-2.5 w-2.5 flex-shrink-0 rounded-full" style="background:var(--khh-coral);"></span>
+                                    <div>
+                                        <p class="text-sm font-black text-gray-900">Built for families, not just listings</p>
+                                        <p class="mt-1 text-xs sm:text-sm leading-5 text-gray-600">A warmer starting point for a process that usually feels fragmented.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <p id="geo-status-home" class="text-sm text-gray-400 mt-3 hidden"></p>
+
+                <div class="relative z-20 mt-6 lg:mt-7">
+                    <form action="{{ route('providers.index') }}" method="GET" class="khh-hero-search rounded-[26px] border border-white/80 p-2.5 sm:p-3">
+                        <div class="grid gap-3 lg:grid-cols-[minmax(0,1.5fr)_240px_200px]">
+                            <label class="flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
+                                <svg class="h-5 w-5 flex-shrink-0" style="color:var(--khh-sage);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                                </svg>
+                                <input
+                                    type="text"
+                                    name="search"
+                                    placeholder="Suburb, postcode, or provider name"
+                                    class="w-full border-0 bg-transparent p-0 text-base font-semibold text-gray-800 placeholder:text-gray-400 focus:ring-0"
+                                    value="{{ request('search') }}"
+                                >
+                            </label>
+
+                            <label class="flex items-center gap-3 rounded-2xl bg-white px-4 py-3">
+                                <svg class="h-5 w-5 flex-shrink-0" style="color:var(--khh-sky);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                                </svg>
+                                <select name="category" class="w-full cursor-pointer border-0 bg-transparent p-0 text-sm font-bold text-gray-700 focus:ring-0">
+                                    <option value="">All Services</option>
+                                    @foreach($categories as $cat)
+                                        <option value="{{ $cat->slug }}">{{ $cat->name }}</option>
+                                    @endforeach
+                                </select>
+                            </label>
+
+                            <button type="submit" class="inline-flex items-center justify-center rounded-2xl px-6 py-3 text-sm font-black text-white shadow-md transition-colors khh-btn-primary">
+                                Find a Provider
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
-            {{-- RIGHT: image panel --}}
-            <div class="hidden lg:flex flex-col items-center flex-shrink-0 w-[380px] pb-0">
-                {{-- Decorative blobs behind image --}}
-                <div class="relative w-full">
-                    {{-- Background blob --}}
-                    <div class="absolute -top-8 -right-8 w-72 h-72 rounded-full opacity-20" style="background:#0dc066;"></div>
-                    <div class="absolute -bottom-4 -left-4 w-48 h-48 rounded-full opacity-15" style="background:#fcc333;"></div>
-
-                    @if(file_exists(public_path('images/hero.jpg')) || file_exists(public_path('images/hero.png')))
-                        <img src="{{ asset('images/hero.'.( file_exists(public_path('images/hero.jpg')) ? 'jpg' : 'png')) }}"
-                             alt="Kids healthcare" class="relative rounded-3xl w-full object-cover shadow-xl" style="height:380px;">
-                    @else
-                        {{-- Placeholder — drop an AI image here --}}
-                        <div class="relative rounded-3xl w-full flex flex-col items-center justify-center shadow-lg overflow-hidden" style="height:380px; background:#fde8e3; border:2px dashed #e78572;">
-                            <svg class="w-16 h-16 mb-4 opacity-30" style="color:#de6148;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                            <p class="font-hand text-2xl mb-1" style="color:#de6148;">image coming soon</p>
-                            <p class="text-xs text-center px-8" style="color:#e78572; opacity:.7;">Save as <code>public/images/hero.jpg</code></p>
-                            {{-- AI PROMPT: "warm watercolour illustration of an Australian mum and young child at a speech pathology session, bright cheerful clinic, pastel coral sage and sky blue tones, soft painted style, white background, no text --v 6 --ar 3:4" --}}
-                        </div>
-                    @endif
-
-                    {{-- Floating accent dots --}}
-                    <div class="absolute top-4 left-4 w-4 h-4 rounded-full shadow" style="background:#fcc333;"></div>
-                    <div class="absolute bottom-8 right-4 w-5 h-5 rounded-full shadow" style="background:#79a2cc;"></div>
-                    <div class="absolute top-1/2 -left-3 w-3 h-3 rounded-full" style="background:#de6148;"></div>
-                </div>
+            <div class="khh-hero-stripes" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
         </div>
     </div>
 
-    {{-- Wave bottom --}}
-    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" style="display:block;width:100%;height:48px;margin-top:-2px;" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" style="display:block;width:100%;height:48px;margin-top:24px;" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,28 C240,56 480,0 720,28 C960,56 1200,0 1440,28 L1440,56 L0,56 Z" fill="#fffdf7"/>
     </svg>
 </section>
-
-<!-- ═══════════════════════════════════════════════════
-     CATEGORY TILES — coloured sticky-note style
-════════════════════════════════════════════════════ -->
-<section style="background:#fffdf7;" class="pb-14 pt-4">
+<section class="khh-speciality-shell pb-12 pt-2">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-8">
-            <p class="font-hand text-2xl mb-1" style="color:#79a2cc;">find the right support</p>
-            <h2 class="text-2xl font-black text-gray-900">Browse by Speciality</h2>
-        </div>
+        <div class="khh-speciality-board">
+            <div class="mb-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+                <div class="max-w-2xl">
+                    <p class="font-hand text-2xl mb-1.5" style="color:#79a2cc;">find the right support</p>
+                    <h2 class="text-3xl sm:text-[2.6rem] font-black text-gray-900 leading-tight">Browse by Speciality</h2>
+                    <p class="mt-2 max-w-xl text-sm sm:text-base leading-6 text-gray-600">
+                        A quicker way to spot the kind of care you need without scrolling through a generic grid.
+                    </p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black text-gray-700" style="background:rgba(243,206,102,0.26);">
+                        <span class="h-2 w-2 rounded-full" style="background:#fcc333;"></span>
+                        Practical filters
+                    </span>
+                    <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black text-gray-700" style="background:rgba(13,192,102,0.16);">
+                        <span class="h-2 w-2 rounded-full" style="background:#0dc066;"></span>
+                        Family-focused care
+                    </span>
+                    <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black text-gray-700" style="background:rgba(121,162,204,0.16);">
+                        <span class="h-2 w-2 rounded-full" style="background:#79a2cc;"></span>
+                        Local and telehealth
+                    </span>
+                </div>
+            </div>
         @php
         $catMeta = [
-            'speech-pathology'     => ['icon'=>'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z', 'bg'=>'#fde8e3','color'=>'#de6148'],
-            'occupational-therapy' => ['icon'=>'M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z', 'bg'=>'#deedf7','color'=>'#79a2cc'],
-            'psychology'           => ['icon'=>'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', 'bg'=>'#fef9e3','color'=>'#c4920a'],
-            'physiotherapy'        => ['icon'=>'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 'bg'=>'#fce8e5','color'=>'#e64738'],
-            'paediatrician'        => ['icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'bg'=>'#e8f5e1','color'=>'#5a9e32'],
-            'autism-assessment'    => ['icon'=>'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'bg'=>'#e3f8ee','color'=>'#0dc066'],
-            'dietetics-nutrition'  => ['icon'=>'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z', 'bg'=>'#fef7e0','color'=>'#c4920a'],
-            'pbs'                  => ['icon'=>'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', 'bg'=>'#f5e3f7','color'=>'#a020b0'],
-            'play-therapy'         => ['icon'=>'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'bg'=>'#fff0e3','color'=>'#de6148'],
+            'speech-pathology'     => ['icon'=>'M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z', 'bg'=>'#fde8e3','color'=>'#de6148', 'note'=>'Communication and feeding support'],
+            'occupational-therapy' => ['icon'=>'M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z', 'bg'=>'#deedf7','color'=>'#79a2cc', 'note'=>'Daily living and regulation'],
+            'psychology'           => ['icon'=>'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z', 'bg'=>'#fef9e3','color'=>'#c4920a', 'note'=>'Emotions, behaviour, resilience'],
+            'physiotherapy'        => ['icon'=>'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z', 'bg'=>'#fce8e5','color'=>'#e64738', 'note'=>'Movement, strength, recovery'],
+            'paediatrician'        => ['icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'bg'=>'#e8f5e1','color'=>'#5a9e32', 'note'=>'Medical and developmental guidance'],
+            'autism-assessment'    => ['icon'=>'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'bg'=>'#e3f8ee','color'=>'#0dc066', 'note'=>'Assessment pathways and next steps'],
+            'dietetics-nutrition'  => ['icon'=>'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z', 'bg'=>'#fef7e0','color'=>'#c4920a', 'note'=>'Nutrition, growth, and feeding'],
+            'pbs'                  => ['icon'=>'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', 'bg'=>'#f5e3f7','color'=>'#a020b0', 'note'=>'Positive behaviour support'],
+            'play-therapy'         => ['icon'=>'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'bg'=>'#fff0e3','color'=>'#de6148', 'note'=>'Connection through play'],
         ];
-        $defaultMeta = ['icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','bg'=>'#e3f8ee','color'=>'#0dc066'];
-        $rotations = ['rotate-1','-rotate-1','rotate-0','-rotate-1','rotate-1','rotate-0','-rotate-1','rotate-1','rotate-0'];
+        $defaultMeta = ['icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','bg'=>'#e3f8ee','color'=>'#0dc066', 'note'=>'Trusted family-centred support'];
+        $featureCat = $categories->first();
+        $remainingCategories = $categories->slice(1);
         @endphp
-        <div class="flex flex-wrap justify-center gap-3">
-            @foreach($categories as $i => $cat)
-            @php $meta = $catMeta[$cat->slug] ?? $defaultMeta; $rot = $rotations[$i % count($rotations)]; @endphp
-            <a href="{{ route('providers.index', ['category' => $cat->slug]) }}"
-               class="card-hover group {{ $rot }} hover:rotate-0 rounded-2xl p-5 text-center transition-all duration-200 shadow-sm"
-               style="background:{{ $meta['bg'] }}; min-width:130px; max-width:160px; flex:1;">
-                <div class="w-10 h-10 rounded-xl flex items-center justify-center mx-auto mb-3 bg-white bg-opacity-60">
-                    <svg class="w-5 h-5" style="color:{{ $meta['color'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $meta['icon'] }}"/>
-                    </svg>
-                </div>
-                <p class="text-sm font-bold text-gray-800 leading-tight">{{ $cat->name }}</p>
-                <p class="text-xs mt-1 font-semibold opacity-60" style="color:{{ $meta['color'] }}">Find providers →</p>
-            </a>
-            @endforeach
+        <div class="grid gap-4 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1.48fr)]">
+            @if($featureCat)
+                @php $featureMeta = $catMeta[$featureCat->slug] ?? $defaultMeta; @endphp
+                <a href="{{ route('providers.index', ['category' => $featureCat->slug]) }}"
+                   class="khh-speciality-feature flex flex-col justify-between overflow-hidden p-6 text-left"
+                   style="background:linear-gradient(135deg, {{ $featureMeta['color'] }} 0%, {{ $featureMeta['bg'] }} 100%);">
+                    <div class="khh-speciality-card-spotlight relative -m-1 rounded-[24px] p-5">
+                        <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/80">
+                            <svg class="w-7 h-7" style="color:{{ $featureMeta['color'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $featureMeta['icon'] }}"/>
+                            </svg>
+                        </div>
+                        <p class="text-xs font-black uppercase tracking-[0.18em] text-white/90">Featured speciality</p>
+                        <h3 class="mt-3 text-3xl font-black leading-tight text-white">{{ $featureCat->name }}</h3>
+                        <p class="mt-3 max-w-sm text-sm leading-6 text-white/88">
+                            {{ $featureMeta['note'] }} with provider profiles families can actually compare.
+                        </p>
+                        <div class="mt-5 space-y-2 text-sm font-semibold text-white/88">
+                            <div class="flex items-center gap-2">
+                                <span class="h-2.5 w-2.5 rounded-full bg-white"></span>
+                                Local listings and telehealth options
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="h-2.5 w-2.5 rounded-full bg-white"></span>
+                                Filters built for real family needs
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-5 flex items-end justify-between gap-4">
+                        <span class="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-black" style="color:{{ $featureMeta['color'] }};">
+                            Explore
+                        </span>
+                        <div class="hidden text-right lg:block">
+                            <p class="text-xs font-black uppercase tracking-[0.18em] text-white/75">Start Here</p>
+                            <p class="mt-1 text-sm text-white/82">Best first stop for focused searching</p>
+                        </div>
+                    </div>
+                </a>
+            @endif
+
+            <div class="khh-speciality-grid grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                @foreach($remainingCategories as $cat)
+                    @php $meta = $catMeta[$cat->slug] ?? $defaultMeta; @endphp
+                    <a href="{{ route('providers.index', ['category' => $cat->slug]) }}"
+                       class="khh-speciality-card group flex min-h-[172px] flex-col justify-between p-5"
+                       style="background:{{ $meta['bg'] }};">
+                        <div class="relative z-10">
+                            <div class="mb-3 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/80">
+                                <svg class="w-5 h-5" style="color:{{ $meta['color'] }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $meta['icon'] }}"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-base font-black leading-tight text-gray-900">{{ $cat->name }}</h3>
+                            <p class="mt-2 text-sm leading-5 text-gray-600">{{ $meta['note'] }}</p>
+                        </div>
+                        <div class="relative z-10 mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-[0.14em]" style="color:{{ $meta['color'] }}">
+                                View providers
+                                <span aria-hidden="true">&rarr;</span>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
         </div>
     </div>
 
@@ -152,7 +264,6 @@
         <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#f3f4f6"/>
     </svg>
 </section>
-
 <!-- ═══════════════════════════════════════════════════
      MAP SECTION
 ════════════════════════════════════════════════════ -->
