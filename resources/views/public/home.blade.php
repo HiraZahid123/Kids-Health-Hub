@@ -261,52 +261,56 @@
 
     {{-- Wave down into map --}}
     <svg viewBox="0 0 1440 48" preserveAspectRatio="none" style="display:block;width:100%;height:40px;margin-top:32px;" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#f3f4f6"/>
+        <path d="M0,24 C360,48 1080,0 1440,24 L1440,48 L0,48 Z" fill="#fffaf3"/>
     </svg>
 </section>
 <!-- ═══════════════════════════════════════════════════
      MAP SECTION
 ════════════════════════════════════════════════════ -->
-<section class="bg-gray-100 pb-12 pt-4">
+<section style="background:var(--khh-paper); padding-bottom:56px; padding-top:8px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
             <div>
-                <p class="font-hand text-xl mb-0.5" style="color:#0dc066;">explore the map</p>
-                <h2 class="text-2xl font-black text-gray-900">Providers Near You</h2>
+                <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black mb-2" style="background:#e8faf1; color:#0a9e52;">
+                    <span class="h-1.5 w-1.5 rounded-full" style="background:#0dc066;"></span>
+                    Explore the map
+                </span>
+                <h2 class="text-3xl font-black text-gray-900">Providers Near You</h2>
                 <p class="text-gray-500 text-sm mt-1">Click any marker to see details and visit the provider's profile</p>
             </div>
-            <a href="{{ route('providers.index') }}"
-               class="inline-flex items-center gap-2 bg-white border-2 border-gray-200 hover:border-gray-300 text-gray-700 font-bold px-5 py-2.5 rounded-xl text-sm transition-colors flex-shrink-0 shadow-sm">
+            <a href="{{ route('providers.index') }}" class="inline-flex items-center gap-2 font-bold px-5 py-2.5 rounded-xl text-sm transition-colors flex-shrink-0" style="background:#fff; border:2px solid #e5e7eb; color:#374151; box-shadow:0 1px 6px rgba(0,0,0,0.06);">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
                 View all as list
             </a>
         </div>
-        <div id="map" class="w-full h-[420px] lg:h-[480px] rounded-3xl overflow-hidden border-2 border-white bg-gray-200 flex items-center justify-center shadow-md">
+        <div id="map" class="w-full h-[420px] lg:h-[480px] overflow-hidden bg-gray-100 flex items-center justify-center" style="border-radius:28px; border:3px solid #fff; box-shadow:0 8px 36px rgba(0,0,0,0.09);">
             <div class="text-center text-gray-400">
                 <svg class="w-10 h-10 mx-auto mb-3 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/></svg>
                 <p class="text-sm font-medium">Loading map…</p>
             </div>
         </div>
     </div>
-
-    {{-- Wave into featured --}}
-    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" style="display:block;width:100%;height:40px;margin-top:32px;" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,0 C480,48 960,0 1440,0 L1440,48 L0,48 Z" fill="white"/>
-    </svg>
 </section>
 
 <!-- ═══════════════════════════════════════════════════
      FEATURED PROVIDERS
 ════════════════════════════════════════════════════ -->
 @if($featuredProviders->isNotEmpty())
-<section class="bg-white pt-4 pb-12">
+<section style="background:var(--khh-paper); padding-top:48px; padding-bottom:48px;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-8">
             <div>
-                <p class="font-hand text-xl mb-0.5" style="color:#fcc333;">handpicked for you</p>
-                <h2 class="text-2xl font-black text-gray-900">Featured Providers</h2>
+                <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black mb-2" style="background:#fef9e7; color:#c49a00;">
+                    <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    Handpicked for you
+                </span>
+                <h2 class="text-3xl font-black text-gray-900">Featured Providers</h2>
+                <p class="mt-1 text-sm text-gray-500">Trusted practitioners recommended by our team</p>
             </div>
-            <a href="{{ route('providers.index') }}" class="text-sm font-bold hover:underline" style="color:#0dc066;">View all →</a>
+            <a href="{{ route('providers.index') }}" class="inline-flex items-center gap-1.5 text-sm font-black rounded-full px-4 py-2 transition-colors" style="background:#e8faf1; color:#0a9e52;">
+                View all
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach($featuredProviders as $provider)
@@ -320,32 +324,36 @@
 <!-- ═══════════════════════════════════════════════════
      TESTIMONIALS
 ════════════════════════════════════════════════════ -->
-<section class="py-14 overflow-hidden" style="background:#fef9f3;">
-
-    {{-- wave top --}}
-    <svg viewBox="0 0 1440 40" preserveAspectRatio="none" style="display:block;width:100%;height:32px;margin-top:-32px;margin-bottom:32px;" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,20 C360,40 1080,0 1440,20 L1440,40 L0,40 Z" fill="white"/>
-    </svg>
-
+<section style="background:var(--khh-paper); padding:56px 0;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p class="font-hand text-center text-3xl mb-8" style="color:#de6148;">what families are saying</p>
+
+        <div class="text-center mb-10">
+            <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black mb-3" style="background:#fff0ea; color:#de6148;">
+                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                What families are saying
+            </span>
+            <h2 class="text-3xl font-black text-gray-900">Real families. Real results.</h2>
+            <p class="mt-2 text-sm text-gray-500 max-w-md mx-auto">Hear from the families who found the right support through Kids Health Hub</p>
+        </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             @foreach([
-                ['quote'=>'Finding a speech pathologist close to us used to take weeks. With Kids Health Hub I found three great options in one afternoon.','name'=>'Sarah M.','suburb'=>'Brisbane, QLD','color'=>'#de6148','bg'=>'#fde8e3'],
-                ['quote'=>'We were able to filter by telehealth AND NDIS funding — that combination was impossible to search anywhere else.','name'=>'James T.','suburb'=>'Perth, WA','color'=>'#79a2cc','bg'=>'#deedf7'],
-                ['quote'=>"The founder clearly gets it. This isn't just a list, it actually makes the whole process feel less overwhelming.",'name'=>'Priya K.','suburb'=>'Melbourne, VIC','color'=>'#0dc066','bg'=>'#e3f8ee'],
+                ['quote'=>'Finding a speech pathologist close to us used to take weeks. With Kids Health Hub I found three great options in one afternoon.','name'=>'Sarah M.','suburb'=>'Brisbane, QLD','color'=>'#de6148','bg'=>'#fde8e3','accent'=>'#fde8e3'],
+                ['quote'=>'We were able to filter by telehealth AND NDIS funding — that combination was impossible to search anywhere else.','name'=>'James T.','suburb'=>'Perth, WA','color'=>'#79a2cc','bg'=>'#deedf7','accent'=>'#deedf7'],
+                ['quote'=>"The founder clearly gets it. This isn't just a list, it actually makes the whole process feel less overwhelming.",'name'=>'Priya K.','suburb'=>'Melbourne, VIC','color'=>'#0dc066','bg'=>'#e3f8ee','accent'=>'#e3f8ee'],
             ] as $t)
-            <div class="rounded-3xl p-7 shadow-sm" style="background:{{ $t['bg'] }};">
+            <div class="flex flex-col rounded-[24px] p-7 shadow-sm" style="background:{{ $t['bg'] }};">
+                {{-- Opening quote mark --}}
+                <div class="font-hand text-5xl leading-none mb-1" style="color:{{ $t['color'] }}; opacity:0.5;">"</div>
                 {{-- Stars --}}
-                <div class="flex gap-1 mb-4">
+                <div class="flex gap-1 mb-3">
                     @for($s=0;$s<5;$s++)
-                    <svg class="w-4 h-4" style="color:#fcc333;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                    <svg class="w-3.5 h-3.5" style="color:#fcc333;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                     @endfor
                 </div>
-                <p class="text-gray-700 leading-relaxed mb-5 text-sm">"{{ $t['quote'] }}"</p>
-                <div class="flex items-center gap-3 pt-4 border-t border-white border-opacity-60">
-                    <div class="w-9 h-9 rounded-full flex items-center justify-center text-white font-black text-sm" style="background:{{ $t['color'] }};">{{ substr($t['name'],0,1) }}</div>
+                <p class="text-gray-700 leading-relaxed text-sm flex-1">{{ $t['quote'] }}</p>
+                <div class="flex items-center gap-3 mt-6 pt-4" style="border-top:1px solid rgba(255,255,255,0.6);">
+                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0" style="background:{{ $t['color'] }};">{{ substr($t['name'],0,1) }}</div>
                     <div>
                         <div class="font-hand text-lg leading-tight" style="color:{{ $t['color'] }};">{{ $t['name'] }}</div>
                         <div class="text-xs text-gray-500">{{ $t['suburb'] }}</div>
@@ -360,24 +368,31 @@
 <!-- ═══════════════════════════════════════════════════
      RECENTLY LISTED
 ════════════════════════════════════════════════════ -->
-<section class="py-12" style="background:#fffdf7;">
+<section style="background:var(--khh-paper); padding:56px 0;">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-end justify-between mb-8">
             <div>
-                <p class="font-hand text-xl mb-0.5" style="color:#a8cf77;">just joined</p>
-                <h2 class="text-2xl font-black text-gray-900">Recently Listed Providers</h2>
+                <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black mb-2" style="background:#edf6e0; color:#5a8a1a;">
+                    <span class="h-1.5 w-1.5 rounded-full" style="background:#a8cf77;"></span>
+                    Just joined
+                </span>
+                <h2 class="text-3xl font-black text-gray-900">Recently Listed Providers</h2>
+                <p class="mt-1 text-sm text-gray-500">Fresh additions to the Kids Health Hub directory</p>
             </div>
-            <a href="{{ route('providers.index') }}" class="text-sm font-bold hover:underline" style="color:#0dc066;">View all →</a>
+            <a href="{{ route('providers.index') }}" class="inline-flex items-center gap-1.5 text-sm font-black rounded-full px-4 py-2 transition-colors" style="background:#e8faf1; color:#0a9e52;">
+                View all
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+            </a>
         </div>
 
         @if($recentProviders->isEmpty())
-            <div class="bg-white rounded-3xl border-2 border-dashed border-gray-200 py-20 text-center">
+            <div class="rounded-[28px] py-20 text-center" style="background:#fff; border:2px dashed #e0d9d0;">
                 <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#e3f8ee;">
                     <svg class="w-8 h-8" style="color:#0dc066;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
                 </div>
-                <h3 class="text-lg font-bold text-gray-700 mb-1">No providers listed yet</h3>
+                <h3 class="text-lg font-black text-gray-700 mb-1">No providers listed yet</h3>
                 <p class="text-gray-400 text-sm mb-6">Be the first healthcare provider to join the platform</p>
-                <a href="{{ route('register') }}" class="inline-flex items-center gap-2 text-white px-7 py-3 rounded-xl font-bold text-sm khh-btn-primary">
+                <a href="{{ route('register') }}" class="khh-btn-primary inline-flex items-center gap-2 text-white px-7 py-3 rounded-xl font-bold text-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
                     List Your Practice Free
                 </a>
@@ -393,30 +408,39 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     HOW IT WORKS — staggered, handcrafted
+     HOW IT WORKS
 ════════════════════════════════════════════════════ -->
-<section class="py-14 bg-white">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-10">
-            <p class="font-hand text-2xl mb-1" style="color:#de6148;">three easy steps</p>
-            <h2 class="text-2xl font-black text-gray-900">How Kids Health Hub Works</h2>
+<section style="background:var(--khh-paper); padding:64px 0 0;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black mb-3" style="background:#fff0ea; color:#de6148;">
+                Three easy steps
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-black text-gray-900">How Kids Health Hub Works</h2>
+            <p class="mt-3 text-base text-gray-500 max-w-md mx-auto">From search to support — simple, fast, and free for families</p>
         </div>
-        <div class="flex flex-col gap-5">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach([
-                ['num'=>'1','icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z','bg'=>'#fde8e3','color'=>'#de6148','border'=>'#de6148','rot'=>'rotate-1','title'=>'Search the directory','body'=>'Browse verified child healthcare providers by suburb, postcode, or specialty. Filter by telehealth, funding type, age group, and availability.'],
-                ['num'=>'2','icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z','bg'=>'#deedf7','color'=>'#79a2cc','border'=>'#79a2cc','rot'=>'-rotate-1','title'=>'View provider profiles','body'=>'Read detailed profiles, reviews from other families, and contact information. Save your favourites to a personal shortlist.'],
-                ['num'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','bg'=>'#e3f8ee','color'=>'#0dc066','border'=>'#0dc066','rot'=>'rotate-0','title'=>'Request an appointment','body'=>'Send appointment requests directly through the platform and communicate with providers via our secure messaging system.'],
+                ['num'=>'1','icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z','bg'=>'#fde8e3','color'=>'#de6148','title'=>'Search the directory','body'=>'Browse verified providers by suburb, postcode, or specialty. Filter by telehealth, funding type, age group, and availability in seconds.'],
+                ['num'=>'2','icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z','bg'=>'#deedf7','color'=>'#79a2cc','title'=>'View provider profiles','body'=>'Read detailed profiles with service info, age groups, wait times, and delivery options — everything you need to compare confidently.'],
+                ['num'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','bg'=>'#e3f8ee','color'=>'#0dc066','title'=>'Connect with a provider','body'=>'Use the provider\'s contact details to get in touch directly. No middleman — just a clear path to the support your child needs.'],
             ] as $step)
-            <div class="flex items-start gap-5 p-6 rounded-2xl shadow-sm {{ $step['rot'] }} hover:rotate-0 transition-transform duration-200" style="background:{{ $step['bg'] }}; border-left:4px solid {{ $step['border'] }};">
-                <div class="flex-shrink-0">
-                    <div class="font-hand text-5xl leading-none" style="color:{{ $step['color'] }};">{{ $step['num'] }}</div>
+            <div class="relative overflow-hidden rounded-[24px] p-8 flex flex-col" style="background:{{ $step['bg'] }};">
+                {{-- Ghost number --}}
+                <span class="font-hand absolute -right-1 -top-3 text-9xl font-black leading-none select-none pointer-events-none" style="color:{{ $step['color'] }}; opacity:0.10;">{{ $step['num'] }}</span>
+                {{-- Icon --}}
+                <div class="relative z-10 mb-5 flex h-12 w-12 items-center justify-center rounded-2xl" style="background:rgba(255,255,255,0.75);">
+                    <svg class="w-6 h-6" style="color:{{ $step['color'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $step['icon'] }}"/></svg>
                 </div>
-                <div>
-                    <div class="w-9 h-9 rounded-xl flex items-center justify-center mb-3 bg-white bg-opacity-70">
-                        <svg class="w-5 h-5" style="color:{{ $step['color'] }};" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="{{ $step['icon'] }}"/></svg>
-                    </div>
-                    <h3 class="font-black text-gray-900 text-base mb-1">{{ $step['title'] }}</h3>
+                <div class="relative z-10 flex-1">
+                    <h3 class="font-black text-gray-900 text-lg mb-2">{{ $step['title'] }}</h3>
                     <p class="text-sm text-gray-600 leading-relaxed">{{ $step['body'] }}</p>
+                </div>
+                <div class="relative z-10 mt-6">
+                    <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black text-white" style="background:{{ $step['color'] }};">
+                        Step {{ $step['num'] }}
+                    </span>
                 </div>
             </div>
             @endforeach
@@ -424,63 +448,101 @@
     </div>
 
     {{-- Wave into CTA --}}
-    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" style="display:block;width:100%;height:48px;margin-top:48px;" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 1440 56" preserveAspectRatio="none" style="display:block;width:100%;height:48px;margin-top:56px;" xmlns="http://www.w3.org/2000/svg">
         <path d="M0,0 C240,56 720,0 1440,28 L1440,56 L0,56 Z" fill="#de6148"/>
     </svg>
 </section>
 
 <!-- ═══════════════════════════════════════════════════
-     PROVIDER CTA — flat coral, organic
+     PROVIDER CTA
 ════════════════════════════════════════════════════ -->
-<section class="relative overflow-hidden py-14" style="background:#de6148;">
-    {{-- Decorative blob --}}
-    <svg class="absolute right-0 top-0 opacity-10 w-80 h-80 pointer-events-none" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path d="M44.7,-76.4C58.8,-69.2,71.8,-59.1,79.6,-45.8C87.4,-32.6,90,-16.3,87.9,-1.2C85.8,13.9,79.2,27.8,70.5,39.7C61.7,51.6,50.9,61.5,38.3,68.5C25.7,75.5,11,79.7,-2.4,83.3C-15.8,86.9,-31.6,90,-44.5,85.1C-57.4,80.1,-67.4,67.2,-75.2,53.1C-83,39,-88.6,23.7,-89.4,8.1C-90.3,-7.5,-86.4,-23.3,-78.8,-36.7C-71.1,-50,-59.7,-60.9,-46.5,-68.5C-33.3,-76.1,-18.5,-80.5,-1.9,-77.7C14.7,-74.9,30.6,-83.7,44.7,-76.4Z" fill="white"/>
-    </svg>
-    <svg class="absolute left-0 bottom-0 opacity-10 w-64 h-64 pointer-events-none" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-        <path d="M30.2,-52.3C38.6,-45.4,44.5,-35.7,52.8,-25.1C61.2,-14.5,72.1,-2.9,71.4,8C70.8,18.9,58.6,29.1,47.4,37.5C36.3,46,26.2,52.7,14.6,57.6C3,62.5,-10.1,65.5,-21.5,62.3C-32.9,59.1,-42.6,49.8,-50.8,39.2C-58.9,28.6,-65.4,16.8,-67.5,3.8C-69.6,-9.2,-67.4,-23.4,-60.6,-34.8C-53.8,-46.3,-42.5,-55,-30.4,-61C-18.2,-67,-9.1,-70.2,1.3,-72C11.6,-73.8,21.8,-59.2,30.2,-52.3Z" fill="white"/>
-    </svg>
+<section class="relative overflow-hidden" style="background:linear-gradient(130deg,#de6148 0%,#c94135 60%,#b83a2e 100%); min-height:500px;">
 
-    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row items-center gap-12">
-            <div class="flex-1 text-center lg:text-left">
-                <h2 class="text-3xl lg:text-4xl font-black text-white mb-4 leading-tight">
-                    Are you a child healthcare provider?
-                </h2>
-                <p class="text-lg mb-8 max-w-xl leading-relaxed" style="color:rgba(255,255,255,0.88);">
-                    Join Australian families using Kids Health Hub to find trusted practitioners. Start your free 3-month listing today.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-3 lg:justify-start justify-center">
-                    <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 bg-white font-black px-8 py-4 rounded-xl transition-colors text-sm shadow-lg hover:bg-orange-50" style="color:#de6148;">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-                        List Your Practice — It's Free
-                    </a>
-                    <a href="{{ route('login') }}" class="inline-flex items-center justify-center font-bold px-8 py-4 rounded-xl text-sm border-2 text-white transition-colors" style="background:rgba(255,255,255,0.15); border-color:rgba(255,255,255,0.4);" onmouseover="this.style.background='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.15)'">
-                        Sign In
-                    </a>
+    {{-- Dot texture --}}
+    <div class="pointer-events-none absolute inset-0 opacity-[0.05]" style="background-image:radial-gradient(circle,#fff 1px,transparent 1px); background-size:20px 20px;"></div>
+
+    <div class="relative z-10 max-w-7xl mx-auto lg:grid lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)]" style="min-height:500px;">
+
+        {{-- LEFT — text content --}}
+        <div class="flex flex-col justify-center px-8 py-16 sm:px-12 lg:px-16 lg:py-20">
+
+            <span class="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black" style="background:rgba(255,255,255,0.18); color:#fff;">
+                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                For Providers
+            </span>
+
+            <h2 class="font-black text-white leading-tight mb-4" style="font-size:clamp(2rem,3.5vw,2.9rem); letter-spacing:-0.02em;">
+                Are you a child<br>healthcare provider?
+            </h2>
+            <p class="mb-8 max-w-lg text-base leading-relaxed" style="color:rgba(255,255,255,0.82);">
+                Join Australian families already using Kids Health Hub to find trusted practitioners. List your practice today and start connecting with families who need your expertise.
+            </p>
+
+            {{-- Feature rows --}}
+            <div class="mb-8 flex flex-col gap-3">
+                @foreach([
+                    ['icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'text'=>'3-month free trial — no credit card required'],
+                    ['icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'text'=>'Full profile: services, availability & telehealth'],
+                    ['icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'text'=>'Be found by families actively searching near you'],
+                ] as $feat)
+                <div class="flex items-center gap-3">
+                    <div class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full" style="background:rgba(255,255,255,0.18);">
+                        <svg class="h-4 w-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $feat['icon'] }}"/></svg>
+                    </div>
+                    <span class="text-sm font-semibold" style="color:rgba(255,255,255,0.88);">{{ $feat['text'] }}</span>
                 </div>
-                <p class="text-xs mt-4" style="color:rgba(255,255,255,0.65);">No credit card &middot; 3-month free trial &middot; Cancel anytime</p>
+                @endforeach
             </div>
 
-            {{-- Provider image placeholder (desktop) --}}
-            <div class="hidden lg:block flex-shrink-0 w-56">
-                @if(file_exists(public_path('images/provider.jpg')) || file_exists(public_path('images/provider.png')))
-                    <img src="{{ asset('images/provider.'.( file_exists(public_path('images/provider.jpg')) ? 'jpg' : 'png')) }}"
-                         alt="Healthcare provider" class="rounded-3xl w-full shadow-xl" style="height:260px;object-fit:cover;">
-                @else
-                    <div class="rounded-3xl w-full flex flex-col items-center justify-center" style="height:260px; background:rgba(255,255,255,0.15); border:2px dashed rgba(255,255,255,0.4);">
-                        <svg class="w-10 h-10 mb-2 opacity-50 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                        <p class="font-hand text-xl text-white opacity-70">photo here</p>
-                        {{-- AI PROMPT: "friendly Australian allied health professional, warm smile, bright clinic background, candid photo, natural light, no text --v 6 --ar 3:4" --}}
-                    </div>
-                @endif
+            <div class="flex flex-col sm:flex-row gap-3">
+                <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-black shadow-lg transition-all hover:scale-[1.02]" style="color:#de6148;">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+                    List Your Practice — It's Free
+                </a>
+                <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-2xl border-2 px-7 py-3.5 text-sm font-black text-white transition-all hover:bg-white/10" style="border-color:rgba(255,255,255,0.40);">
+                    Sign In
+                </a>
+            </div>
+            <p class="mt-4 text-xs" style="color:rgba(255,255,255,0.55);">No credit card &middot; 3-month free trial &middot; Cancel anytime</p>
+        </div>
+
+        {{-- RIGHT — image panel --}}
+        <div class="relative hidden lg:block overflow-hidden">
+            {{-- Gradient bleed from left to blend into coral --}}
+            <div class="absolute inset-y-0 left-0 z-10 w-20" style="background:linear-gradient(to right, #c94135, transparent);"></div>
+
+            @if(file_exists(public_path('images/provider.jpg')) || file_exists(public_path('images/provider.png')))
+                <div class="absolute inset-0" style="background-image:url('{{ asset('images/provider.'.(file_exists(public_path('images/provider.jpg')) ? 'jpg' : 'png')) }}'); background-size:cover; background-position:center;"></div>
+            @else
+                <div class="absolute inset-0" style="background-image:url('https://source.unsplash.com/featured/800x600/?pediatrician,children,clinic'); background-size:cover; background-position:center;"></div>
+            @endif
+
+            {{-- Bottom dark fade --}}
+            <div class="absolute inset-x-0 bottom-0 h-40" style="background:linear-gradient(to top, rgba(180,55,35,0.70), transparent);"></div>
+
+            {{-- Floating trial badge --}}
+            <div class="absolute top-8 right-8 z-20 rounded-[20px] px-5 py-4 text-center" style="background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); box-shadow:0 8px 24px rgba(0,0,0,0.12);">
+                <p class="font-hand text-3xl leading-none" style="color:#de6148;">Free</p>
+                <p class="mt-0.5 text-xs font-black text-gray-700">3-month trial</p>
+            </div>
+
+            {{-- Floating families badge --}}
+            <div class="absolute bottom-8 right-8 z-20 flex items-center gap-3 rounded-2xl px-4 py-3" style="background:rgba(255,255,255,0.92); backdrop-filter:blur(12px); box-shadow:0 8px 24px rgba(0,0,0,0.10);">
+                <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl" style="background:#e3f8ee;">
+                    <svg class="h-5 w-5" style="color:#0dc066;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div>
+                    <p class="text-sm font-black text-gray-900">Families searching</p>
+                    <p class="text-xs text-gray-500">Australia-wide, every day</p>
+                </div>
             </div>
         </div>
+
     </div>
 
     {{-- Wave into Why KHH --}}
-    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" style="display:block;width:100%;height:40px;margin-top:48px;" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0,24 C480,0 960,48 1440,24 L1440,48 L0,48 Z" fill="#fef9f3"/>
+    <svg viewBox="0 0 1440 48" preserveAspectRatio="none" style="display:block;width:100%;height:40px;" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,24 C480,0 960,48 1440,24 L1440,48 L0,48 Z" fill="var(--khh-paper)"/>
     </svg>
 </section>
 

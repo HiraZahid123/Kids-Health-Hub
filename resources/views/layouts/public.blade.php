@@ -158,6 +158,7 @@
             }
         }
     </style>
+    <link rel="icon" href="{{ asset('images/logo.svg') }}" type="image/svg+xml">
 </head>
 <body class="antialiased bg-white text-gray-800">
 
@@ -278,48 +279,74 @@
 @yield('content')
 
 <!-- Founder Story Strip (above footer) -->
-<section class="border-t border-gray-100" style="background:#fff8f0;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div class="overflow-hidden bg-white shadow-sm">
-            <div class="grid h-2 grid-cols-5">
-                <span style="background:#de6148;"></span>
-                <span style="background:#fcc333;"></span>
-                <span style="background:#79a2cc;"></span>
-                <span style="background:#0dc066;"></span>
-                <span style="background:#a8cf77;"></span>
-            </div>
-            <div class="grid gap-6 p-6 sm:p-8 lg:grid-cols-[210px_minmax(0,1fr)_220px] lg:items-center">
-                <div class="relative min-h-[190px] overflow-hidden" style="background:linear-gradient(180deg,#fff0ea 0%,#fff8f0 100%);">
-                    @if(file_exists(public_path('images/annika.svg')))
-                        <img src="{{ asset('images/annika.svg') }}" alt="Annika" class="absolute bottom-0 left-1/2 h-[96%] w-[96%] -translate-x-1/2 object-contain object-bottom">
-                    @elseif(file_exists(public_path('images/logo.svg')))
-                        <div class="flex h-full items-center justify-center p-6">
-                            <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="h-16 w-auto">
-                        </div>
-                    @endif
-                </div>
+<section style="background:var(--khh-paper); padding:56px 0 64px;">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-10 lg:gap-14" style="background:#fff; border-radius:28px; padding:40px 48px; box-shadow:0 4px 32px rgba(222,97,72,0.07);">
 
-                <div>
-                    <p class="text-xs font-black uppercase tracking-[0.18em]" style="color:#de6148;">Our Story</p>
-                    <h3 class="mt-3 text-2xl font-black leading-tight text-gray-900 sm:text-3xl">Created from lived clinical and parent experience.</h3>
-                    <blockquote class="mt-4 max-w-2xl text-base font-bold leading-8 text-gray-700 sm:text-lg">
-                        Kids Health Hub helps close the gap between families and suitable providers by making access to services
-                        <span style="color:#0dc066;">simpler, faster, and easier to navigate.</span>
-                    </blockquote>
-                </div>
-
-                <div class="flex flex-col gap-4 lg:items-end">
-                    <div class="grid w-full grid-cols-2 gap-2 lg:w-40">
-                        <span class="h-10" style="background:#de6148;"></span>
-                        <span class="h-10" style="background:#fcc333;"></span>
-                        <span class="h-10" style="background:#79a2cc;"></span>
-                        <span class="h-10" style="background:#0dc066;"></span>
+            {{-- Annika photo --}}
+            <div class="flex-shrink-0 relative" style="width:200px; height:240px;">
+                <div class="absolute inset-0" style="border-radius:20px; background:radial-gradient(ellipse 80% 90% at 50% 50%, rgba(243,206,102,0.32) 0%, rgba(222,97,72,0.12) 50%, transparent 78%); filter:blur(14px);"></div>
+                @if(file_exists(public_path('images/annika.svg')))
+                    <div class="absolute inset-0" style="border-radius:20px; background-image:url('{{ asset('images/annika.svg') }}'); background-size:cover; background-position:top center;"></div>
+                @elseif(file_exists(public_path('images/annika.jpg')) || file_exists(public_path('images/annika.png')))
+                    <div class="absolute inset-0" style="border-radius:20px; background-image:url('{{ asset('images/annika.' . (file_exists(public_path('images/annika.jpg')) ? 'jpg' : 'png')) }}'); background-size:cover; background-position:top center;"></div>
+                @else
+                    <div class="absolute inset-0 flex items-center justify-center" style="border-radius:20px; background:linear-gradient(135deg,#fff0ea,#fde9c4);">
+                        <span class="font-hand text-3xl" style="color:#de6148;">A</span>
                     </div>
-                    <a href="{{ route('about') }}" class="inline-flex items-center justify-center rounded-lg px-5 py-3 text-sm font-black text-white shadow-sm khh-btn-coral">
-                        Read Annika's Story
-                    </a>
+                @endif
+            </div>
+
+            {{-- Text content --}}
+            <div class="flex-1 min-w-0">
+                <p class="text-xs font-black uppercase tracking-[0.18em] mb-2" style="color:#de6148;">Our Story</p>
+                <h3 class="text-2xl font-black leading-snug text-gray-900 sm:text-3xl mb-4" style="letter-spacing:-0.01em;">
+                    Created from lived clinical<br class="hidden sm:block"> and parent experience.
+                </h3>
+                <p class="text-base text-gray-600 leading-relaxed mb-6 max-w-xl">
+                    Annika Nilsson — paediatric OT and mum — built Kids Health Hub because finding the right support for kids shouldn't feel like a second job. We make access to services
+                    <span class="font-bold" style="color:#0dc066;">simpler, faster, and easier to navigate.</span>
+                </p>
+
+                {{-- Credential pills --}}
+                <div class="flex flex-wrap gap-2 mb-6">
+                    <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black" style="background:#fff0ea; color:#de6148;">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                        Paediatric OT
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black" style="background:#fef9e7; color:#c49a00;">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/></svg>
+                        Mum of 2
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black" style="background:#eaf4ff; color:#4a7fb5;">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                        10+ Yrs Clinical
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black" style="background:#e8faf1; color:#0a9e52;">
+                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
+                        Family Advocate
+                    </span>
+                </div>
+
+                <a href="{{ route('about') }}" class="khh-btn-coral inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-black text-white shadow-sm">
+                    Read Annika's Story
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+            </div>
+
+            {{-- Right accent quote --}}
+            <div class="hidden xl:flex flex-col items-center justify-center flex-shrink-0" style="width:180px;">
+                <div style="background:linear-gradient(135deg,#fff0ea,#fde9c4); border-radius:20px; padding:24px 20px; text-align:center;">
+                    <span class="font-hand text-4xl leading-none block mb-2" style="color:#de6148;">"</span>
+                    <p class="font-hand text-lg leading-snug" style="color:#8a5a3a;">Every child deserves the right support.</p>
+                    <div class="mt-3 flex justify-center gap-1">
+                        <span class="inline-block w-2 h-2 rounded-full" style="background:#de6148;"></span>
+                        <span class="inline-block w-2 h-2 rounded-full" style="background:#fcc333;"></span>
+                        <span class="inline-block w-2 h-2 rounded-full" style="background:#0dc066;"></span>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
