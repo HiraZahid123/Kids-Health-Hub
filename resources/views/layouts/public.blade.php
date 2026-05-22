@@ -226,13 +226,31 @@
                     <a href="{{ route('register.family') }}" class="text-sm font-bold border-2 px-5 py-2 rounded-sm transition-colors" style="color:#79a2cc; border-color:#79a2cc;" onmouseover="this.style.backgroundColor='#79a2cc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#79a2cc';">Join as Family</a>
                     <a href="{{ route('register') }}" class="text-sm font-bold text-white px-6 py-2.5 rounded-sm transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5" style="background-color:#de6148;" onmouseover="this.style.backgroundColor='#e64738';" onmouseout="this.style.backgroundColor='#de6148';">List Your Practice</a>
                 @else
-                    @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}" class="text-sm font-bold text-white bg-gray-800 hover:bg-black px-6 py-2.5 rounded-sm transition-colors shadow-md">Admin Panel</a>
-                    @elseif(auth()->user()->isFamily())
-                        <a href="{{ route('family.dashboard') }}" class="text-sm font-bold text-white px-6 py-2.5 rounded-sm transition-colors shadow-md" style="background-color:#79a2cc;" onmouseover="this.style.backgroundColor='#6892bc';" onmouseout="this.style.backgroundColor='#79a2cc';">My Account</a>
-                    @else
-                        <a href="{{ route('provider.dashboard') }}" class="text-sm font-bold text-white px-6 py-2.5 rounded-sm transition-colors shadow-md" style="background-color:#0dc066;" onmouseover="this.style.backgroundColor='#0ca155';" onmouseout="this.style.backgroundColor='#0dc066';">My Dashboard</a>
-                    @endif
+                    <div class="relative" x-data="{ userMenuOpen: false }">
+                        <button @click="userMenuOpen = !userMenuOpen" @click.away="userMenuOpen = false" class="flex items-center gap-2 text-sm font-bold text-white px-5 py-2.5 rounded-sm transition-all shadow-sm" style="background-color:#1f2937;">
+                            <span>{{ auth()->user()->name ?? 'My Account' }}</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        
+                        <div x-show="userMenuOpen" x-transition class="absolute right-0 mt-2 w-48 bg-white border border-gray-100 rounded-sm shadow-lg py-1 z-50" style="display: none;">
+                            @if(auth()->user()->isAdmin())
+                                <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Admin Panel</a>
+                            @elseif(auth()->user()->isFamily())
+                                <a href="{{ route('family.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
+                            @else
+                                <a href="{{ route('provider.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Dashboard</a>
+                            @endif
+                            
+                            @if(Route::has('profile.edit'))
+                                <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">Profile Settings</a>
+                            @endif
+                            
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-50 font-bold">Log Out</button>
+                            </form>
+                        </div>
+                    </div>
                 @endguest
             </div>
 
@@ -281,13 +299,23 @@
                     <a href="{{ route('register.family') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center shadow-sm" style="background-color:#79a2cc;">Join as a Family</a>
                     <a href="{{ route('register') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center shadow-sm" style="background-color:#de6148;">List Your Practice</a>
                 @else
+                    <div class="mb-2 px-4 text-xs font-black uppercase tracking-widest text-gray-500">Welcome, {{ auth()->user()->name ?? 'User' }}</div>
                     @if(auth()->user()->isAdmin())
                         <a href="{{ route('admin.dashboard') }}" class="block py-3 px-4 text-white font-bold bg-gray-800 rounded-sm text-center">Admin Panel</a>
                     @elseif(auth()->user()->isFamily())
-                        <a href="{{ route('family.dashboard') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center" style="background-color:#79a2cc;">My Account</a>
+                        <a href="{{ route('family.dashboard') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center" style="background-color:#79a2cc;">Dashboard</a>
                     @else
-                        <a href="{{ route('provider.dashboard') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center" style="background-color:#0dc066;">My Dashboard</a>
+                        <a href="{{ route('provider.dashboard') }}" class="block py-3 px-4 font-bold text-white rounded-sm text-center" style="background-color:#0dc066;">Dashboard</a>
                     @endif
+                    
+                    @if(Route::has('profile.edit'))
+                        <a href="{{ route('profile.edit') }}" class="block py-3 px-4 text-gray-700 font-bold bg-gray-50 rounded-sm text-center border">Profile Settings</a>
+                    @endif
+                    
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="block w-full py-3 px-4 text-red-600 font-bold bg-red-50 rounded-sm text-center border border-red-100 mt-2">Log Out</button>
+                    </form>
                 @endguest
             </div>
         </div>
