@@ -3,26 +3,6 @@
 @section('title', 'Review Moderation')
 @section('page-title', 'Review Moderation')
 
-@section('sidebar-nav')
-    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        📊 Dashboard
-    </a>
-    <a href="{{ route('admin.providers.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        🏥 Providers
-    </a>
-    <a href="{{ route('admin.subscriptions.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        💳 Subscriptions
-    </a>
-    <a href="{{ route('admin.reviews.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-50 text-purple-700 font-medium text-sm mt-1">
-        ⭐ Reviews
-        @if($pending->count() > 0)
-            <span class="ml-auto bg-rose-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">{{ $pending->count() }}</span>
-        @endif
-    </a>
-    <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-4">
-        🌐 Public Site
-    </a>
-@endsection
 
 @section('content')
 

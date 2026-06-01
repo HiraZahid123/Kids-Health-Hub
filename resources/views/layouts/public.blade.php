@@ -175,7 +175,7 @@
             <!-- Logo -->
             <a href="{{ route('home') }}" class="flex items-center gap-3 flex-shrink-0 transition-transform hover:scale-105">
                 @if(file_exists(public_path('images/logo.svg')))
-                    <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="h-20 w-auto drop-shadow-sm">
+                    <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub" class="h-28 w-auto drop-shadow-sm">
                 @else
                     <div class="relative w-12 h-12 flex-shrink-0">
                         <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,19 +193,19 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex items-center gap-0.5 xl:gap-2">
-                <a href="{{ route('about') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#e78572'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">About</a>
                 <a href="{{ route('providers.index') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#f3ce66'; this.style.color='#1f2937';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Find Providers</a>
                 <a href="{{ route('telehealth') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#79a2cc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Telehealth</a>
                 <a href="{{ route('providers.index', ['available' => 1]) }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#0dc066'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Available Now</a>
                 <a href="{{ route('community.index') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#a8cf77'; this.style.color='#1f2937';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Community</a>
                 <a href="{{ route('blog.index') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#e64738'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Blog</a>
+                <a href="{{ route('about') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#e78572'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">About</a>
             </nav>
 
             <!-- Desktop CTAs -->
             <div class="hidden lg:flex items-center gap-2">
                 @guest
                     <a href="{{ route('login') }}" class="text-sm font-bold text-gray-600 hover:text-gray-900 px-3 py-2 transition-colors rounded-full hover:bg-gray-100 whitespace-nowrap">Log In</a>
-                    <a href="{{ route('register.family') }}" class="text-sm font-bold border-2 px-4 py-2 rounded-full transition-all whitespace-nowrap" style="color:#79a2cc; border-color:#79a2cc;" onmouseover="this.style.backgroundColor='#79a2cc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#79a2cc';">Join as Family</a>
+                    <a href="{{ route('register.family') }}" class="text-sm font-bold border-2 px-4 py-2 rounded-full transition-all whitespace-nowrap" style="color:#79a2cc; border-color:#79a2cc;" onmouseover="this.style.backgroundColor='#79a2cc'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#79a2cc';">Save Providers</a>
                     <a href="{{ route('register') }}" class="text-sm font-bold text-white px-5 py-2.5 rounded-full transition-all shadow-md hover:shadow-lg transform hover:-translate-y-0.5 whitespace-nowrap" style="background-color:#de6148;" onmouseover="this.style.backgroundColor='#e64738';" onmouseout="this.style.backgroundColor='#de6148';">List Your Practice</a>
                 @else
                     <div class="relative" x-data="{ userMenuOpen: false }">
@@ -251,10 +251,6 @@
     <!-- Mobile menu -->
     <div x-show="mobileOpen" x-transition class="lg:hidden border-t-2 bg-white" style="border-color:#f3ce66; display:none">
         <div class="px-4 py-4 space-y-2">
-            <a href="{{ route('about') }}" class="flex items-center gap-2 py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#fdf5f3; border-left: 4px solid #e78572;">
-                <svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                About
-            </a>
             <a href="{{ route('providers.index') }}" class="flex items-center gap-2 py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#fffdf7; border-left: 4px solid #f3ce66;">
                 <svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                 Find Providers
@@ -275,6 +271,10 @@
                 <svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477-4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                 Blog
             </a>
+            <a href="{{ route('about') }}" class="flex items-center gap-2 py-3 px-4 rounded-sm font-bold text-gray-800" style="background-color:#fdf5f3; border-left: 4px solid #e78572;">
+                <svg class="w-5 h-5 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                About
+            </a>
             <div class="border-t border-gray-200 pt-4 mt-4 space-y-3">
                 @guest
                     <a href="{{ route('login') }}" class="flex items-center justify-center gap-2 py-3 px-4 text-gray-700 font-bold bg-gray-50 hover:bg-gray-100 rounded-full transition-colors">
@@ -283,7 +283,7 @@
                     </a>
                     <a href="{{ route('register.family') }}" class="flex items-center justify-center gap-2 py-3 px-4 font-bold text-white rounded-full text-center shadow-sm transition-colors" style="background-color:#79a2cc;">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        Join as a Family
+                        Save Providers
                     </a>
                     <a href="{{ route('register') }}" class="flex items-center justify-center gap-2 py-3 px-4 font-bold text-white rounded-full text-center shadow-sm transition-colors" style="background-color:#de6148;">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
@@ -359,7 +359,7 @@
                     Created from lived clinical<br class="hidden sm:block"> and parent experience.
                 </h3>
                 <p class="text-base text-gray-600 leading-relaxed mb-6 max-w-xl">
-                    Annika Nilsson — paediatric OT and mum — built Kids Health Hub because finding the right support for kids shouldn't feel like a second job. We make access to services
+                    Annika Nilsson - paediatric OT and mum - built Kids Health Hub because finding the right support for kids shouldn't feel like a second job. We make access to services
                     <span class="font-bold" style="color:#0dc066;">simpler, faster, and easier to navigate.</span>
                 </p>
 
@@ -428,7 +428,7 @@
                     <span class="text-white font-black text-lg tracking-tight">Kids Health Hub</span>
                 </div>
                 <p class="text-sm leading-relaxed max-w-xs mb-5" style="color:#9ca3af;">
-                    Australia's dedicated directory for paediatric healthcare — connecting families with
+                    Australia's dedicated directory for paediatric healthcare - connecting families with
                     trusted speech pathologists, occupational therapists, psychologists and more.
                 </p>
                 <div class="flex flex-wrap gap-2">

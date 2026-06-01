@@ -149,7 +149,7 @@ document.getElementById('btn-near-me').addEventListener('click', () => {
             document.getElementById('input-radius').value = document.getElementById('select-radius').value;
             document.getElementById('radius-group').classList.remove('hidden');
             document.getElementById('radius-group').classList.add('flex');
-            status.textContent = 'Location found — submitting…';
+            status.textContent = 'Location found - submitting…';
             document.getElementById('search-form').submit();
         },
         () => {

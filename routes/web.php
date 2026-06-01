@@ -111,6 +111,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/reviews/{review}/reject',  [AdminReviewController::class, 'reject'])->name('reviews.reject');
     Route::patch('/settings', [AdminDashboardController::class, 'updateSettings'])->name('settings.update');
     Route::resource('/blog', AdminBlogController::class)->names('blog');
+    Route::get('/guide', [AdminDashboardController::class, 'guide'])->name('guide');
 });
 
 require __DIR__ . '/auth.php';

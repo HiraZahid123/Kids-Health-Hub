@@ -50,7 +50,7 @@
                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                 Search Near Me
                             </button>
-                            <a href="{{ route('providers.index', ['available' => 1]) }}" class="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black text-gray-900 shadow-sm transition-colors" style="background:rgba(243,206,102,0.92);">
+                            <a href="{{ route('providers.index', ['available' => 1]) }}" class="inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-black text-white shadow-sm transition-colors" style="background:#0dc066;">
                                 <span class="h-2 w-2 rounded-full bg-white"></span>
                                 Available Now
                             </a>
@@ -186,8 +186,9 @@
             'paediatrician'        => ['icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'bg'=>'#e8f5e1','color'=>'#5a9e32', 'note'=>'Medical and developmental guidance'],
             'autism-assessment'    => ['icon'=>'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z', 'bg'=>'#e3f8ee','color'=>'#0dc066', 'note'=>'Assessment pathways and next steps'],
             'dietetics-nutrition'  => ['icon'=>'M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z', 'bg'=>'#fef7e0','color'=>'#c4920a', 'note'=>'Nutrition, growth, and feeding'],
-            'pbs'                  => ['icon'=>'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', 'bg'=>'#f5e3f7','color'=>'#a020b0', 'note'=>'Positive behaviour support'],
+            'pbs-providers'        => ['icon'=>'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4', 'bg'=>'#f5e3f7','color'=>'#a020b0', 'note'=>'Positive behaviour support'],
             'play-therapy'         => ['icon'=>'M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'bg'=>'#fff0e3','color'=>'#de6148', 'note'=>'Connection through play'],
+            'support-workers'      => ['icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z', 'bg'=>'#edf5ff','color'=>'#4a7fb5', 'note'=>'Daily support and community participation'],
         ];
         $defaultMeta = ['icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z','bg'=>'#e3f8ee','color'=>'#0dc066', 'note'=>'Trusted family-centred support'];
         $featureCat = $categories->first();
@@ -322,50 +323,6 @@
 @endif
 
 <!-- ═══════════════════════════════════════════════════
-     TESTIMONIALS
-════════════════════════════════════════════════════ -->
-<section style="background:var(--khh-paper); padding:56px 0;">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        <div class="text-center mb-10">
-            <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black mb-3" style="background:#fff0ea; color:#de6148;">
-                <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/></svg>
-                What families are saying
-            </span>
-            <h2 class="text-3xl font-black text-gray-900">Real families. Real results.</h2>
-            <p class="mt-2 text-sm text-gray-500 max-w-md mx-auto">Hear from the families who found the right support through Kids Health Hub</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            @foreach([
-                ['quote'=>'Finding a speech pathologist close to us used to take weeks. With Kids Health Hub I found three great options in one afternoon.','name'=>'Sarah M.','suburb'=>'Brisbane, QLD','color'=>'#de6148','bg'=>'#fde8e3','accent'=>'#fde8e3'],
-                ['quote'=>'We were able to filter by telehealth AND NDIS funding — that combination was impossible to search anywhere else.','name'=>'James T.','suburb'=>'Perth, WA','color'=>'#79a2cc','bg'=>'#deedf7','accent'=>'#deedf7'],
-                ['quote'=>"The founder clearly gets it. This isn't just a list, it actually makes the whole process feel less overwhelming.",'name'=>'Priya K.','suburb'=>'Melbourne, VIC','color'=>'#0dc066','bg'=>'#e3f8ee','accent'=>'#e3f8ee'],
-            ] as $t)
-            <div class="flex flex-col rounded-[24px] p-7 shadow-sm" style="background:{{ $t['bg'] }};">
-                {{-- Opening quote mark --}}
-                <div class="font-hand text-5xl leading-none mb-1" style="color:{{ $t['color'] }}; opacity:0.5;">"</div>
-                {{-- Stars --}}
-                <div class="flex gap-1 mb-3">
-                    @for($s=0;$s<5;$s++)
-                    <svg class="w-3.5 h-3.5" style="color:#fcc333;" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                    @endfor
-                </div>
-                <p class="text-gray-700 leading-relaxed text-sm flex-1">{{ $t['quote'] }}</p>
-                <div class="flex items-center gap-3 mt-6 pt-4" style="border-top:1px solid rgba(255,255,255,0.6);">
-                    <div class="w-10 h-10 rounded-full flex items-center justify-center text-white font-black text-sm flex-shrink-0" style="background:{{ $t['color'] }};">{{ substr($t['name'],0,1) }}</div>
-                    <div>
-                        <div class="font-hand text-lg leading-tight" style="color:{{ $t['color'] }};">{{ $t['name'] }}</div>
-                        <div class="text-xs text-gray-500">{{ $t['suburb'] }}</div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
-        </div>
-    </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
      RECENTLY LISTED
 ════════════════════════════════════════════════════ -->
 <section style="background:var(--khh-paper); padding:56px 0;">
@@ -417,14 +374,14 @@
                 Three easy steps
             </span>
             <h2 class="text-3xl sm:text-4xl font-black text-gray-900">How Kids Health Hub Works</h2>
-            <p class="mt-3 text-base text-gray-500 max-w-md mx-auto">From search to support — simple, fast, and free for families</p>
+            <p class="mt-3 text-base text-gray-500 max-w-md mx-auto">From search to support - simple, fast, and free for families</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             @foreach([
                 ['num'=>'1','icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z','bg'=>'#fde8e3','color'=>'#de6148','title'=>'Search the directory','body'=>'Browse verified providers by suburb, postcode, or specialty. Filter by telehealth, funding type, age group, and availability in seconds.'],
-                ['num'=>'2','icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z','bg'=>'#deedf7','color'=>'#79a2cc','title'=>'View provider profiles','body'=>'Read detailed profiles with service info, age groups, wait times, and delivery options — everything you need to compare confidently.'],
-                ['num'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','bg'=>'#e3f8ee','color'=>'#0dc066','title'=>'Connect with a provider','body'=>'Use the provider\'s contact details to get in touch directly. No middleman — just a clear path to the support your child needs.'],
+                ['num'=>'2','icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z','bg'=>'#deedf7','color'=>'#79a2cc','title'=>'View provider profiles','body'=>'Read detailed profiles with service info, age groups, wait times, and delivery options - everything you need to compare confidently.'],
+                ['num'=>'3','icon'=>'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z','bg'=>'#e3f8ee','color'=>'#0dc066','title'=>'Connect with a provider','body'=>'Use the provider\'s contact details to get in touch directly. No middleman - just a clear path to the support your child needs.'],
             ] as $step)
             <div class="relative overflow-hidden rounded-[24px] p-8 flex flex-col" style="background:{{ $step['bg'] }};">
                 {{-- Ghost number --}}
@@ -481,7 +438,7 @@
             {{-- Feature rows --}}
             <div class="mb-8 flex flex-col gap-3">
                 @foreach([
-                    ['icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'text'=>'3-month free trial — no credit card required'],
+                    ['icon'=>'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z', 'text'=>'3-month free trial - no credit card required'],
                     ['icon'=>'M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z', 'text'=>'Full profile: services, availability & telehealth'],
                     ['icon'=>'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z', 'text'=>'Be found by families actively searching near you'],
                 ] as $feat)
@@ -497,7 +454,7 @@
             <div class="flex flex-col sm:flex-row gap-3">
                 <a href="{{ route('register') }}" class="inline-flex items-center justify-center gap-2 rounded-2xl bg-white px-7 py-3.5 text-sm font-black shadow-lg transition-all hover:scale-[1.02]" style="color:#de6148;">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
-                    List Your Practice — It's Free
+                    List Your Practice - It's Free
                 </a>
                 <a href="{{ route('login') }}" class="inline-flex items-center justify-center rounded-2xl border-2 px-7 py-3.5 text-sm font-black text-white transition-all hover:bg-white/10" style="border-color:rgba(255,255,255,0.40);">
                     Sign In
@@ -569,14 +526,14 @@
                     <h3 class="text-lg font-black text-gray-900">For Families</h3>
                 </div>
                 <p class="text-gray-600 leading-relaxed mb-5 text-sm">
-                    Kids Health Hub was created to make the process simpler — bringing together paediatric and
+                    Kids Health Hub was created to make the process simpler - bringing together paediatric and
                     family-focused professionals in one easy-to-navigate space. Whether you're looking for
                     immediate availability, telehealth options, clinic-based services, or providers with
                     experience in specific areas, Kids Health Hub helps connect you with services that match
                     your child's needs.
                 </p>
                 <div class="grid grid-cols-2 gap-2">
-                    @foreach([['#0dc066','Immediate availability'],['#79a2cc','Telehealth options'],['#de6148','Specific expertise'],['#fcc333','Your local area']] as [$c,$t])
+                    @foreach([['#0dc066','Immediate availability'],['#79a2cc','Telehealth options'],['#de6148','Areas of special interest'],['#fcc333','Your local area']] as [$c,$t])
                     <div class="flex items-center gap-2 text-xs font-semibold text-gray-600">
                         <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:{{ $c }};"></span>{{ $t }}
                     </div>
@@ -594,11 +551,11 @@
                 <p class="text-gray-600 leading-relaxed mb-5 text-sm">
                     Kids Health Hub offers a practical way to increase visibility, highlight key service
                     information, and connect with families actively seeking support. Listings can showcase
-                    your areas of expertise, service delivery options, age groups supported, waitlist
-                    timeframes, locations, and more — helping families make informed decisions faster.
+                    your areas of special interest, service delivery options, age groups supported, waitlist
+                    timeframes, locations, and more - helping families make informed decisions faster.
                 </p>
                 <div class="grid grid-cols-2 gap-2">
-                    @foreach([['#de6148','Areas of expertise'],['#fcc333','Service delivery'],['#79a2cc','Age groups'],['#a8cf77','Waitlist info']] as [$c,$t])
+                    @foreach([['#de6148','Areas of special interest'],['#fcc333','Service delivery'],['#79a2cc','Age groups'],['#a8cf77','Waitlist info']] as [$c,$t])
                     <div class="flex items-center gap-2 text-xs font-semibold text-gray-600">
                         <span class="w-2 h-2 rounded-full flex-shrink-0" style="background:{{ $c }};"></span>{{ $t }}
                     </div>

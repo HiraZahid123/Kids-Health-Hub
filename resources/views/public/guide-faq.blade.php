@@ -17,11 +17,11 @@
 
         <div x-data="{ open: null }" class="space-y-3">
             @foreach([
-                ['q'=>'Is Kids Health Hub free for families?','a'=>'Yes — browsing, searching, and viewing provider profiles is completely free for families. Creating a family account to save providers and leave reviews is also free.'],
+                ['q'=>'Is Kids Health Hub free for families?','a'=>'Yes - browsing, searching, and viewing provider profiles is completely free for families. Creating a family account to save providers and leave reviews is also free.'],
                 ['q'=>'How do I find a provider near me?','a'=>'Use the search bar on the homepage or Find Providers page. Enter your suburb or postcode, or click "Near Me" to use your device\'s location. You can also filter by category, age group, and funding type.'],
                 ['q'=>'What is the green "Available" badge?','a'=>'Providers with the green Available badge are currently accepting new patients. This status is set by the provider and updated in real time from their dashboard.'],
                 ['q'=>'Are providers verified?','a'=>'All provider listings are reviewed and approved by our admin team before appearing publicly. However, we encourage families to verify professional registrations directly with the relevant Australian registration bodies (e.g., AHPRA).'],
-                ['q'=>'How do I list my practice?','a'=>'Click "List Your Practice" in the top navigation and complete the registration form. New providers receive a free 3-month trial — no credit card required. Your listing will be reviewed and activated within 1–2 business days.'],
+                ['q'=>'How do I list my practice?','a'=>'Click "List Your Practice" in the top navigation and complete the registration form. New providers receive a free 3-month trial - no credit card required. Your listing will be reviewed and activated within 1-2 business days.'],
                 ['q'=>'What happens when my trial expires?','a'=>'Your listing will be hidden from search results until you activate a paid subscription. You\'ll receive email reminders before your trial ends so you can set up payment through Stripe without any interruption.'],
                 ['q'=>'Can I offer telehealth services on Kids Health Hub?','a'=>'Yes. Toggle the Telehealth option from your provider dashboard. Your listing will then show the blue "Telehealth" badge, and families can filter specifically for telehealth providers.'],
                 ['q'=>'How does the review system work?','a'=>'Families with an account can leave a star rating and written review on any provider\'s profile. Reviews are moderated by our team before being published to maintain quality and prevent misuse.'],

@@ -11,7 +11,7 @@
         <div class="text-center mb-12">
             <span class="inline-block bg-emerald-100 text-emerald-800 text-xs font-bold px-4 py-2 rounded-full mb-4 uppercase tracking-widest">Help Centre</span>
             <h1 class="text-4xl sm:text-5xl font-black text-gray-900 mb-4 tracking-tight">How can we help?</h1>
-            <p class="text-lg text-gray-500 max-w-2xl mx-auto">Find everything you need to know about using Kids Health Hub — whether you're a family searching for support or a provider listing your practice.</p>
+            <p class="text-lg text-gray-500 max-w-2xl mx-auto">Find everything you need to know about using Kids Health Hub - whether you're a family searching for support or a provider listing your practice.</p>
         </div>
 
         <!-- Guide Cards -->
@@ -50,7 +50,7 @@
                     ['icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z','text'=>'Search by suburb, postcode, or provider name','link'=>route('providers.index'),'label'=>'Search now'],
                     ['icon'=>'M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z','text'=>'Filter by age group, telehealth, or funding type','link'=>route('providers.index'),'label'=>'Use filters'],
                     ['icon'=>'M15 10l4.553-2.069A1 1 0 0121 8.82v6.362a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z','text'=>'Find providers offering telehealth consultations','link'=>route('telehealth'),'label'=>'Telehealth providers'],
-                    ['icon'=>'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z','text'=>'List your practice — free 3-month trial','link'=>route('register'),'label'=>'Register as provider'],
+                    ['icon'=>'M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z','text'=>'List your practice - free 3-month trial','link'=>route('register'),'label'=>'Register as provider'],
                 ] as $tip)
                 <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-50">
                     <div class="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center flex-shrink-0">

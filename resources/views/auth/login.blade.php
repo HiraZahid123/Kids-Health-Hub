@@ -4,7 +4,22 @@
         <p class="text-gray-500 text-sm mt-1">Sign in to your Kids Health Hub account</p>
     </div>
 
-    <x-auth-session-status class="mb-5 text-sm text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3" :status="session('status')" />
+    <x-auth-session-status class="mb-5 text-sm rounded-xl px-4 py-3" style="color:#166534; background:#f0fdf4; border:1px solid #bbf7d0;" :status="session('status')" />
+
+    {{-- Dev hint: remove before going live --}}
+    <div class="mb-5 rounded-xl p-4" style="background:#faf5ff; border:1px solid #e9d5ff;">
+        <p class="text-xs font-black uppercase tracking-wider mb-2" style="color:#7c3aed;">Dev Login — Admin</p>
+        <div class="grid grid-cols-2 gap-2 text-xs" style="color:#6b21a8;">
+            <div>
+                <span class="font-semibold block text-gray-500">Email</span>
+                <span class="font-mono select-all">admin@kidshealthhub.com.au</span>
+            </div>
+            <div>
+                <span class="font-semibold block text-gray-500">Password</span>
+                <span class="font-mono select-all">Admin@12345</span>
+            </div>
+        </div>
+    </div>
 
     <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
@@ -12,7 +27,10 @@
         <div>
             <label for="email" class="block text-sm font-semibold text-gray-700 mb-1.5">Email address</label>
             <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username"
-                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 placeholder-gray-400 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition text-sm"
+                class="w-full px-4 py-3 border rounded-xl text-gray-800 placeholder-gray-400 bg-gray-50 focus:bg-white focus:outline-none transition text-sm"
+                style="border-color:#e5d5cf; focus:ring:2px solid #de6148;"
+                onfocus="this.style.borderColor='#de6148'; this.style.boxShadow='0 0 0 3px rgba(222,97,72,0.12)';"
+                onblur="this.style.borderColor='#e5d5cf'; this.style.boxShadow='none';"
                 placeholder="you@example.com">
             <x-input-error :messages="$errors->get('email')" class="mt-1.5 text-xs" />
         </div>
@@ -21,33 +39,39 @@
             <div class="flex items-center justify-between mb-1.5">
                 <label for="password" class="block text-sm font-semibold text-gray-700">Password</label>
                 @if (Route::has('password.request'))
-                    <a href="{{ route('password.request') }}" class="text-xs text-emerald-600 hover:text-emerald-700 font-semibold">Forgot password?</a>
+                    <a href="{{ route('password.request') }}" class="text-xs font-semibold hover:underline" style="color:#de6148;">Forgot password?</a>
                 @endif
             </div>
             <input id="password" type="password" name="password" required autocomplete="current-password"
-                class="w-full px-4 py-3 border border-gray-200 rounded-xl text-gray-800 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-transparent transition text-sm"
+                class="w-full px-4 py-3 border rounded-xl text-gray-800 bg-gray-50 focus:bg-white focus:outline-none transition text-sm"
+                style="border-color:#e5d5cf;"
+                onfocus="this.style.borderColor='#de6148'; this.style.boxShadow='0 0 0 3px rgba(222,97,72,0.12)';"
+                onblur="this.style.borderColor='#e5d5cf'; this.style.boxShadow='none';"
                 placeholder="••••••••">
             <x-input-error :messages="$errors->get('password')" class="mt-1.5 text-xs" />
         </div>
 
         <div class="flex items-center gap-2.5">
             <input id="remember_me" type="checkbox" name="remember"
-                class="w-4 h-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-400 cursor-pointer">
+                class="w-4 h-4 rounded cursor-pointer" style="accent-color:#de6148;">
             <label for="remember_me" class="text-sm text-gray-600 cursor-pointer">Keep me signed in</label>
         </div>
 
         <button type="submit"
-            class="w-full bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 text-white font-bold py-3 px-6 rounded-xl transition-colors text-sm shadow-sm shadow-emerald-200">
+            class="w-full text-white font-bold py-3 px-6 rounded-xl transition-all text-sm shadow-sm"
+            style="background:#de6148;"
+            onmouseover="this.style.background='#cc5038';"
+            onmouseout="this.style.background='#de6148';">
             Sign In
         </button>
     </form>
 
-    <div class="mt-7 pt-6 border-t border-gray-100 space-y-2.5">
+    <div class="mt-7 pt-6 space-y-2.5" style="border-top:1px solid #f3e8e3;">
         <p class="text-sm text-gray-600 text-center">
-            New provider? <a href="{{ route('register') }}" class="text-emerald-600 font-bold hover:underline">List your practice →</a>
+            New provider? <a href="{{ route('register') }}" class="font-bold hover:underline" style="color:#de6148;">List your practice →</a>
         </p>
         <p class="text-sm text-gray-600 text-center">
-            Family member? <a href="{{ route('register.family') }}" class="text-sky-600 font-bold hover:underline">Join as a family →</a>
+            Family member? <a href="{{ route('register.family') }}" class="font-bold hover:underline" style="color:#79a2cc;">Create a free family account →</a>
         </p>
     </div>
 </x-guest-layout>

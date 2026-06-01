@@ -34,10 +34,11 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Occupational Therapy',    'slug' => 'occupational-therapy'],
             ['name' => 'Psychology',              'slug' => 'psychology'],
             ['name' => 'Physiotherapy',           'slug' => 'physiotherapy'],
-            ['name' => 'Paediatrics',             'slug' => 'paediatrics'],
-            ['name' => 'Autism Support',          'slug' => 'autism-support'],
-            ['name' => 'Child Development',       'slug' => 'child-development'],
+            ['name' => 'Paediatrician',           'slug' => 'paediatrician'],
             ['name' => 'Dietetics & Nutrition',   'slug' => 'dietetics-nutrition'],
+            ['name' => 'Support Workers',         'slug' => 'support-workers'],
+            ['name' => 'PBS Providers',           'slug' => 'pbs-providers'],
+            ['name' => 'Play Therapy',            'slug' => 'play-therapy'],
         ];
 
         foreach ($categories as $i => $cat) {

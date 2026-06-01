@@ -3,23 +3,6 @@
 @section('title', 'Manage Providers')
 @section('page-title', 'Providers')
 
-@section('sidebar-nav')
-    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        📊 Dashboard
-    </a>
-    <a href="{{ route('admin.providers.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-purple-50 text-purple-700 font-medium text-sm">
-        👥 Providers
-    </a>
-    <a href="{{ route('admin.subscriptions.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        💳 Subscriptions
-    </a>
-    <a href="{{ route('admin.reviews.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        ⭐ Reviews
-    </a>
-    <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-4">
-        🌐 Public Site
-    </a>
-@endsection
 
 @section('content')
 <!-- Status tabs -->

@@ -47,6 +47,11 @@ class AdminDashboardController extends Controller
         return view('admin.dashboard', compact('stats', 'pendingProviders', 'topViewedProviders', 'trialDuration'));
     }
 
+    public function guide(): View
+    {
+        return view('admin.guide');
+    }
+
     public function updateSettings(Request $request): RedirectResponse
     {
         $validated = $request->validate([

@@ -68,7 +68,7 @@
     <div class="relative">
         <p class="text-sky-100 text-sm font-semibold mb-1">Welcome back</p>
         <h2 class="text-2xl font-black mb-1">{{ $user->name }}</h2>
-        <p class="text-sky-100 text-sm leading-relaxed max-w-lg">Find trusted child healthcare providers near you, save your favourites, and manage appointments — all in one place.</p>
+        <p class="text-sky-100 text-sm leading-relaxed max-w-lg">Find trusted child healthcare providers near you, save your favourites, and manage appointments - all in one place.</p>
     </div>
 </div>
 

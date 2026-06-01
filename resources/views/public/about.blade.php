@@ -57,16 +57,16 @@
                     </h1>
 
                     <p class="mt-5 max-w-[420px] text-[1.02rem] leading-7 text-gray-600 sm:leading-8">
-                        Founder of Kids Health Hub, Speech Pathologist, and a mum of three — I built this because I lived the problem firsthand.
+                        Paediatric Speech Pathologist, mum of 3, and founder of Kids Health Hub - I built this because I lived the problem firsthand.
                     </p>
 
                     {{-- credential pills --}}
                     <div class="mt-7 flex flex-wrap gap-2.5">
                         <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black shadow-sm" style="background:#e9fbf2; color:#0aad5a;">
-                            <span class="h-1.5 w-1.5 rounded-full bg-current"></span>Speech Pathologist
+                            <span class="h-1.5 w-1.5 rounded-full bg-current"></span>Paediatric Speech Pathologist
                         </span>
                         <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black shadow-sm" style="background:#fff0ea; color:var(--khh-coral);">
-                            <span class="h-1.5 w-1.5 rounded-full bg-current"></span>Mum of Three
+                            <span class="h-1.5 w-1.5 rounded-full bg-current"></span>Mum of 3
                         </span>
                         <span class="inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-black shadow-sm" style="background:#edf5ff; color:var(--khh-sky);">
                             <span class="h-1.5 w-1.5 rounded-full bg-current"></span>KHH Founder
@@ -76,7 +76,7 @@
                     {{-- handwritten thought note --}}
                     <div class="mt-8 hidden sm:inline-flex items-start gap-2">
                         <svg class="mt-1 h-5 w-5 flex-shrink-0 opacity-50" style="color:var(--khh-coral);" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/></svg>
-                        <span class="font-hand text-xl leading-snug text-gray-500">"One clear place — built for families."</span>
+                        <span class="font-hand text-xl leading-snug text-gray-500">"One clear place - built for families."</span>
                     </div>
                 </div>
 
@@ -120,15 +120,16 @@
 
             {{-- Story text --}}
             <div class="space-y-5 text-[1.02rem] leading-8 text-gray-600">
-                <p>Over the years I've worked with countless families navigating the overwhelming process of trying to find the right therapist for their child.</p>
-                <p>As both a clinician <em>and</em> a parent attending appointments myself, I saw firsthand how <strong class="font-black text-gray-900">stressful and time-consuming</strong> this process can be — families spending hours searching websites, joining Facebook groups, calling clinics, and sitting on waitlists with no clear answers.</p>
+                <p>I built Kids Health Hub to reduce the overwhelming number of steps families often face when trying to find appropriate clinicians in their area with suitable availability. As both a Speech Pathologist and a parent, I experienced firsthand how exhausting and time-consuming it can be to search for the right support - calling multiple clinics, sitting on waitlists, repeating the same information over and over, and still not knowing who has availability, who works with your child's needs or where to even begin.</p>
 
                 <div class="rounded-2xl px-6 py-5" style="background:linear-gradient(135deg,#e9fbf2,#f0fdf9); border-left:4px solid var(--khh-green);">
                     <p class="font-hand text-2xl sm:text-3xl leading-snug text-gray-900">"That's why I created Kids Health Hub."</p>
-                    <p class="mt-2 text-sm font-bold text-gray-400">— Annika</p>
+                    <p class="mt-2 text-sm font-bold text-gray-400">- Annika</p>
                 </div>
 
-                <p>Kids Health Hub brings families and trusted health professionals together in <strong class="font-black text-gray-900">one easy-to-use space</strong> — searchable by location, profession, availability and areas of experience.</p>
+                <p>Kids Health Hub was created to help bridge that gap. The goal is to make the process simpler, faster and less stressful for families by bringing together trusted paediatric professionals in one easy-to-navigate space. Families can search based on location, profession, areas of experience, telehealth options, mobile services and current availability, helping them connect with the right supports sooner rather than endless time trying to navigate the system alone.</p>
+
+                <p>At its core, Kids Health Hub was built from real lived experience - with the hope of making access to children's health supports more transparent, accessible and family-friendly.</p>
             </div>
 
             {{-- What families needed --}}
@@ -201,10 +202,10 @@
 
         <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
             @foreach([
-                ['bg'=>'linear-gradient(145deg,#fff0ea,#fde8e3)','ic'=>'var(--khh-coral)','icon'=>'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z','title'=>'Family First','desc'=>'Every feature is built around making life easier for families — not more complicated.'],
+                ['bg'=>'linear-gradient(145deg,#fff0ea,#fde8e3)','ic'=>'var(--khh-coral)','icon'=>'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z','title'=>'Family First','desc'=>'Every feature is built around making life easier for families - not more complicated.'],
                 ['bg'=>'linear-gradient(145deg,#e3f8ee,#e9fbf2)','ic'=>'var(--khh-green)','icon'=>'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z','title'=>'Easy to Find','desc'=>'No more hours searching. The right provider found by fit, location and availability.'],
                 ['bg'=>'linear-gradient(145deg,#deedf7,#edf5ff)','ic'=>'var(--khh-sky)','icon'=>'M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z','title'=>'Trusted & Verified','desc'=>'All providers are reviewed before going live. Families can search with confidence.'],
-                ['bg'=>'linear-gradient(145deg,#fef9e3,#fff7d9)','ic'=>'var(--khh-gold)','icon'=>'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064','title'=>'Across Australia','desc'=>'Supporting families in every state and territory — geography shouldn\'t be a barrier.'],
+                ['bg'=>'linear-gradient(145deg,#fef9e3,#fff7d9)','ic'=>'var(--khh-gold)','icon'=>'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064','title'=>'Across Australia','desc'=>'Supporting families in every state and territory - geography shouldn\'t be a barrier.'],
             ] as $v)
             <div class="khh-speciality-card rounded-[22px] p-6" style="background:{{ $v['bg'] }};">
                 <div class="mb-5 flex h-11 w-11 items-center justify-center rounded-2xl bg-white/75 shadow-sm" style="color:{{ $v['ic'] }};">
@@ -231,7 +232,7 @@
                     <p class="font-hand mb-2 text-2xl" style="color:var(--khh-green);">from the founder</p>
                     <h3 class="mb-5 text-2xl font-black leading-snug text-gray-900 sm:text-3xl">Proud of what this<br>platform is becoming.</h3>
                     <p class="max-w-xl text-base leading-8 text-gray-600">
-                        I am so excited to continue building a platform that supports both families and incredible allied health professionals around the country — making finding support feel less overwhelming and much faster.
+                        I am so excited to continue building a platform that supports both families and incredible allied health professionals around the country - making finding support feel less overwhelming and much faster.
                     </p>
                     <div class="mt-8 flex items-center gap-4">
                         <div class="flex h-13 w-13 flex-shrink-0 items-center justify-center rounded-full text-xl font-black text-white shadow" style="background:linear-gradient(135deg,var(--khh-coral),var(--khh-gold)); height:3.25rem; width:3.25rem;">A</div>
@@ -278,7 +279,7 @@
                         Ready to find<br>the right support?
                     </h2>
                     <p class="mt-4 max-w-md text-base text-white/75 leading-relaxed">
-                        Search child healthcare providers across Australia — completely free for families.
+                        Search child healthcare providers across Australia - completely free for families.
                     </p>
                     <div class="mt-6 flex flex-wrap gap-2">
                         <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black" style="background:rgba(255,255,255,0.15); color:#fff;">
