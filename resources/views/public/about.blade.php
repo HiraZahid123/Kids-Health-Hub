@@ -8,7 +8,7 @@
      HERO  —  text left · image right
 ════════════════════════════════════════════════════════════ --}}
 @php
-    $annikaFile = collect(['svg','jpg','jpeg','png','webp'])
+    $annikaFile = collect(['png','jpg','jpeg','webp','svg'])
         ->map(fn($e) => ['ext'=>$e,'path'=>public_path("images/annika.$e")])
         ->first(fn($f) => file_exists($f['path']));
 @endphp

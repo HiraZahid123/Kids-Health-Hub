@@ -341,10 +341,8 @@
             {{-- Annika photo --}}
             <div class="flex-shrink-0 relative" style="width:200px; height:240px;">
                 <div class="absolute inset-0" style="border-radius:20px; background:radial-gradient(ellipse 80% 90% at 50% 50%, rgba(243,206,102,0.32) 0%, rgba(222,97,72,0.12) 50%, transparent 78%); filter:blur(14px);"></div>
-                @if(file_exists(public_path('images/annika.svg')))
-                    <div class="absolute inset-0" style="border-radius:20px; background-image:url('{{ asset('images/annika.svg') }}'); background-size:cover; background-position:top center;"></div>
-                @elseif(file_exists(public_path('images/annika.jpg')) || file_exists(public_path('images/annika.png')))
-                    <div class="absolute inset-0" style="border-radius:20px; background-image:url('{{ asset('images/annika.' . (file_exists(public_path('images/annika.jpg')) ? 'jpg' : 'png')) }}'); background-size:cover; background-position:top center;"></div>
+                @if(file_exists(public_path('images/annika.png')) || file_exists(public_path('images/annika.jpg')))
+                    <div class="absolute inset-0" style="border-radius:20px; background-image:url('{{ asset('images/annika.' . (file_exists(public_path('images/annika.png')) ? 'png' : 'jpg')) }}'); background-size:cover; background-position:top center;"></div>
                 @else
                     <div class="absolute inset-0 flex items-center justify-center" style="border-radius:20px; background:linear-gradient(135deg,#fff0ea,#fde9c4);">
                         <span class="font-hand text-3xl" style="color:#de6148;">A</span>
