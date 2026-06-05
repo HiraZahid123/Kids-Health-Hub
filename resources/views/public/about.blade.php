@@ -177,7 +177,8 @@
                         </h2>
                     </div>
                     <div class="flex-shrink-0 text-center">
-                        <div class="inline-block rounded-2xl border border-white/25 bg-white/18 px-8 py-5 backdrop-blur-sm">
+                        <div class="inline-block rounded-2xl border border-white/25 bg-white/18 px-6 py-5 backdrop-blur-sm">
+                            <img src="{{ asset('images/annika.png') }}" alt="Annika" class="mx-auto mb-2 h-36 w-auto object-contain drop-shadow-lg">
                             <p class="font-hand text-3xl text-white">Annika</p>
                             <p class="mt-1 text-[11px] font-black uppercase tracking-[0.18em] text-white/65">Founder, KHH</p>
                         </div>
