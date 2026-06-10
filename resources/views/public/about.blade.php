@@ -8,8 +8,8 @@
      HERO  —  text left · image right
 ════════════════════════════════════════════════════════════ --}}
 @php
-    $annikaFile = collect(['png','jpg','jpeg','webp','svg'])
-        ->map(fn($e) => ['ext'=>$e,'path'=>public_path("images/annika.$e")])
+    $annikaFile = collect(['jpg','jpeg','png','webp'])
+        ->map(fn($e) => ['ext'=>$e,'path'=>public_path("images/annika-family.$e")])
         ->first(fn($f) => file_exists($f['path']));
 @endphp
 <section class="khh-hero-shell pt-6 pb-0 lg:pt-8">
@@ -88,7 +88,7 @@
                     <div class="absolute inset-0 rounded-[28px]" style="background:radial-gradient(ellipse 80% 90% at 50% 50%, rgba(243,206,102,0.28) 0%, rgba(222,97,72,0.10) 45%, transparent 72%); filter:blur(18px);"></div>
 
                     {{-- the photo — clean, no overlays --}}
-                    <div class="absolute inset-0" style="background-image:url('{{ asset('images/annika.'.$annikaFile['ext']) }}'); background-size:cover; background-position:top center; background-repeat:no-repeat; border-radius:24px;"></div>
+                    <div class="absolute inset-0" style="background-image:url('{{ asset('images/annika-family.'.$annikaFile['ext']) }}'); background-size:cover; background-position:top center; background-repeat:no-repeat; border-radius:24px;"></div>
                 </div>
                 @endif
 
