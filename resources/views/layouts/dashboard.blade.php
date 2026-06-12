@@ -35,7 +35,79 @@
 
         <!-- Nav -->
         <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-            @section('sidebar-nav')
+            @if(auth()->user()->hasRole('provider'))
+                @php $sub = auth()->user()->provider?->subscription; @endphp
+
+                <a href="{{ route('provider.dashboard') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-emerald-50 text-emerald-700' => request()->routeIs('provider.dashboard'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('provider.dashboard')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="{{ route('provider.profile.edit') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-emerald-50 text-emerald-700' => request()->routeIs('provider.profile.edit'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('provider.profile.edit')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+                    Edit Profile
+                </a>
+                <a href="{{ route('provider.appointments.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-emerald-50 text-emerald-700' => request()->routeIs('provider.appointments.*'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('provider.appointments.*')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    Appointments
+                </a>
+                <a href="{{ route('provider.messages.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-emerald-50 text-emerald-700' => request()->routeIs('provider.messages.*'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('provider.messages.*')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    Messages
+                </a>
+
+                @if($sub && in_array($sub->status, ['trial', 'expired']))
+                <div class="border-t border-gray-100 my-2"></div>
+                <div class="px-3 py-2">
+                    <p class="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">
+                        {{ $sub->status === 'expired' ? 'Subscription Expired' : 'Free Trial Active' }}
+                    </p>
+                    <form method="POST" action="{{ route('provider.checkout.store') }}">
+                        @csrf
+                        <input type="hidden" name="plan" value="monthly">
+                        <button type="submit" class="w-full flex items-center justify-center gap-2 rounded-xl px-3 py-2.5 text-xs font-black text-white transition-colors" style="background:linear-gradient(135deg,#de6148,#fcc333);">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+                            Upgrade Plan
+                        </button>
+                    </form>
+                </div>
+                @endif
+
+                <div class="border-t border-gray-100 my-2"></div>
+                <a href="{{ route('home') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-colors">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    Public Site
+                </a>
+
+            @elseif(auth()->user()->hasRole('family'))
+
+                <a href="{{ route('family.dashboard') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.dashboard'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.dashboard')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                    Dashboard
+                </a>
+                <a href="{{ route('providers.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    Find Providers
+                </a>
+                <a href="{{ route('family.saved') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.saved'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.saved')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    Saved Providers
+                </a>
+                <a href="{{ route('family.appointments.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.appointments.*'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.appointments.*')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    My Appointments
+                </a>
+                <a href="{{ route('family.messages.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.messages.*'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.messages.*')])>
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                    Messages
+                </a>
+                <div class="border-t border-gray-100 my-2"></div>
+                <a href="{{ route('home') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-colors">
+                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
+                    Public Site
+                </a>
+
+            @else
+                {{-- Admin --}}
                 <a href="{{ route('admin.dashboard') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-violet-50 text-violet-700' => request()->routeIs('admin.dashboard'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('admin.dashboard')])>
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                     Dashboard
@@ -65,7 +137,7 @@
                     <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
                     Public Site
                 </a>
-            @show
+            @endif
         </nav>
 
         <!-- User info & logout -->

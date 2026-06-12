@@ -3,26 +3,7 @@
 @section('title', 'Messages')
 @section('page-title', 'Messages')
 
-@section('sidebar-nav')
-    <a href="{{ route('family.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        🏠 Dashboard
-    </a>
-    <a href="{{ route('providers.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        🔍 Find Providers
-    </a>
-    <a href="{{ route('family.saved') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        ❤️ Saved Providers
-    </a>
-    <a href="{{ route('family.appointments.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        📅 My Appointments
-    </a>
-    <a href="{{ route('family.messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-sky-50 text-sky-700 font-medium text-sm mt-1">
-        💬 Messages
-    </a>
-    <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-4">
-        🌐 Public Site
-    </a>
-@endsection
+
 
 @section('content')
 

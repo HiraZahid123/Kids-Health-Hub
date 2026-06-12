@@ -3,14 +3,7 @@
 @section('title', 'Subscription Activated')
 @section('page-title', 'Subscription Activated')
 
-@section('sidebar-nav')
-    <a href="{{ route('provider.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        🏠 Dashboard
-    </a>
-    <a href="{{ route('provider.profile.edit') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        ✏️ Edit Profile
-    </a>
-@endsection
+
 
 @section('content')
 <div class="max-w-lg mx-auto text-center py-16">

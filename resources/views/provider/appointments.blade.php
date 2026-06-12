@@ -3,26 +3,7 @@
 @section('title', 'Appointment Requests')
 @section('page-title', 'Appointment Requests')
 
-@section('sidebar-nav')
-    <a href="{{ route('provider.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-        📊 Dashboard
-    </a>
-    <a href="{{ route('provider.profile.edit') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        ✏️ Edit Profile
-    </a>
-    <a href="{{ route('provider.appointments.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium text-sm mt-1">
-        📅 Appointments
-        @if($pending->count() > 0)
-            <span class="ml-auto bg-rose-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">{{ $pending->count() }}</span>
-        @endif
-    </a>
-    <a href="{{ route('provider.messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-        💬 Messages
-    </a>
-    <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-4">
-        🌐 Public Site
-    </a>
-@endsection
+
 
 @section('content')
 
