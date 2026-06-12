@@ -26,6 +26,7 @@ Route::get('/providers', [PublicController::class, 'providers'])->name('provider
 Route::get('/providers/{provider:slug}', [PublicController::class, 'show'])->name('providers.show');
 Route::get('/telehealth', [PublicController::class, 'telehealth'])->name('telehealth');
 Route::get('/about', [PublicController::class, 'about'])->name('about');
+Route::get('/pricing', [PublicController::class, 'pricing'])->name('pricing');
 Route::get('/guide', [PublicController::class, 'guide'])->name('guide');
 Route::get('/guide/families', [PublicController::class, 'guideFamilies'])->name('guide.families');
 Route::get('/guide/providers', [PublicController::class, 'guideProviders'])->name('guide.providers');

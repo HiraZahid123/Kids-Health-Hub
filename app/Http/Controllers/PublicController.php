@@ -223,6 +223,11 @@ class PublicController extends Controller
         return view('public.about');
     }
 
+    public function pricing(): View
+    {
+        return view('public.pricing');
+    }
+
     public function guide(): View
     {
         return view('public.guide');

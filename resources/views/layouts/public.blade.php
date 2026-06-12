@@ -199,6 +199,7 @@
                 <a href="{{ route('community.index') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#a8cf77'; this.style.color='#1f2937';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Community</a>
                 <a href="{{ route('blog.index') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#e64738'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Blog</a>
                 <a href="{{ route('about') }}" class="px-3 py-2 text-sm font-bold text-gray-700 hover:text-white rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#e78572'; this.style.color='#fff';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">About</a>
+                <a href="{{ route('pricing') }}" class="px-3 py-2 text-sm font-bold text-gray-700 rounded-md transition-all whitespace-nowrap" onmouseover="this.style.backgroundColor='#fcc333'; this.style.color='#1f2937';" onmouseout="this.style.backgroundColor='transparent'; this.style.color='#374151';">Pricing</a>
             </nav>
 
             <!-- Desktop CTAs -->
