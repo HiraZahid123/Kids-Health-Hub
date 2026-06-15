@@ -19,7 +19,7 @@ Laravel app lives at: `kids-health-hub/` (this directory).
 |------|-------------|
 | `admin` | Full platform control — approvals, subscriptions, featured listings, content |
 | `provider` | Manages own listing only — profile, availability, telehealth, subscription |
-| Public | No account needed — browse/search/view only |
+| Public | No account needed — browse/search/view all provider listings |
 
 ## Data Model
 

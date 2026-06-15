@@ -4,10 +4,6 @@ use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminProviderController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminSubscriptionController;
-use App\Http\Controllers\Family\FamilyAppointmentController;
-use App\Http\Controllers\Family\FamilyDashboardController;
-use App\Http\Controllers\Family\FamilyReviewController;
-use App\Http\Controllers\Family\FamilySavedController;
 use App\Http\Controllers\Provider\ProviderAppointmentController;
 use App\Http\Controllers\Provider\ProviderDashboardController;
 use App\Http\Controllers\Provider\ProviderProfileController;
@@ -57,25 +53,9 @@ Route::get('/api/providers', [PublicController::class, 'apiProviders'])->name('a
 
 // Role-based dashboard redirect (used by Breeze after login)
 Route::get('/dashboard', function () {
-    if (auth()->user()->isAdmin())    return redirect()->route('admin.dashboard');
-    if (auth()->user()->isFamily())   return redirect()->route('family.dashboard');
+    if (auth()->user()->isAdmin()) return redirect()->route('admin.dashboard');
     return redirect()->route('provider.dashboard');
 })->middleware('auth')->name('dashboard');
-
-// Family dashboard
-Route::middleware(['auth', 'role:family'])->prefix('family')->name('family.')->group(function () {
-    Route::get('/dashboard', [FamilyDashboardController::class, 'index'])->name('dashboard');
-
-    Route::get('/saved',               [FamilySavedController::class, 'index'])->name('saved');
-    Route::post('/saved/{provider}',   [FamilySavedController::class, 'toggle'])->name('saved.toggle');
-    Route::post('/reviews/{provider}',      [FamilyReviewController::class, 'store'])->name('reviews.store');
-    Route::get('/appointments',             [FamilyAppointmentController::class, 'index'])->name('appointments.index');
-    Route::post('/appointments/{provider}', [FamilyAppointmentController::class, 'store'])->name('appointments.store');
-
-    Route::get('/messages',                        [MessageController::class, 'index'])->name('messages.index');
-    Route::get('/messages/{appointment}',          [MessageController::class, 'show'])->name('messages.show');
-    Route::post('/messages/{appointment}',         [MessageController::class, 'store'])->name('messages.store');
-});
 
 // Provider dashboard
 Route::middleware(['auth', 'role:provider'])->prefix('provider')->name('provider.')->group(function () {

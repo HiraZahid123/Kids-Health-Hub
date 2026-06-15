@@ -13,20 +13,7 @@ class MessageController extends Controller
 {
     public function index(): View
     {
-        $user = auth()->user();
-
-        if ($user->isFamily()) {
-            $threads = AppointmentRequest::with(['provider', 'messages' => fn ($q) => $q->latest()->limit(1)])
-                ->withCount(['messages as unread_count' => fn ($q) => $q->whereNull('read_at')->where('sender_id', '!=', $user->id)])
-                ->where('family_user_id', $user->id)
-                ->whereHas('messages')
-                ->latest('updated_at')
-                ->get();
-
-            return view('family.messages', compact('threads'));
-        }
-
-        // Provider
+        $user     = auth()->user();
         $provider = $user->provider;
         abort_if(! $provider, 403);
 
@@ -78,33 +65,19 @@ class MessageController extends Controller
 
     private function authorizeAccess($user, AppointmentRequest $appointment): void
     {
-        $isFamily   = $user->isFamily() && $appointment->family_user_id === $user->id;
         $isProvider = $user->isProvider() && $appointment->provider->user_id === $user->id;
-        abort_if(! $isFamily && ! $isProvider, 403);
+        abort_if(! $isProvider, 403);
     }
 
     private function maybeNotifyRecipient($sender, AppointmentRequest $appointment): void
     {
-        $isFamily = $sender->isFamily();
-
-        if ($isFamily) {
-            // Notify provider — check provider_last_notified_at
-            $lastNotified = $appointment->provider_last_notified_at;
-            if (! $lastNotified || $lastNotified->lt(now()->subDay())) {
-                $appointment->provider->user->notify(
-                    new NewMessageNotification($appointment, $sender->name)
-                );
-                $appointment->update(['provider_last_notified_at' => now()]);
-            }
-        } else {
-            // Notify family — check family_last_notified_at
-            $lastNotified = $appointment->family_last_notified_at;
-            if (! $lastNotified || $lastNotified->lt(now()->subDay())) {
-                $appointment->family->notify(
-                    new NewMessageNotification($appointment, $sender->name)
-                );
-                $appointment->update(['family_last_notified_at' => now()]);
-            }
+        // Provider sent — notify family user
+        $lastNotified = $appointment->family_last_notified_at;
+        if (! $lastNotified || $lastNotified->lt(now()->subDay())) {
+            $appointment->family->notify(
+                new NewMessageNotification($appointment, $sender->name)
+            );
+            $appointment->update(['family_last_notified_at' => now()]);
         }
     }
 }

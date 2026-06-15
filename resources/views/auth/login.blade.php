@@ -70,8 +70,5 @@
         <p class="text-sm text-gray-600 text-center">
             New provider? <a href="{{ route('register') }}" class="font-bold hover:underline" style="color:#de6148;">List your practice →</a>
         </p>
-        <p class="text-sm text-gray-600 text-center">
-            Family member? <a href="{{ route('register.family') }}" class="font-bold hover:underline" style="color:#79a2cc;">Create a free family account →</a>
-        </p>
     </div>
 </x-guest-layout>

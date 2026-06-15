@@ -4,36 +4,18 @@
 @section('page-title', 'Messages')
 
 @section('sidebar-nav')
-    @if(auth()->user()->isFamily())
-        <a href="{{ route('family.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-            🏠 Dashboard
-        </a>
-        <a href="{{ route('providers.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-            🔍 Find Providers
-        </a>
-        <a href="{{ route('family.saved') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-            ❤️ Saved Providers
-        </a>
-        <a href="{{ route('family.appointments.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-            📅 My Appointments
-        </a>
-        <a href="{{ route('family.messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-sky-50 text-sky-700 font-medium text-sm mt-1">
-            💬 Messages
-        </a>
-    @else
-        <a href="{{ route('provider.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
-            📊 Dashboard
-        </a>
-        <a href="{{ route('provider.profile.edit') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-            ✏️ Edit Profile
-        </a>
-        <a href="{{ route('provider.appointments.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
-            📅 Appointments
-        </a>
-        <a href="{{ route('provider.messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium text-sm mt-1">
-            💬 Messages
-        </a>
-    @endif
+    <a href="{{ route('provider.dashboard') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm">
+        📊 Dashboard
+    </a>
+    <a href="{{ route('provider.profile.edit') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
+        ✏️ Edit Profile
+    </a>
+    <a href="{{ route('provider.appointments.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-1">
+        📅 Appointments
+    </a>
+    <a href="{{ route('provider.messages.index') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-50 text-emerald-700 font-medium text-sm mt-1">
+        💬 Messages
+    </a>
     <a href="{{ route('home') }}" class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 font-medium text-sm mt-4">
         🌐 Public Site
     </a>
@@ -43,7 +25,7 @@
 
 {{-- Thread header --}}
 <div class="mb-4">
-    <a href="{{ auth()->user()->isFamily() ? route('family.messages.index') : route('provider.messages.index') }}"
+    <a href="{{ route('provider.messages.index') }}"
        class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1 mb-3">
         ← Back to inbox
     </a>
@@ -94,7 +76,7 @@
 {{-- Send form --}}
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
     <form method="POST"
-          action="{{ auth()->user()->isFamily() ? route('family.messages.store', $appointment) : route('provider.messages.store', $appointment) }}">
+          action="{{ route('provider.messages.store', $appointment) }}">
         @csrf
         <div class="flex gap-3 items-end">
             <textarea name="body" rows="3"

@@ -169,64 +169,6 @@
                     <p class="text-gray-400 text-sm">No reviews yet. Be the first to leave a review!</p>
                 @endforelse
 
-                {{-- Submit review form (family users, one per provider) --}}
-                @auth
-                    @if(auth()->user()->isFamily())
-                        @if($userReview)
-                            <div class="mt-4 bg-sky-50 border border-sky-200 rounded-xl p-4 text-sm text-sky-700">
-                                @if($userReview->isApproved())
-                                    Your review has been published.
-                                @elseif($userReview->isPending())
-                                    Your review is awaiting moderation.
-                                @else
-                                    Your review was not approved.
-                                @endif
-                            </div>
-                        @else
-                            <div class="mt-6 border-t border-gray-100 pt-6">
-                                <h3 class="font-semibold text-gray-800 mb-3 text-sm">Leave a Review</h3>
-                                <form method="POST" action="{{ route('family.reviews.store', $provider) }}">
-                                    @csrf
-                                    {{-- Star rating picker --}}
-                                    <div class="flex items-center gap-1 mb-3" x-data="{ rating: 0, hover: 0 }">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            <button type="button"
-                                                    @click="rating = {{ $i }}"
-                                                    @mouseenter="hover = {{ $i }}"
-                                                    @mouseleave="hover = 0"
-                                                    class="focus:outline-none">
-                                                <svg class="w-7 h-7 transition-colors"
-                                                     :class="(hover || rating) >= {{ $i }} ? 'text-amber-400' : 'text-gray-200'"
-                                                     fill="currentColor" viewBox="0 0 20 20">
-                                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                                </svg>
-                                            </button>
-                                        @endfor
-                                        <input type="hidden" name="rating" :value="rating">
-                                    </div>
-                                    @error('rating')
-                                        <p class="text-red-500 text-xs mb-2">{{ $message }}</p>
-                                    @enderror
-                                    <textarea name="body" rows="3"
-                                              placeholder="Share your experience with this provider..."
-                                              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300 resize-none"
-                                              maxlength="1000">{{ old('body') }}</textarea>
-                                    @error('body')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
-                                    <button type="submit"
-                                            class="mt-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-5 py-2 rounded-xl text-sm transition-colors">
-                                        Submit Review
-                                    </button>
-                                </form>
-                            </div>
-                        @endif
-                    @endif
-                @else
-                    <p class="mt-4 text-xs text-gray-400 text-center">
-                        <a href="{{ route('login') }}" class="text-sky-600 hover:underline">Sign in</a> as a family to leave a review.
-                    </p>
-                @endauth
             </div>
         </div>
 
@@ -235,30 +177,6 @@
             <!-- Contact card -->
             <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-24">
                 <h2 class="text-lg font-bold text-gray-800 mb-4">Contact</h2>
-
-                @auth
-                    @if(auth()->user()->isFamily())
-                        @php $isSaved = in_array($provider->id, $savedProviderIds ?? []); @endphp
-                        <form method="POST" action="{{ route('family.saved.toggle', $provider) }}" class="mb-4">
-                            @csrf
-                            <button type="submit"
-                                    class="w-full flex items-center justify-center gap-2 font-semibold px-4 py-3 rounded-xl transition-colors
-                                           {{ $isSaved ? 'bg-rose-50 border-2 border-rose-300 text-rose-600 hover:bg-rose-100' : 'border-2 border-gray-200 text-gray-600 hover:border-rose-300 hover:text-rose-500' }}">
-                                @if($isSaved)
-                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                                    </svg>
-                                    Saved
-                                @else
-                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                                    </svg>
-                                    Save Provider
-                                @endif
-                            </button>
-                        </form>
-                    @endif
-                @endauth
 
                 <div class="space-y-3">
                     @if($provider->phone)
@@ -294,68 +212,6 @@
 
                 <p class="text-xs text-gray-400 mt-4 text-center">Contact is handled directly with the provider</p>
             </div>
-
-            <!-- Request Appointment (family users only) -->
-            @auth
-                @if(auth()->user()->isFamily())
-                    @php
-                        $pendingAppointment = \App\Models\AppointmentRequest::where('family_user_id', auth()->id())
-                            ->where('provider_id', $provider->id)
-                            ->where('status', 'pending')
-                            ->first();
-                    @endphp
-                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-                        <h2 class="text-lg font-bold text-gray-800 mb-4">Request Appointment</h2>
-
-                        @if($pendingAppointment)
-                            <div class="bg-sky-50 border border-sky-200 rounded-xl p-4 text-sm text-sky-700">
-                                You have a pending appointment request for
-                                <strong>{{ $pendingAppointment->preferred_date->format('d M Y') }}</strong>.
-                                <a href="{{ route('family.appointments.index') }}" class="underline ml-1">View status</a>
-                            </div>
-                        @else
-                            <form method="POST" action="{{ route('family.appointments.store', $provider) }}" x-data>
-                                @csrf
-                                <div class="mb-3">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
-                                    <input type="date" name="preferred_date"
-                                           min="{{ now()->addDay()->format('Y-m-d') }}"
-                                           value="{{ old('preferred_date') }}"
-                                           class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300"
-                                           required>
-                                    @error('preferred_date')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="mb-4">
-                                    <label class="block text-sm font-medium text-gray-700 mb-1">Notes <span class="text-gray-400 font-normal">(optional)</span></label>
-                                    <textarea name="notes" rows="3"
-                                              placeholder="e.g. child's age, reason for visit, any specific requirements..."
-                                              class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-emerald-300 resize-none"
-                                              maxlength="500">{{ old('notes') }}</textarea>
-                                    @error('notes')
-                                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <button type="submit"
-                                        class="w-full bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-3 rounded-xl transition-colors">
-                                    Send Request
-                                </button>
-                            </form>
-                        @endif
-                    </div>
-                @endif
-            @else
-                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 text-center">
-                    <p class="text-sm text-gray-500 mb-3">Want to request an appointment?</p>
-                    <a href="{{ route('register.family') }}" class="block bg-sky-500 hover:bg-sky-600 text-white font-semibold px-4 py-2.5 rounded-xl text-sm transition-colors mb-2">
-                        Create Family Account
-                    </a>
-                    <a href="{{ route('login') }}" class="block border border-gray-200 text-gray-600 hover:border-gray-300 font-medium px-4 py-2.5 rounded-xl text-sm transition-colors">
-                        Sign In
-                    </a>
-                </div>
-            @endauth
 
             <!-- Map mini -->
             @if($provider->latitude && $provider->longitude)

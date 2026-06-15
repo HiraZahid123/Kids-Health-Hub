@@ -78,34 +78,6 @@
                     Public Site
                 </a>
 
-            @elseif(auth()->user()->hasRole('family'))
-
-                <a href="{{ route('family.dashboard') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.dashboard'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.dashboard')])>
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
-                    Dashboard
-                </a>
-                <a href="{{ route('providers.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'text-gray-600 hover:bg-gray-50 hover:text-gray-800'])>
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    Find Providers
-                </a>
-                <a href="{{ route('family.saved') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.saved'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.saved')])>
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    Saved Providers
-                </a>
-                <a href="{{ route('family.appointments.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.appointments.*'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.appointments.*')])>
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    My Appointments
-                </a>
-                <a href="{{ route('family.messages.index') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-sky-50 text-sky-700' => request()->routeIs('family.messages.*'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('family.messages.*')])>
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-                    Messages
-                </a>
-                <div class="border-t border-gray-100 my-2"></div>
-                <a href="{{ route('home') }}" class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition-colors">
-                    <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/></svg>
-                    Public Site
-                </a>
-
             @else
                 {{-- Admin --}}
                 <a href="{{ route('admin.dashboard') }}" @class(['flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-colors', 'bg-violet-50 text-violet-700' => request()->routeIs('admin.dashboard'), 'text-gray-600 hover:bg-gray-50 hover:text-gray-800' => !request()->routeIs('admin.dashboard')])>
