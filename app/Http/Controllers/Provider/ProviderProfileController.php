@@ -103,7 +103,7 @@ class ProviderProfileController extends Controller
             Storage::disk('public')->delete($provider->profile_image);
         }
 
-        $path = $request->file('profile_image')->store('provider-images', 'public');
+        $path = $request->file('profile_image')->storePublicly('provider-images', 'public');
         $provider->update(['profile_image' => $path]);
 
         return back()->with('success', 'Profile image updated.');
