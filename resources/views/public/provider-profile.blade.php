@@ -182,7 +182,7 @@
 
 @push('scripts')
 @if($provider->latitude && $provider->longitude)
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMiniMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMiniMap&loading=async" async defer></script>
 <script>
 function initMiniMap() {
     const pos = { lat: {{ $provider->latitude }}, lng: {{ $provider->longitude }} };

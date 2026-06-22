@@ -585,7 +585,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMap&loading=async" async defer></script>
 <script>
 document.getElementById('btn-near-me-home').addEventListener('click', () => {
     const status = document.getElementById('geo-status-home');
