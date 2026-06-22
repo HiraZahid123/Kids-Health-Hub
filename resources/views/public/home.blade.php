@@ -23,12 +23,7 @@
             <div class="relative z-10 flex h-full min-h-[inherit] flex-col justify-between p-4 sm:p-6 lg:p-8">
                 <div class="grid gap-6 lg:grid-cols-[minmax(0,1.04fr)_300px] lg:items-start">
                     <div class="max-w-2xl pt-1 lg:pt-4">
-                        <div class="mb-4 inline-flex items-center gap-3 rounded-full border border-white/70 bg-white/78 px-4 py-2 text-xs sm:text-sm font-extrabold text-gray-700 shadow-sm backdrop-blur">
-                            <span class="inline-flex h-2.5 w-2.5 rounded-full" style="background:var(--khh-coral);"></span>
-                            Thoughtful support for families looking for care
-                        </div>
-
-                        <div class="mb-3 flex items-center gap-4">
+<div class="mb-3 flex items-center gap-4">
                             @if(file_exists(public_path('images/logo.svg')))
                                 <img src="{{ asset('images/logo.svg') }}" alt="Kids Health Hub logo" class="h-14 w-auto sm:h-16">
                             @endif
