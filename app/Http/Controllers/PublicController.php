@@ -225,20 +225,19 @@ class PublicController extends Controller
 
     public function pricing(): View
     {
-        $priceMonthly    = (int) PlatformSetting::get('price_monthly', 100);
-        $priceAnnual     = (int) PlatformSetting::get('price_annual', 1000);
-        $trialMonths     = (int) PlatformSetting::get('trial_duration_months', 3);
-        $monthlyFeatures = json_decode(PlatformSetting::get('monthly_features', '[]'), true) ?? [];
-        $annualFeatures  = json_decode(PlatformSetting::get('annual_features',  '[]'), true) ?? [];
-        $comparisonRows  = json_decode(PlatformSetting::get('comparison_rows',  '[]'), true) ?? [];
-
-        $annualPerMonth = $priceAnnual > 0 ? round($priceAnnual / 12) : 0;
-        $annualSavings  = ($priceMonthly * 12) - $priceAnnual;
+        $trialMonths      = (int) PlatformSetting::get('trial_duration_months', 3);
+        $priceSole        = (int) PlatformSetting::get('price_sole',     140);
+        $priceStandard    = (int) PlatformSetting::get('price_standard', 250);
+        $priceFeatured    = (int) PlatformSetting::get('price_featured', 450);
+        $priceAddon       = (int) PlatformSetting::get('price_addon_category', 50);
+        $soleFeatures     = json_decode(PlatformSetting::get('sole_features',     '[]'), true) ?? [];
+        $standardFeatures = json_decode(PlatformSetting::get('standard_features', '[]'), true) ?? [];
+        $featuredExtras   = json_decode(PlatformSetting::get('featured_extras',   '[]'), true) ?? [];
 
         return view('public.pricing', compact(
-            'priceMonthly', 'priceAnnual', 'trialMonths',
-            'monthlyFeatures', 'annualFeatures', 'comparisonRows',
-            'annualPerMonth', 'annualSavings'
+            'trialMonths',
+            'priceSole', 'priceStandard', 'priceFeatured', 'priceAddon',
+            'soleFeatures', 'standardFeatures', 'featuredExtras'
         ));
     }
 

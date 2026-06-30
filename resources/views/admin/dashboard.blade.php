@@ -161,19 +161,19 @@
                     class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition resize-none">{{ \App\Models\PlatformSetting::get('homepage_hero_subtitle') }}</textarea>
             </div>
 
-            {{-- Hidden pricing fields so they are preserved when saving from General tab --}}
-            <input type="hidden" name="price_monthly" value="{{ $priceMonthly }}">
-            <input type="hidden" name="price_annual"  value="{{ $priceAnnual }}">
-            @foreach($monthlyFeatures as $i => $f)
-                <input type="hidden" name="monthly_features[{{ $i }}]" value="{{ $f }}">
+            {{-- Hidden pricing fields preserved when saving from General tab --}}
+            <input type="hidden" name="price_sole"           value="{{ $priceSole }}">
+            <input type="hidden" name="price_standard"       value="{{ $priceStandard }}">
+            <input type="hidden" name="price_featured"       value="{{ $priceFeatured }}">
+            <input type="hidden" name="price_addon_category" value="{{ $priceAddon }}">
+            @foreach($soleFeatures as $i => $f)
+                <input type="hidden" name="sole_features[{{ $i }}]" value="{{ $f }}">
             @endforeach
-            @foreach($annualFeatures as $i => $f)
-                <input type="hidden" name="annual_features[{{ $i }}]" value="{{ $f }}">
+            @foreach($standardFeatures as $i => $f)
+                <input type="hidden" name="standard_features[{{ $i }}]" value="{{ $f }}">
             @endforeach
-            @foreach($comparisonRows as $i => $row)
-                <input type="hidden" name="comparison_rows[{{ $i }}][label]"   value="{{ $row['label'] }}">
-                @if($row['monthly'])<input type="hidden" name="comparison_rows[{{ $i }}][monthly]" value="1">@endif
-                @if($row['annual']) <input type="hidden" name="comparison_rows[{{ $i }}][annual]"  value="1">@endif
+            @foreach($featuredExtras as $i => $f)
+                <input type="hidden" name="featured_extras[{{ $i }}]" value="{{ $f }}">
             @endforeach
 
             <div>
@@ -185,53 +185,55 @@
         </div>
 
         {{-- ── TAB: PRICING ── --}}
-        <div x-show="tab === 'pricing'" class="p-6 space-y-6">
+        <div x-show="tab === 'pricing'" class="p-6 space-y-8">
 
-            {{-- Hidden general fields so they are preserved when saving from Pricing tab --}}
+            {{-- Hidden general fields preserved on save --}}
             <input type="hidden" name="trial_duration_months" value="{{ $trialDuration }}">
             <input type="hidden" name="homepage_hero_title"    value="{{ \App\Models\PlatformSetting::get('homepage_hero_title') }}">
             <input type="hidden" name="homepage_hero_subtitle" value="{{ \App\Models\PlatformSetting::get('homepage_hero_subtitle') }}">
 
-            {{-- Prices --}}
+            {{-- Plan prices --}}
             <div>
-                <h3 class="text-sm font-extrabold text-gray-800 mb-4">Plan Prices (AUD)</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <h3 class="text-sm font-extrabold text-gray-800 mb-1">Plan Prices <span class="font-normal text-gray-400">(AUD / year)</span></h3>
+                <p class="text-xs text-gray-400 mb-4">All plans are billed annually. Prices appear on the public pricing page.</p>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    @foreach([
+                        ['name'=>'price_sole',           'label'=>'Sole Practitioner', 'value'=>$priceSole,     'color'=>'#0dc066'],
+                        ['name'=>'price_standard',       'label'=>'Standard Listing',  'value'=>$priceStandard, 'color'=>'#6d28d9'],
+                        ['name'=>'price_featured',       'label'=>'Featured Listing',  'value'=>$priceFeatured, 'color'=>'#de6148'],
+                        ['name'=>'price_addon_category', 'label'=>'Add-on per Category','value'=>$priceAddon,   'color'=>'#c4920a'],
+                    ] as $p)
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1.5">Monthly Price</label>
+                        <label class="block text-xs font-bold text-gray-600 mb-1.5" style="color:{{ $p['color'] }};">{{ $p['label'] }}</label>
                         <div class="relative">
                             <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
-                            <input type="number" name="price_monthly" value="{{ $priceMonthly }}" min="1"
-                                class="w-full border border-gray-200 rounded-xl pl-7 pr-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
+                            <input type="number" name="{{ $p['name'] }}" value="{{ $p['value'] }}" min="0"
+                                class="w-full border border-gray-200 rounded-xl pl-7 pr-3 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
                         </div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1.5">Annual Price</label>
-                        <div class="relative">
-                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
-                            <input type="number" name="price_annual" value="{{ $priceAnnual }}" min="1"
-                                class="w-full border border-gray-200 rounded-xl pl-7 pr-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
-                        </div>
-                        <p class="text-xs text-gray-400 mt-1">Savings badge and per-month breakdown calculate automatically.</p>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 
-            {{-- Monthly features --}}
-            <div x-data="{ items: {{ json_encode($monthlyFeatures) }} }">
+            {{-- Sole features --}}
+            <div x-data="{ items: {{ json_encode($soleFeatures) }} }">
                 <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-sm font-extrabold text-gray-800">Monthly Plan — Feature Bullets</h3>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-gray-800">Sole Practitioner — Features</h3>
+                        <p class="text-xs text-gray-400">Bullet points shown on the Sole Practitioner plan card</p>
+                    </div>
                     <button type="button" @click="items.push('')"
-                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 transition-colors"
-                        style="color:#de6148; border-color:#de6148;"
-                        onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
-                        + Add Item
+                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 flex-shrink-0 transition-colors"
+                        style="color:#0dc066; border-color:#0dc066;"
+                        onmouseover="this.style.background='#0dc066'; this.style.color='#fff';"
+                        onmouseout="this.style.background='transparent'; this.style.color='#0dc066';">
+                        + Add
                     </button>
                 </div>
                 <div class="space-y-2">
                     <template x-for="(item, index) in items" :key="index">
                         <div class="flex items-center gap-2">
-                            <input type="text" :name="'monthly_features[' + index + ']'" x-model="items[index]"
+                            <input type="text" :name="'sole_features[' + index + ']'" x-model="items[index]"
                                 class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
                                 placeholder="Feature description">
                             <button type="button" @click="items.splice(index, 1)"
@@ -240,26 +242,29 @@
                             </button>
                         </div>
                     </template>
-                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-2">No items — click "+ Add Item" to add a bullet point.</p>
+                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-1">No items yet.</p>
                 </div>
             </div>
 
-            {{-- Annual features --}}
-            <div x-data="{ items: {{ json_encode($annualFeatures) }} }">
+            {{-- Standard features --}}
+            <div x-data="{ items: {{ json_encode($standardFeatures) }} }">
                 <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-sm font-extrabold text-gray-800">Annual Plan — Feature Bullets</h3>
+                    <div>
+                        <h3 class="text-sm font-extrabold text-gray-800">Standard Listing — Features</h3>
+                        <p class="text-xs text-gray-400">Bullet points shown on the Standard plan card</p>
+                    </div>
                     <button type="button" @click="items.push('')"
-                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 transition-colors"
-                        style="color:#de6148; border-color:#de6148;"
-                        onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
-                        + Add Item
+                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 flex-shrink-0 transition-colors"
+                        style="color:#6d28d9; border-color:#6d28d9;"
+                        onmouseover="this.style.background='#6d28d9'; this.style.color='#fff';"
+                        onmouseout="this.style.background='transparent'; this.style.color='#6d28d9';">
+                        + Add
                     </button>
                 </div>
                 <div class="space-y-2">
                     <template x-for="(item, index) in items" :key="index">
                         <div class="flex items-center gap-2">
-                            <input type="text" :name="'annual_features[' + index + ']'" x-model="items[index]"
+                            <input type="text" :name="'standard_features[' + index + ']'" x-model="items[index]"
                                 class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
                                 placeholder="Feature description">
                             <button type="button" @click="items.splice(index, 1)"
@@ -268,61 +273,38 @@
                             </button>
                         </div>
                     </template>
-                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-2">No items — click "+ Add Item" to add a bullet point.</p>
+                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-1">No items yet.</p>
                 </div>
             </div>
 
-            {{-- Comparison table --}}
-            <div x-data="{ rows: {{ json_encode($comparisonRows) }} }">
+            {{-- Featured extras --}}
+            <div x-data="{ items: {{ json_encode($featuredExtras) }} }">
                 <div class="flex items-center justify-between mb-2">
-                    <h3 class="text-sm font-extrabold text-gray-800">Comparison Table Rows</h3>
-                    <button type="button" @click="rows.push({ label: '', monthly: false, annual: true })"
-                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 transition-colors"
+                    <div>
+                        <h3 class="text-sm font-extrabold text-gray-800">Featured Listing — Extra Features</h3>
+                        <p class="text-xs text-gray-400">What Featured adds on top of Standard (shown separately on the plan card)</p>
+                    </div>
+                    <button type="button" @click="items.push('')"
+                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 flex-shrink-0 transition-colors"
                         style="color:#de6148; border-color:#de6148;"
                         onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
                         onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
-                        + Add Row
+                        + Add
                     </button>
                 </div>
-                <div class="overflow-hidden rounded-xl border border-gray-100">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="bg-gray-50">
-                                <th class="text-left px-4 py-2.5 font-bold text-gray-600 text-xs">Feature Label</th>
-                                <th class="text-center px-4 py-2.5 font-bold text-xs" style="color:#de6148;">Monthly</th>
-                                <th class="text-center px-4 py-2.5 font-bold text-xs" style="color:#c4920a;">Annual</th>
-                                <th class="w-10"></th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-50">
-                            <template x-for="(row, index) in rows" :key="index">
-                                <tr class="bg-white hover:bg-gray-50/50 transition-colors">
-                                    <td class="px-4 py-2">
-                                        <input type="text" :name="'comparison_rows[' + index + '][label]'" x-model="row.label"
-                                            class="w-full border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-white transition"
-                                            placeholder="e.g. Telehealth badge">
-                                    </td>
-                                    <td class="text-center px-4 py-2">
-                                        <input type="checkbox" :name="'comparison_rows[' + index + '][monthly]'" x-model="row.monthly"
-                                            class="w-4 h-4 rounded accent-emerald-500">
-                                    </td>
-                                    <td class="text-center px-4 py-2">
-                                        <input type="checkbox" :name="'comparison_rows[' + index + '][annual]'" x-model="row.annual"
-                                            class="w-4 h-4 rounded accent-emerald-500">
-                                    </td>
-                                    <td class="px-2 py-2">
-                                        <button type="button" @click="rows.splice(index, 1)"
-                                            class="w-7 h-7 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors mx-auto">
-                                            <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </template>
-                            <tr x-show="rows.length === 0">
-                                <td colspan="4" class="px-4 py-4 text-center text-xs text-gray-400">No rows yet — click "+ Add Row" to add a comparison item.</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="space-y-2">
+                    <template x-for="(item, index) in items" :key="index">
+                        <div class="flex items-center gap-2">
+                            <input type="text" :name="'featured_extras[' + index + ']'" x-model="items[index]"
+                                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
+                                placeholder="Feature description">
+                            <button type="button" @click="items.splice(index, 1)"
+                                class="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors">
+                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+                    </template>
+                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-1">No items yet.</p>
                 </div>
             </div>
 
