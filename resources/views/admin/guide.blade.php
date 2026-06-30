@@ -35,6 +35,7 @@
             ['href'=>'#reviews',        'icon'=>'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z', 'label'=>'Reviews', 'color'=>'yellow'],
             ['href'=>'#blog',           'icon'=>'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z', 'label'=>'Blog', 'color'=>'rose'],
             ['href'=>'#settings',       'icon'=>'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z', 'label'=>'Settings', 'color'=>'gray'],
+            ['href'=>'#pricing-settings','icon'=>'M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z', 'label'=>'Pricing', 'color'=>'orange'],
         ] as $link)
         <a href="{{ $link['href'] }}" class="flex items-center gap-2.5 rounded-xl px-4 py-3 text-sm font-bold transition-colors bg-{{ $link['color'] }}-50 text-{{ $link['color'] }}-700 hover:bg-{{ $link['color'] }}-100">
             <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="{{ $link['icon'] }}"/></svg>
@@ -338,13 +339,86 @@
     </div>
 </div>
 
-{{-- ═══════ 9. COMMON Q&A ═══════ --}}
+{{-- ═══════ 9. PRICING SETTINGS ═══════ --}}
+<div id="pricing-settings" class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 mb-6">
+    <div class="flex items-center gap-3 mb-5">
+        <div class="w-9 h-9 rounded-xl flex items-center justify-center" style="background:#fff0ea;">
+            <svg class="w-5 h-5" style="color:#de6148;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h2 class="text-xl font-black text-gray-900">9. Pricing Settings</h2>
+    </div>
+    <p class="text-gray-600 leading-relaxed mb-5">The <strong>Pricing tab</strong> inside Settings lets you control everything that appears on the public <strong>/pricing</strong> page — the plan prices, the feature bullet lists, and the comparison table rows. Changes take effect the moment you save.</p>
+
+    <p class="text-sm text-gray-500 mb-5 rounded-xl p-4" style="background:#f9fafb; border:1px solid #e5e7eb;">
+        To reach it: go to the <strong>Admin Dashboard</strong> and scroll to the bottom. You will see a <em>Settings</em> card with two tabs at the top — <strong>General</strong> and <strong>Pricing</strong>. Click the <strong>Pricing</strong> tab.
+    </p>
+
+    <h3 class="font-black text-gray-800 mb-3">Plan Prices</h3>
+    <p class="text-sm text-gray-600 leading-relaxed mb-5">Enter the dollar amounts (AUD, whole numbers) for each plan. The pricing page automatically works out the per-month figure for the annual plan and shows a "Save $X" badge if the annual plan is cheaper than 12 months of monthly billing.</p>
+
+    <h3 class="font-black text-gray-800 mb-3">Feature Bullet Lists</h3>
+    <p class="text-sm text-gray-600 leading-relaxed mb-3">There are two separate bullet lists — one for the <strong>Monthly</strong> plan card and one for the <strong>Annual</strong> plan card. Each line of text becomes a single bullet point on the pricing page.</p>
+    <div class="space-y-2 mb-5">
+        @foreach([
+            'To add a bullet: click the orange "+ Add Item" button. A new text field appears at the bottom of the list.',
+            'To edit a bullet: click inside the text field and type your changes.',
+            'To remove a bullet: click the red × button on the right of that row.',
+            'To reorder bullets: remove the one you want to move and re-add it in the right position. (Drag-and-drop is not available yet.)',
+        ] as $i => $step)
+        <div class="flex items-start gap-3 text-sm text-gray-600">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0 mt-0.5" style="background:#de6148;">{{ $i+1 }}</span>
+            <p class="leading-relaxed">{{ $step }}</p>
+        </div>
+        @endforeach
+    </div>
+
+    <h3 class="font-black text-gray-800 mb-3">Comparison Table</h3>
+    <p class="text-sm text-gray-600 leading-relaxed mb-3">This is the table on the pricing page that shows which features are included in each plan with tick / cross icons. Each row has three parts:</p>
+    <div class="grid sm:grid-cols-3 gap-3 mb-5">
+        <div class="rounded-xl p-4" style="background:#f9fafb; border:1px solid #e5e7eb;">
+            <p class="font-black text-gray-800 text-sm mb-1">Feature Label</p>
+            <p class="text-xs text-gray-500 leading-relaxed">The name of the feature — e.g. "Telehealth badge". This is the text families read in the left column.</p>
+        </div>
+        <div class="rounded-xl p-4" style="background:#f9fafb; border:1px solid #e5e7eb;">
+            <p class="font-black text-sm mb-1" style="color:#de6148;">Monthly checkbox</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Tick this if the feature is included in the monthly plan. A tick on the pricing page means ✓; no tick means ✗.</p>
+        </div>
+        <div class="rounded-xl p-4" style="background:#f9fafb; border:1px solid #e5e7eb;">
+            <p class="font-black text-sm mb-1" style="color:#c4920a;">Annual checkbox</p>
+            <p class="text-xs text-gray-500 leading-relaxed">Tick this if the feature is included in the annual plan.</p>
+        </div>
+    </div>
+    <div class="space-y-2 mb-5">
+        @foreach([
+            'To add a row: click "+ Add Row". A new empty row appears at the bottom of the table.',
+            'To remove a row: click the red × button on the right of that row.',
+            'Tip: features that are in both plans show ✓ ✓. Features exclusive to annual show ✗ ✓ — a great way to highlight the annual advantage.',
+        ] as $i => $tip)
+        <div class="flex items-start gap-3 text-sm text-gray-600">
+            <span class="w-5 h-5 rounded-full flex items-center justify-center text-xs font-black text-white flex-shrink-0 mt-0.5" style="background:#de6148;">{{ $i+1 }}</span>
+            <p class="leading-relaxed">{{ $tip }}</p>
+        </div>
+        @endforeach
+    </div>
+
+    <div class="rounded-xl p-4 flex gap-3 mb-4" style="background:#fff0ea; border:1px solid #fed7aa;">
+        <svg class="w-5 h-5 flex-shrink-0 mt-0.5" style="color:#de6148;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-2.694-.833-3.464 0L3.34 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
+        <p class="text-sm leading-relaxed" style="color:#92400e;"><strong>Important:</strong> The Pricing tab has its own <em>"Save Pricing Settings"</em> button. Always click it before switching tabs or navigating away. If you switch to the General tab without saving, your pricing changes will be lost.</p>
+    </div>
+
+    <div class="rounded-xl p-4 flex gap-3" style="background:#eff6ff; border:1px solid #bfdbfe;">
+        <svg class="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <p class="text-sm text-blue-800 leading-relaxed"><strong>Changing the price does not update Stripe.</strong> The dollar amounts here are display-only — they control what visitors see on the pricing page. The actual payment amounts are set separately in your Stripe dashboard under Products → Prices. If you change prices, make sure to update both places and let your developer know.</p>
+    </div>
+</div>
+
+{{-- ═══════ 10. COMMON Q&A ═══════ --}}
 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 mb-6">
     <div class="flex items-center gap-3 mb-5">
         <div class="w-9 h-9 rounded-xl flex items-center justify-center bg-violet-100">
             <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
         </div>
-        <h2 class="text-xl font-black text-gray-900">Common Questions</h2>
+        <h2 class="text-xl font-black text-gray-900">10. Common Questions</h2>
     </div>
     <div class="space-y-4" x-data="{ open: null }">
         @foreach([
