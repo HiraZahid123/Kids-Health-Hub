@@ -107,7 +107,7 @@
 </div>
 
 <!-- Platform Settings -->
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
     <div class="flex items-center gap-3 mb-6">
         <div class="w-9 h-9 bg-violet-50 rounded-xl flex items-center justify-center">
             <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
@@ -136,7 +136,140 @@
             <textarea name="homepage_hero_subtitle" rows="2"
                 class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition resize-none">{{ \App\Models\PlatformSetting::get('homepage_hero_subtitle') }}</textarea>
         </div>
-        <div>
+
+        {{-- ── Pricing ── --}}
+        <div class="border-t border-gray-100 pt-5">
+            <h3 class="text-sm font-extrabold text-gray-800 mb-4 flex items-center gap-2">
+                <svg class="w-4 h-4 text-coral-500" style="color:#de6148;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Pricing
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1.5">Monthly Price (AUD)</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
+                        <input type="number" name="price_monthly" value="{{ $priceMonthly }}" min="1"
+                            class="w-full border border-gray-200 rounded-xl pl-7 pr-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold text-gray-700 mb-1.5">Annual Price (AUD)</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
+                        <input type="number" name="price_annual" value="{{ $priceAnnual }}" min="1"
+                            class="w-full border border-gray-200 rounded-xl pl-7 pr-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Savings badge and per-month text calculate automatically.</p>
+                </div>
+            </div>
+
+            {{-- Monthly features --}}
+            <div class="mb-6" x-data="{ items: {{ json_encode($monthlyFeatures) }} }">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-sm font-bold text-gray-700">Monthly Plan — Feature List</label>
+                    <button type="button" @click="items.push('')"
+                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 transition-colors"
+                        style="color:#de6148; border-color:#de6148;"
+                        onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
+                        onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
+                        + Add Item
+                    </button>
+                </div>
+                <div class="space-y-2">
+                    <template x-for="(item, index) in items" :key="index">
+                        <div class="flex items-center gap-2">
+                            <input type="text" :name="'monthly_features[' + index + ']'" x-model="items[index]"
+                                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
+                                placeholder="Feature description">
+                            <button type="button" @click="items.splice(index, 1)"
+                                class="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors">
+                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            {{-- Annual features --}}
+            <div class="mb-6" x-data="{ items: {{ json_encode($annualFeatures) }} }">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-sm font-bold text-gray-700">Annual Plan — Feature List</label>
+                    <button type="button" @click="items.push('')"
+                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 transition-colors"
+                        style="color:#de6148; border-color:#de6148;"
+                        onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
+                        onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
+                        + Add Item
+                    </button>
+                </div>
+                <div class="space-y-2">
+                    <template x-for="(item, index) in items" :key="index">
+                        <div class="flex items-center gap-2">
+                            <input type="text" :name="'annual_features[' + index + ']'" x-model="items[index]"
+                                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
+                                placeholder="Feature description">
+                            <button type="button" @click="items.splice(index, 1)"
+                                class="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors">
+                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                            </button>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            {{-- Comparison table rows --}}
+            <div x-data="{ rows: {{ json_encode($comparisonRows) }} }">
+                <div class="flex items-center justify-between mb-2">
+                    <label class="text-sm font-bold text-gray-700">Comparison Table Rows</label>
+                    <button type="button" @click="rows.push({ label: '', monthly: false, annual: true })"
+                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 transition-colors"
+                        style="color:#de6148; border-color:#de6148;"
+                        onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
+                        onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
+                        + Add Row
+                    </button>
+                </div>
+                <div class="overflow-hidden rounded-xl border border-gray-100">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="bg-gray-50">
+                                <th class="text-left px-4 py-2.5 font-bold text-gray-600 text-xs">Feature Label</th>
+                                <th class="text-center px-4 py-2.5 font-bold text-xs" style="color:#de6148;">Monthly</th>
+                                <th class="text-center px-4 py-2.5 font-bold text-xs" style="color:#c4920a;">Annual</th>
+                                <th class="w-10"></th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-50">
+                            <template x-for="(row, index) in rows" :key="index">
+                                <tr class="bg-white hover:bg-gray-50/50 transition-colors">
+                                    <td class="px-4 py-2">
+                                        <input type="text" :name="'comparison_rows[' + index + '][label]'" x-model="row.label"
+                                            class="w-full border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-white transition"
+                                            placeholder="e.g. Telehealth badge">
+                                    </td>
+                                    <td class="text-center px-4 py-2">
+                                        <input type="checkbox" :name="'comparison_rows[' + index + '][monthly]'" x-model="row.monthly"
+                                            class="w-4 h-4 rounded accent-emerald-500">
+                                    </td>
+                                    <td class="text-center px-4 py-2">
+                                        <input type="checkbox" :name="'comparison_rows[' + index + '][annual]'" x-model="row.annual"
+                                            class="w-4 h-4 rounded accent-emerald-500">
+                                    </td>
+                                    <td class="px-2 py-2">
+                                        <button type="button" @click="rows.splice(index, 1)"
+                                            class="w-7 h-7 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors mx-auto">
+                                            <svg class="w-3.5 h-3.5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-2">
             <button type="submit" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors text-sm">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                 Save Settings

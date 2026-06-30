@@ -225,7 +225,21 @@ class PublicController extends Controller
 
     public function pricing(): View
     {
-        return view('public.pricing');
+        $priceMonthly    = (int) PlatformSetting::get('price_monthly', 100);
+        $priceAnnual     = (int) PlatformSetting::get('price_annual', 1000);
+        $trialMonths     = (int) PlatformSetting::get('trial_duration_months', 3);
+        $monthlyFeatures = json_decode(PlatformSetting::get('monthly_features', '[]'), true) ?? [];
+        $annualFeatures  = json_decode(PlatformSetting::get('annual_features',  '[]'), true) ?? [];
+        $comparisonRows  = json_decode(PlatformSetting::get('comparison_rows',  '[]'), true) ?? [];
+
+        $annualPerMonth = $priceAnnual > 0 ? round($priceAnnual / 12) : 0;
+        $annualSavings  = ($priceMonthly * 12) - $priceAnnual;
+
+        return view('public.pricing', compact(
+            'priceMonthly', 'priceAnnual', 'trialMonths',
+            'monthlyFeatures', 'annualFeatures', 'comparisonRows',
+            'annualPerMonth', 'annualSavings'
+        ));
     }
 
     public function guide(): View
