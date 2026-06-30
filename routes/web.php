@@ -10,6 +10,7 @@ use App\Http\Controllers\Provider\ProviderProfileController;
 use App\Http\Controllers\Provider\StripeCheckoutController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\Admin\AdminBlogController;
+use App\Http\Controllers\Admin\AdminPricingController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\PublicController;
@@ -91,6 +92,8 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/reviews/{review}/approve', [AdminReviewController::class, 'approve'])->name('reviews.approve');
     Route::patch('/reviews/{review}/reject',  [AdminReviewController::class, 'reject'])->name('reviews.reject');
     Route::patch('/settings', [AdminDashboardController::class, 'updateSettings'])->name('settings.update');
+    Route::get('/pricing', [AdminPricingController::class, 'index'])->name('pricing.index');
+    Route::patch('/pricing', [AdminPricingController::class, 'update'])->name('pricing.update');
     Route::resource('/blog', AdminBlogController::class)->names('blog');
     Route::get('/guide', [AdminDashboardController::class, 'guide'])->name('guide');
 });

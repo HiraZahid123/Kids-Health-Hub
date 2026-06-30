@@ -106,216 +106,57 @@
     </div>
 </div>
 
-<!-- Settings (tabbed) -->
-<div class="bg-white rounded-2xl border border-gray-100 shadow-sm mb-6 overflow-hidden" x-data="{ tab: 'general' }">
 
-    {{-- Tab header --}}
-    <div class="flex items-stretch border-b border-gray-100">
-        {{-- Icon + title --}}
-        <div class="flex items-center gap-3 px-6 py-4 border-r border-gray-100">
-            <div class="w-8 h-8 bg-violet-50 rounded-xl flex items-center justify-center flex-shrink-0">
-                <svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-            </div>
-            <p class="text-sm font-extrabold text-gray-900 whitespace-nowrap">Settings</p>
+<!-- Platform Settings -->
+<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
+    <div class="flex items-center gap-3 mb-6">
+        <div class="w-9 h-9 bg-violet-50 rounded-xl flex items-center justify-center">
+            <svg class="w-5 h-5 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
         </div>
-        {{-- Tabs --}}
-        <div class="flex">
-            <button type="button" @click="tab = 'general'"
-                class="relative px-6 py-4 text-sm font-bold transition-colors"
-                :class="tab === 'general' ? 'text-violet-600' : 'text-gray-400 hover:text-gray-600'">
-                General
-                <span x-show="tab === 'general'" class="absolute bottom-0 left-0 right-0 h-0.5 bg-violet-500 rounded-full"></span>
-            </button>
-            <button type="button" @click="tab = 'pricing'"
-                class="relative px-6 py-4 text-sm font-bold transition-colors flex items-center gap-1.5"
-                :class="tab === 'pricing' ? 'text-coral-600' : 'text-gray-400 hover:text-gray-600'"
-                :style="tab === 'pricing' ? 'color:#de6148;' : ''">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                Pricing
-                <span x-show="tab === 'pricing'" class="absolute bottom-0 left-0 right-0 h-0.5 rounded-full" style="background:#de6148;"></span>
-            </button>
+        <div>
+            <h2 class="text-base font-extrabold text-gray-900">Platform Settings</h2>
+            <p class="text-xs text-gray-400">Configure global platform behaviour. To manage pricing, visit <a href="{{ route('admin.pricing.index') }}" class="text-violet-600 hover:underline font-bold">Pricing Settings →</a></p>
         </div>
     </div>
-
-    {{-- Single form — both tabs post to the same endpoint --}}
-    <form action="{{ route('admin.settings.update') }}" method="POST">
+    <form action="{{ route('admin.settings.update') }}" method="POST" class="space-y-5">
         @csrf @method('PATCH')
-
-        {{-- ── TAB: GENERAL ── --}}
-        <div x-show="tab === 'general'" class="p-6 space-y-5">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
-                <div>
-                    <label class="block text-sm font-bold text-gray-700 mb-1.5">Free Trial Duration (months)</label>
-                    <input type="number" name="trial_duration_months" value="{{ $trialDuration }}" min="1" max="24"
-                        class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
-                </div>
-                <div class="sm:col-span-2">
-                    <label class="block text-sm font-bold text-gray-700 mb-1.5">Homepage Hero Title</label>
-                    <input type="text" name="homepage_hero_title" value="{{ \App\Models\PlatformSetting::get('homepage_hero_title') }}"
-                        class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
-                </div>
-            </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
             <div>
-                <label class="block text-sm font-bold text-gray-700 mb-1.5">Homepage Hero Subtitle</label>
-                <textarea name="homepage_hero_subtitle" rows="2"
-                    class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition resize-none">{{ \App\Models\PlatformSetting::get('homepage_hero_subtitle') }}</textarea>
+                <label class="block text-sm font-bold text-gray-700 mb-1.5">Free Trial Duration (months)</label>
+                <input type="number" name="trial_duration_months" value="{{ $trialDuration }}" min="1" max="24"
+                    class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
             </div>
-
-            {{-- Hidden pricing fields preserved when saving from General tab --}}
-            <input type="hidden" name="price_sole"           value="{{ $priceSole }}">
-            <input type="hidden" name="price_standard"       value="{{ $priceStandard }}">
-            <input type="hidden" name="price_featured"       value="{{ $priceFeatured }}">
-            <input type="hidden" name="price_addon_category" value="{{ $priceAddon }}">
-            @foreach($soleFeatures as $i => $f)
-                <input type="hidden" name="sole_features[{{ $i }}]" value="{{ $f }}">
-            @endforeach
-            @foreach($standardFeatures as $i => $f)
-                <input type="hidden" name="standard_features[{{ $i }}]" value="{{ $f }}">
-            @endforeach
-            @foreach($featuredExtras as $i => $f)
-                <input type="hidden" name="featured_extras[{{ $i }}]" value="{{ $f }}">
-            @endforeach
-
-            <div>
-                <button type="submit" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors text-sm">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    Save General Settings
-                </button>
+            <div class="sm:col-span-2">
+                <label class="block text-sm font-bold text-gray-700 mb-1.5">Homepage Hero Title</label>
+                <input type="text" name="homepage_hero_title" value="{{ \App\Models\PlatformSetting::get('homepage_hero_title') }}"
+                    class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
             </div>
         </div>
-
-        {{-- ── TAB: PRICING ── --}}
-        <div x-show="tab === 'pricing'" class="p-6 space-y-8">
-
-            {{-- Hidden general fields preserved on save --}}
-            <input type="hidden" name="trial_duration_months" value="{{ $trialDuration }}">
-            <input type="hidden" name="homepage_hero_title"    value="{{ \App\Models\PlatformSetting::get('homepage_hero_title') }}">
-            <input type="hidden" name="homepage_hero_subtitle" value="{{ \App\Models\PlatformSetting::get('homepage_hero_subtitle') }}">
-
-            {{-- Plan prices --}}
-            <div>
-                <h3 class="text-sm font-extrabold text-gray-800 mb-1">Plan Prices <span class="font-normal text-gray-400">(AUD / year)</span></h3>
-                <p class="text-xs text-gray-400 mb-4">All plans are billed annually. Prices appear on the public pricing page.</p>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                    @foreach([
-                        ['name'=>'price_sole',           'label'=>'Sole Practitioner', 'value'=>$priceSole,     'color'=>'#0dc066'],
-                        ['name'=>'price_standard',       'label'=>'Standard Listing',  'value'=>$priceStandard, 'color'=>'#6d28d9'],
-                        ['name'=>'price_featured',       'label'=>'Featured Listing',  'value'=>$priceFeatured, 'color'=>'#de6148'],
-                        ['name'=>'price_addon_category', 'label'=>'Add-on per Category','value'=>$priceAddon,   'color'=>'#c4920a'],
-                    ] as $p)
-                    <div>
-                        <label class="block text-xs font-bold text-gray-600 mb-1.5" style="color:{{ $p['color'] }};">{{ $p['label'] }}</label>
-                        <div class="relative">
-                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 font-bold text-sm">$</span>
-                            <input type="number" name="{{ $p['name'] }}" value="{{ $p['value'] }}" min="0"
-                                class="w-full border border-gray-200 rounded-xl pl-7 pr-3 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition">
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-
-            {{-- Sole features --}}
-            <div x-data="{ items: {{ json_encode($soleFeatures) }} }">
-                <div class="flex items-center justify-between mb-2">
-                    <div>
-                        <h3 class="text-sm font-extrabold text-gray-800">Sole Practitioner — Features</h3>
-                        <p class="text-xs text-gray-400">Bullet points shown on the Sole Practitioner plan card</p>
-                    </div>
-                    <button type="button" @click="items.push('')"
-                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 flex-shrink-0 transition-colors"
-                        style="color:#0dc066; border-color:#0dc066;"
-                        onmouseover="this.style.background='#0dc066'; this.style.color='#fff';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#0dc066';">
-                        + Add
-                    </button>
-                </div>
-                <div class="space-y-2">
-                    <template x-for="(item, index) in items" :key="index">
-                        <div class="flex items-center gap-2">
-                            <input type="text" :name="'sole_features[' + index + ']'" x-model="items[index]"
-                                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
-                                placeholder="Feature description">
-                            <button type="button" @click="items.splice(index, 1)"
-                                class="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors">
-                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            </button>
-                        </div>
-                    </template>
-                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-1">No items yet.</p>
-                </div>
-            </div>
-
-            {{-- Standard features --}}
-            <div x-data="{ items: {{ json_encode($standardFeatures) }} }">
-                <div class="flex items-center justify-between mb-2">
-                    <div>
-                        <h3 class="text-sm font-extrabold text-gray-800">Standard Listing — Features</h3>
-                        <p class="text-xs text-gray-400">Bullet points shown on the Standard plan card</p>
-                    </div>
-                    <button type="button" @click="items.push('')"
-                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 flex-shrink-0 transition-colors"
-                        style="color:#6d28d9; border-color:#6d28d9;"
-                        onmouseover="this.style.background='#6d28d9'; this.style.color='#fff';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#6d28d9';">
-                        + Add
-                    </button>
-                </div>
-                <div class="space-y-2">
-                    <template x-for="(item, index) in items" :key="index">
-                        <div class="flex items-center gap-2">
-                            <input type="text" :name="'standard_features[' + index + ']'" x-model="items[index]"
-                                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
-                                placeholder="Feature description">
-                            <button type="button" @click="items.splice(index, 1)"
-                                class="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors">
-                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            </button>
-                        </div>
-                    </template>
-                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-1">No items yet.</p>
-                </div>
-            </div>
-
-            {{-- Featured extras --}}
-            <div x-data="{ items: {{ json_encode($featuredExtras) }} }">
-                <div class="flex items-center justify-between mb-2">
-                    <div>
-                        <h3 class="text-sm font-extrabold text-gray-800">Featured Listing — Extra Features</h3>
-                        <p class="text-xs text-gray-400">What Featured adds on top of Standard (shown separately on the plan card)</p>
-                    </div>
-                    <button type="button" @click="items.push('')"
-                        class="text-xs font-bold px-3 py-1.5 rounded-lg border-2 flex-shrink-0 transition-colors"
-                        style="color:#de6148; border-color:#de6148;"
-                        onmouseover="this.style.background='#de6148'; this.style.color='#fff';"
-                        onmouseout="this.style.background='transparent'; this.style.color='#de6148';">
-                        + Add
-                    </button>
-                </div>
-                <div class="space-y-2">
-                    <template x-for="(item, index) in items" :key="index">
-                        <div class="flex items-center gap-2">
-                            <input type="text" :name="'featured_extras[' + index + ']'" x-model="items[index]"
-                                class="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 outline-none bg-gray-50 focus:bg-white transition"
-                                placeholder="Feature description">
-                            <button type="button" @click="items.splice(index, 1)"
-                                class="flex-shrink-0 w-8 h-8 rounded-lg bg-red-50 hover:bg-red-100 flex items-center justify-center transition-colors">
-                                <svg class="w-4 h-4 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                            </button>
-                        </div>
-                    </template>
-                    <p x-show="items.length === 0" class="text-xs text-gray-400 py-1">No items yet.</p>
-                </div>
-            </div>
-
-            <div>
-                <button type="submit" class="inline-flex items-center gap-2 text-white font-bold px-6 py-2.5 rounded-xl transition-colors text-sm" style="background:#de6148;" onmouseover="this.style.background='#c94135'" onmouseout="this.style.background='#de6148'">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                    Save Pricing Settings
-                </button>
-            </div>
+        <div>
+            <label class="block text-sm font-bold text-gray-700 mb-1.5">Homepage Hero Subtitle</label>
+            <textarea name="homepage_hero_subtitle" rows="2"
+                class="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-gray-800 focus:ring-2 focus:ring-violet-300 focus:border-violet-300 outline-none bg-gray-50 focus:bg-white transition resize-none">{{ \App\Models\PlatformSetting::get('homepage_hero_subtitle') }}</textarea>
         </div>
-
+        {{-- Pricing fields passed as hidden so the shared validator does not strip them --}}
+        <input type="hidden" name="price_sole"           value="{{ $priceSole }}">
+        <input type="hidden" name="price_standard"       value="{{ $priceStandard }}">
+        <input type="hidden" name="price_featured"       value="{{ $priceFeatured }}">
+        <input type="hidden" name="price_addon_category" value="{{ $priceAddon }}">
+        @foreach($soleFeatures as $i => $f)
+            <input type="hidden" name="sole_features[{{ $i }}]" value="{{ $f }}">
+        @endforeach
+        @foreach($standardFeatures as $i => $f)
+            <input type="hidden" name="standard_features[{{ $i }}]" value="{{ $f }}">
+        @endforeach
+        @foreach($featuredExtras as $i => $f)
+            <input type="hidden" name="featured_extras[{{ $i }}]" value="{{ $f }}">
+        @endforeach
+        <div>
+            <button type="submit" class="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-700 text-white font-bold px-6 py-2.5 rounded-xl transition-colors text-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                Save Settings
+            </button>
+        </div>
     </form>
 </div>
 

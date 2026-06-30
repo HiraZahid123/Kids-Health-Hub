@@ -350,7 +350,7 @@
     <p class="text-gray-600 leading-relaxed mb-5">The <strong>Pricing tab</strong> inside Settings lets you control everything that appears on the public <strong>/pricing</strong> page — the plan prices, the feature bullet lists, and the comparison table rows. Changes take effect the moment you save.</p>
 
     <p class="text-sm text-gray-500 mb-5 rounded-xl p-4" style="background:#f9fafb; border:1px solid #e5e7eb;">
-        To reach it: go to the <strong>Admin Dashboard</strong> and scroll to the bottom. You will see a <em>Settings</em> card with two tabs at the top — <strong>General</strong> and <strong>Pricing</strong>. Click the <strong>Pricing</strong> tab.
+        To reach it: click <strong>Pricing</strong> in the left sidebar. This opens a dedicated Pricing Settings page where you can manage all plan prices and feature lists.
     </p>
 
     <h3 class="font-black text-gray-800 mb-3">Plan Prices</h3>
