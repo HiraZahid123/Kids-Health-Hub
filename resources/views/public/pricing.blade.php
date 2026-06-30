@@ -48,7 +48,7 @@
 ════════════════════════════════════════════════════════════ --}}
 <section class="py-10 lg:py-14" style="background:var(--khh-paper);">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid gap-6 lg:grid-cols-3">
+        <div class="grid gap-6 lg:grid-cols-3 mt-4">
 
             {{-- ── SOLE PRACTITIONER ── --}}
             <div class="relative rounded-3xl bg-white border-2 border-gray-100 p-8 flex flex-col shadow-sm hover:shadow-md transition-shadow">
@@ -84,13 +84,13 @@
             </div>
 
             {{-- ── STANDARD LISTING ── --}}
-            <div class="relative rounded-3xl bg-white border-2 p-8 flex flex-col shadow-sm hover:shadow-md transition-shadow" style="border-color:#6d28d9;">
-                <div class="absolute -top-3.5 left-6">
-                    <span class="inline-block rounded-full px-4 py-1 text-xs font-black text-white shadow-sm" style="background:#6d28d9;">Most Popular</span>
+            <div class="relative rounded-3xl bg-white border-2 p-8 flex flex-col shadow-sm hover:shadow-md transition-shadow" style="border-color:#6d28d9; padding-top:2.5rem;">
+                <div class="absolute top-0 left-0 right-0 flex justify-center -translate-y-1/2">
+                    <span class="inline-block rounded-full px-4 py-1 text-xs font-black text-white shadow-sm whitespace-nowrap" style="background:#6d28d9;">Most Popular</span>
                 </div>
 
-                <div class="mb-5 pt-3">
-                    <p class="text-xs font-black uppercase tracking-[0.18em] mb-2" style="color:#6d28d9;">Companies & Multi-Disciplinary</p>
+                <div class="mb-5">
+                    <p class="text-xs font-black uppercase tracking-[0.18em] mb-2" style="color:#6d28d9;">Companies &amp; Multi-Disciplinary</p>
                     <h2 class="text-xl font-black text-gray-900 leading-tight mb-3">Standard Listing</h2>
                     <p class="text-sm text-gray-500 leading-relaxed">Perfect for companies and multidisciplinary practices wanting to advertise across up to two service categories.</p>
                 </div>
@@ -121,12 +121,12 @@
             </div>
 
             {{-- ── FEATURED LISTING ── --}}
-            <div class="relative rounded-3xl p-8 flex flex-col shadow-lg" style="background:linear-gradient(145deg,#de6148,#e9744e,#fcc333);">
-                <div class="absolute -top-3.5 left-6">
-                    <span class="inline-block rounded-full px-4 py-1 text-xs font-black text-white shadow-md" style="background:#1f2937;">⭐ Highest Visibility</span>
+            <div class="relative rounded-3xl p-8 flex flex-col shadow-lg" style="background:linear-gradient(145deg,#de6148,#e9744e,#fcc333); padding-top:2.5rem;">
+                <div class="absolute top-0 left-0 right-0 flex justify-center -translate-y-1/2">
+                    <span class="inline-block rounded-full px-4 py-1 text-xs font-black text-white shadow-md whitespace-nowrap" style="background:#1f2937;">⭐ Highest Visibility</span>
                 </div>
 
-                <div class="mb-5 pt-3">
+                <div class="mb-5">
                     <p class="text-xs font-black uppercase tracking-[0.18em] mb-2 text-white/80">Priority Placement</p>
                     <h2 class="text-xl font-black text-white leading-tight mb-3">Featured Listing</h2>
                     <p class="text-sm text-white/80 leading-relaxed">Our highest-level membership package for businesses wanting enhanced promotion and priority visibility throughout the Kids Health Hub community.</p>
