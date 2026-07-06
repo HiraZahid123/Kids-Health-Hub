@@ -6,21 +6,6 @@
 
     <x-auth-session-status class="mb-5 text-sm rounded-xl px-4 py-3" style="color:#166534; background:#f0fdf4; border:1px solid #bbf7d0;" :status="session('status')" />
 
-    {{-- Dev hint: remove before going live --}}
-    <div class="mb-5 rounded-xl p-4" style="background:#faf5ff; border:1px solid #e9d5ff;">
-        <p class="text-xs font-black uppercase tracking-wider mb-2" style="color:#7c3aed;">Dev Login — Admin</p>
-        <div class="grid grid-cols-2 gap-2 text-xs" style="color:#6b21a8;">
-            <div>
-                <span class="font-semibold block text-gray-500">Email</span>
-                <span class="font-mono select-all">admin@kidshealthhub.com.au</span>
-            </div>
-            <div>
-                <span class="font-semibold block text-gray-500">Password</span>
-                <span class="font-mono select-all">Admin@12345</span>
-            </div>
-        </div>
-    </div>
-
     <form method="POST" action="{{ route('login') }}" class="space-y-5">
         @csrf
 

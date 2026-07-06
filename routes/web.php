@@ -35,20 +35,20 @@ Route::get('/blog/{post:slug}', [BlogController::class, 'show'])->name('blog.sho
 
 // Community (public browse, auth to post/comment/like)
 Route::get('/community', [CommunityController::class, 'index'])->name('community.index');
-Route::get('/community/{post}', [CommunityController::class, 'show'])->name('community.show');
 Route::middleware('auth')->group(function () {
     Route::get('/community/create', [CommunityController::class, 'create'])->name('community.create');
     Route::post('/community', [CommunityController::class, 'store'])->name('community.store');
+    Route::get('/community/notifications', [CommunityController::class, 'notifications'])->name('community.notifications');
     Route::get('/community/{post}/edit', [CommunityController::class, 'edit'])->name('community.edit');
     Route::put('/community/{post}', [CommunityController::class, 'update'])->name('community.update');
     Route::delete('/community/{post}', [CommunityController::class, 'destroy'])->name('community.destroy');
     Route::post('/community/{post}/comments', [CommunityController::class, 'storeComment'])->name('community.comments.store');
     Route::delete('/community/comments/{comment}', [CommunityController::class, 'destroyComment'])->name('community.comments.destroy');
     Route::post('/community/{post}/like', [CommunityController::class, 'toggleLike'])->name('community.like');
-    Route::get('/community/notifications', [CommunityController::class, 'notifications'])->name('community.notifications');
     Route::patch('/community/{post}/pin', [CommunityController::class, 'pinToggle'])->name('community.pin');
     Route::patch('/community/{post}/lock', [CommunityController::class, 'lockToggle'])->name('community.lock');
 });
+Route::get('/community/{post}', [CommunityController::class, 'show'])->name('community.show');
 
 Route::get('/api/providers', [PublicController::class, 'apiProviders'])->name('api.providers');
 
