@@ -50,7 +50,7 @@ class GeocodeProviders extends Command
             } else {
                 $failed++;
                 $this->newLine();
-                $this->warn("  Could not geocode: {$provider->business_name} (ID {$provider->id}) — {$provider->suburb}, {$provider->state} {$provider->postcode}");
+                $this->warn("  Could not geocode: {$provider->business_name} (ID {$provider->id}) — {$provider->suburb}, {$provider->state} {$provider->postcode} — reason: {$geocoder->lastStatus}");
             }
 
             $bar->advance();
