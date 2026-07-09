@@ -585,25 +585,8 @@
 @endsection
 
 @push('scripts')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.maps_key') }}&callback=initMap&loading=async" async defer></script>
 <script>
-document.getElementById('btn-near-me-home').addEventListener('click', () => {
-    const status = document.getElementById('geo-status-home');
-    if (!navigator.geolocation) { status.textContent = 'Geolocation not supported.'; status.classList.remove('hidden'); return; }
-    status.textContent = 'Detecting your location…'; status.classList.remove('hidden');
-    navigator.geolocation.getCurrentPosition(
-        (pos) => {
-            const url = new URL('{{ route("providers.index") }}');
-            url.searchParams.set('lat', pos.coords.latitude);
-            url.searchParams.set('lng', pos.coords.longitude);
-            url.searchParams.set('radius', 25);
-            window.location.href = url.toString();
-        },
-        () => { status.textContent = 'Location access denied. Please allow location in your browser settings.'; }
-    );
-});
-
-async function initMap() {
+window.initMap = async function() {
     const mapEl = document.getElementById('map');
     if (!mapEl) return;
     mapEl.innerHTML = '';
@@ -657,6 +640,29 @@ async function initMap() {
         });
         if (hasMarkers) map.fitBounds(bounds);
     } catch(e) { console.error('Map error:', e); }
-}
+};
+
+document.getElementById('btn-near-me-home').addEventListener('click', () => {
+    const status = document.getElementById('geo-status-home');
+    if (!navigator.geolocation) { status.textContent = 'Geolocation not supported.'; status.classList.remove('hidden'); return; }
+    status.textContent = 'Detecting your location…'; status.classList.remove('hidden');
+    navigator.geolocation.getCurrentPosition(
+        (pos) => {
+            const url = new URL('{{ route("providers.index") }}');
+            url.searchParams.set('lat', pos.coords.latitude);
+            url.searchParams.set('lng', pos.coords.longitude);
+            url.searchParams.set('radius', 25);
+            window.location.href = url.toString();
+        },
+        () => { status.textContent = 'Location access denied. Please allow location in your browser settings.'; }
+    );
+});
+
+const script = document.createElement('script');
+script.src = 'https://maps.googleapis.com/maps/api/js?key={{ config("services.google.maps_key") }}&loading=async';
+script.async = true;
+script.defer = true;
+script.onload = () => window.initMap();
+document.head.appendChild(script);
 </script>
 @endpush
