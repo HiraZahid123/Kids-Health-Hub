@@ -590,6 +590,7 @@ window.initMap = async function() {
     const mapEl = document.getElementById('map');
     if (!mapEl) return;
     mapEl.innerHTML = '';
+    
     const map = new google.maps.Map(mapEl, {
         center: { lat: -25.2744, lng: 133.7751 },
         zoom: 5,
@@ -659,7 +660,7 @@ document.getElementById('btn-near-me-home').addEventListener('click', () => {
 });
 
 const script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key={{ config("services.google.maps_key") }}&loading=async';
+script.src = 'https://maps.googleapis.com/maps/api/js?key={{ config("services.google.maps_key") }}';
 script.async = true;
 script.defer = true;
 script.onload = () => window.initMap();
