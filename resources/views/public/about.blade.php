@@ -57,7 +57,7 @@
                     </h1>
 
                     <p class="mt-5 max-w-[420px] text-[1.02rem] leading-7 text-gray-600 sm:leading-8">
-                        Paediatric Speech Pathologist, mum of 3, and founder of Kids Health Hub - I built this because I lived the problem firsthand.
+                        Paediatric Speech Pathologist, mum of 3, and founder of Kids Health Hub - I created this platform because I navigated the challenges of finding the right health professionals firsthand, and I wanted to make that journey easier for other families.
                     </p>
 
                     {{-- credential pills --}}
