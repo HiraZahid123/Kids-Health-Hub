@@ -68,7 +68,7 @@
         <!-- Still need help -->
         <div class="bg-emerald-700 rounded-2xl p-8 text-center text-white">
             <h3 class="text-xl font-black mb-2">Still have questions?</h3>
-            <p class="text-emerald-200 text-sm mb-5">Browse our full FAQ or join the community to ask other families and providers.</p>
+            <p class="text-emerald-200 text-sm mb-5">Browse our full FAQ, join the community, or email us at <a href="mailto:info@kidshealthhub.com.au" class="underline font-bold text-white hover:text-emerald-100">info@kidshealthhub.com.au</a>.</p>
             <div class="flex justify-center gap-3 flex-wrap">
                 <a href="{{ route('guide.faq') }}" class="bg-white text-emerald-700 px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-emerald-50 transition-colors">View FAQ</a>
                 <a href="{{ route('community.index') }}" class="bg-emerald-600 border border-emerald-500 text-white px-5 py-2.5 rounded-xl text-sm font-bold hover:bg-emerald-500 transition-colors">Join Community</a>

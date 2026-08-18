@@ -7,7 +7,12 @@
 @section('content')
 <div class="max-w-3xl space-y-6">
 
-    <a href="{{ route('admin.providers.index') }}" class="text-sm text-gray-500 hover:text-gray-700">← Back to providers</a>
+    <div class="flex items-center justify-between">
+        <a href="{{ route('admin.providers.index') }}" class="text-sm text-gray-500 hover:text-gray-700">← Back to providers</a>
+        <a href="{{ route('admin.providers.card', $provider) }}" class="bg-purple-500 hover:bg-purple-600 text-white font-semibold px-4 py-2 rounded-lg text-sm transition-colors">
+            Generate Cover Card
+        </a>
+    </div>
 
     <!-- Provider overview -->
     <div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">

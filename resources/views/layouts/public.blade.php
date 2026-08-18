@@ -431,6 +431,12 @@
                         <span class="w-1.5 h-1.5 rounded-full" style="background:#fcc333;"></span> Made in Australia
                     </span>
                 </div>
+                <div class="mt-6 flex items-center gap-2 text-sm" style="color:#9ca3af;">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Contact: <a href="mailto:info@kidshealthhub.com.au" class="text-white hover:text-emerald-400 font-semibold transition-colors">info@kidshealthhub.com.au</a></span>
+                </div>
             </div>
 
             <div>

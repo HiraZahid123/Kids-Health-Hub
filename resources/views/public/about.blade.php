@@ -235,6 +235,9 @@
                     <p class="max-w-xl text-base leading-8 text-gray-600">
                         I am so excited to continue building a platform that supports both families and incredible allied health professionals around the country - making finding support feel less overwhelming and much faster.
                     </p>
+                    <p class="mt-4 max-w-xl text-base leading-8 text-gray-600">
+                        Have questions, ideas, or feedback? We'd love to hear from you. Get in touch with us at <a href="mailto:info@kidshealthhub.com.au" class="font-bold text-emerald-600 hover:underline">info@kidshealthhub.com.au</a>.
+                    </p>
                     <div class="mt-8 flex items-center gap-4">
                         <div class="flex h-13 w-13 flex-shrink-0 items-center justify-center rounded-full text-xl font-black text-white shadow" style="background:linear-gradient(135deg,var(--khh-coral),var(--khh-gold)); height:3.25rem; width:3.25rem;">A</div>
                         <div>

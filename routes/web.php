@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminDashboardController;
+use App\Http\Controllers\Admin\AdminProviderCardController;
 use App\Http\Controllers\Admin\AdminProviderController;
 use App\Http\Controllers\Admin\AdminReviewController;
 use App\Http\Controllers\Admin\AdminSubscriptionController;
@@ -87,6 +88,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/providers/{provider}/reject', [AdminProviderController::class, 'reject'])->name('providers.reject');
     Route::patch('/providers/{provider}/suspend', [AdminProviderController::class, 'suspend'])->name('providers.suspend');
     Route::patch('/providers/{provider}/feature', [AdminProviderController::class, 'toggleFeatured'])->name('providers.feature');
+    Route::get('/providers/{provider}/card', [AdminProviderCardController::class, 'edit'])->name('providers.card');
     Route::get('/subscriptions', [AdminSubscriptionController::class, 'index'])->name('subscriptions.index');
     Route::get('/reviews', [AdminReviewController::class, 'index'])->name('reviews.index');
     Route::patch('/reviews/{review}/approve', [AdminReviewController::class, 'approve'])->name('reviews.approve');
